@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: report-row
+# key: row
+# expand-env: ((yas/indent-line 'fixed) (yas/also-auto-indent-first-line t))
+# --
+when '${1:tabs-name}'
+  report[:action] = '${2:scribe-name}'
