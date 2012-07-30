@@ -105,15 +105,10 @@ if [ -f $HOME/.resolution ]; then
     . $HOME/.resolution
 fi
 
-# ccache by default
-#export CC='ccache cc'
-#export CXX='ccache c++'
-
 export EDITOR=vim
 
 calc(){ awk "BEGIN{ print $* }" ;}
 
 export PATH=${PATH}:/sbin:/usr/sbin
 
-export PACMAN_CLIENT="pacmatic"
 export PACMAN="pacmatic"
