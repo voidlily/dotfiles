@@ -52,7 +52,8 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings undo-tree smex rainbow-delimiters paredit solarized-theme smart-tab hippie-expand-slime ruby-mode ruby-electric ruby-end rainbow-mode markdown-mode yaml-mode yasnippet))
+;; ruby-electric is missing?
+(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings undo-tree smex rainbow-delimiters paredit solarized-theme smart-tab hippie-expand-slime ruby-mode ruby-end rainbow-mode markdown-mode yaml-mode yasnippet haskell-mode))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -121,6 +122,9 @@
 
 (add-hook 'slime-mode-hook 'set-up-slime-hippie-expand)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-hippie-expand)
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . ruby-mode))
