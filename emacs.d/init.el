@@ -139,6 +139,7 @@
 ;; auto-indent by default
 (define-key global-map "\C-m" 'newline-and-indent)
 (define-key viper-insert-global-user-map "\r" 'newline-and-indent)
+(define-key viper-insert-global-user-map (kbd "<C-return>") 'newline)
 (global-set-key "\r" 'newline-and-indent)
 
 (defadvice viper-maybe-checkout (around viper-vcs-check-is-retarded activate) nil)
