@@ -21,8 +21,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (solarized-dark)))
- '(custom-safe-themes (quote ("54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" "1f392dc4316da3e648c6dc0f4aad1a87d4be556c" default)))
- '(hippie-expand-try-functions-list (quote (yas/hippie-try-expand try-complete-file-name-partially try-complete-file-name try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
+ '(custom-safe-themes (quote ("501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" "1f392dc4316da3e648c6dc0f4aad1a87d4be556c" default)))
+ '(hippie-expand-try-functions-list (quote (yas/hippie-try-expand try-complete-file-name try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
  '(ns-command-modifier nil)
  '(smart-tab-using-hippie-expand t)
  '(vimpulse-want-C-u-like-Vim t)
@@ -53,15 +53,14 @@
   (package-refresh-contents))
 
 ;; ruby-electric is missing?
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings undo-tree smex rainbow-delimiters paredit solarized-theme smart-tab hippie-expand-slime ruby-mode ruby-end rainbow-mode markdown-mode yaml-mode yasnippet haskell-mode))
+(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings undo-tree smex rainbow-delimiters paredit solarized-theme smart-tab hippie-expand-slime ruby-mode ruby-end rainbow-mode markdown-mode yaml-mode yasnippet haskell-mode coffee-mode))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
 ;; Snippets
 (require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
+(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.8.0/snippets")
 (setq yas/root-directory "~/.emacs.d/snippets")
 (yas/load-directory yas/root-directory)
 (yas/global-mode 1)
