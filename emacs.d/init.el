@@ -180,3 +180,34 @@
 ;; (setq require-final-newline t)
 ;; or make Emacs ask about missing newline
 (setq require-final-newline nil)
+
+;; yelp tabs
+(add-to-list 'load-path "~/.emacs.d/scripts")
+(require 'smart-tabs-mode)
+(smart-tabs-advice python-indent-line-1 python-indent)
+(defun my-yelp-python-mode-hook ()
+	  (setq tab-width 4)
+	  (setq py-indent-offset 4)
+      (let ((yelp-project-p (or (string-match "/pg/yelp-main/" (buffer-file-name))
+                                (string-match "/pg/yelp_conn/" (buffer-file-name))
+                                (string-match "/pg/yelp_lib/" (buffer-file-name))
+                                (string-match "/pg/yelp_logging/" (buffer-file-name))
+                                (and (string-match "/pg/services/" (buffer-file-name))
+                                     (not (or (string-match "/zygote/" (buffer-file-name))
+                                              (string-match "/google/" (buffer-file-name))
+                                              ))))))
+        (when yelp-project-p
+          (setq indent-tabs-mode yelp-project-p)
+          (smart-tabs-mode)))
+
+	  ;; (if indent-tabs-mode (setq tab-width 3)) ;; for funsies
+	  (setq py-indent-offset tab-width)
+	  (setq python-indent tab-width)
+	  (setq py-smart-indentation nil)
+
+	  (setq-default show-trailing-whitespace t)
+	  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+	  (message "yelp python mode, tabs is %s" indent-tabs-mode))
+
+(add-hook 'python-mode-hook 'my-yelp-python-mode-hook)
