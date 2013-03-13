@@ -115,8 +115,7 @@
   (add-hook hook 'flyspell-prog-mode)
   (add-hook hook 'viper-mode))
 
-(dolist (ruby-fn '(ruby-end-mode
-                   ruby-electric-mode))
+(dolist (ruby-fn '(ruby-end-mode))
   (add-hook 'ruby-mode-hook ruby-fn))
 
 (add-hook 'slime-mode-hook 'set-up-slime-hippie-expand)
