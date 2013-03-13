@@ -172,6 +172,13 @@
                 "\\.ru\\'"))
   (add-to-list 'auto-mode-alist `(,file . ruby-mode)))
 
+;; Make viper work properly in nrepl mode (like slime)
+(add-to-list 'viper-major-mode-modifier-list
+             '(nrepl-mode insert-state viper-comint-mode-modifiere-map))
+
+(add-to-list 'viper-emacs-state-mode-list
+             'nrepl-mode)
+
 ;; Prevent Emacs from extending file when
 ;; pressing down arrow at end of buffer.
 (setq next-line-add-newlines nil)
