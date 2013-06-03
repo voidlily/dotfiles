@@ -203,6 +203,8 @@
   (setq tab-width 4))
 (add-to-list 'auto-mode-alist '("\\.tmpl\\'" . cheetah-mode))
 
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . sass-mode))
+
 ;; yelp tabs
 (add-to-list 'load-path "~/.emacs.d/scripts")
 (require 'smart-tabs-mode)
