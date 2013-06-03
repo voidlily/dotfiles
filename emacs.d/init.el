@@ -140,7 +140,7 @@
 (define-key viper-insert-global-user-map (kbd "<C-return>") 'newline)
 (global-set-key "\r" 'newline-and-indent)
 
-(defadvice viper-maybe-checkout (around viper-vcs-check-is-retarded activate) nil)
+(defadvice viper-maybe-checkout (around viper-vcs-check-is-dumb activate) nil)
 
 ; don't indent ruby stupidly
 (setq-default ruby-deep-indent-paren nil)
