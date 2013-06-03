@@ -53,7 +53,7 @@
   (package-refresh-contents))
 
 ;; ruby-electric is missing?
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings undo-tree smex rainbow-delimiters paredit solarized-theme smart-tab hippie-expand-slime ruby-mode ruby-end rainbow-mode markdown-mode yaml-mode yasnippet haskell-mode coffee-mode clojure-mode clojure-test-mode nrepl))
+(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-ruby starter-kit-bindings undo-tree smex rainbow-delimiters paredit solarized-theme smart-tab hippie-expand-slime ruby-mode ruby-end rainbow-mode markdown-mode yaml-mode yasnippet haskell-mode coffee-mode clojure-mode clojure-test-mode nrepl))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -146,31 +146,6 @@
 (setq-default ruby-deep-indent-paren nil)
 (setq-default ruby-deep-indent-paren-style nil)
 (setq-default ruby-deep-arglist nil)
-;; (defadvice ruby-indent-line (after unindent-closing-paren activate)
-;;   (let ((column (current-column))
-;;         indent offset)
-;;     (save-excursion
-;;       (back-to-indentation)
-;;       (let ((state (syntax-ppss)))
-;;         (setq offset (- column (current-column)))
-;;         (when (and (eq (char-after) ?\))
-;;                    (not (zerop (car state))))
-;;           (goto-char (cadr state))
-;;           (setq indent (current-indentation)))))
-;;     (when indent
-;;       (indent-line-to indent)
-;;       (
-;;       when (> offset 0) (forward-char offset)))))
-
-(dolist (file '("Capfile"
-                "Gemfile"
-                "Guardfile"
-                "Rakefile"
-                "\\.gemspec\\'"
-                "\\.rake\\'"
-                "\\.rb\\'"
-                "\\.ru\\'"))
-  (add-to-list 'auto-mode-alist `(,file . ruby-mode)))
 
 ;; Make viper work properly in nrepl mode (like slime)
 (add-to-list 'viper-major-mode-modifier-list
