@@ -192,6 +192,7 @@
                                                           (string-match "/pg/yelp_conn/" (buffer-file-name))
                                                           (string-match "/pg/yelp_lib/" (buffer-file-name))
                                                           (string-match "/pg/yelp_logging/" (buffer-file-name))
+                                                          (string-match "/pg/yelp_gearman/" (buffer-file-name))
                                                           (and (string-match "/pg/services/" (buffer-file-name))
                                                                (not (or (string-match "/zygote/" (buffer-file-name))
                                                                         (string-match "/google/" (buffer-file-name)))))))))
