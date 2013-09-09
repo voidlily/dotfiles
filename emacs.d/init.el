@@ -54,7 +54,29 @@
   (package-refresh-contents))
 
 ;; ruby-electric is missing?
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-ruby starter-kit-bindings undo-tree smex rainbow-delimiters paredit solarized-theme smart-tab smart-tabs-mode hippie-expand-slime ruby-mode ruby-end rainbow-mode markdown-mode yaml-mode yasnippet haskell-mode coffee-mode clojure-mode clojure-test-mode nrepl))
+(defvar my-packages '(starter-kit
+                      starter-kit-lisp
+                      starter-kit-ruby
+                      starter-kit-bindings
+                      undo-tree
+                      smex
+                      rainbow-delimiters
+                      paredit
+                      solarized-theme
+                      smart-tab
+                      smart-tabs-mode
+                      hippie-expand-slime
+                      ruby-mode
+                      ruby-end
+                      rainbow-mode
+                      markdown-mode
+                      yaml-mode
+                      yasnippet
+                      haskell-mode
+                      coffee-mode
+                      clojure-mode
+                      clojure-test-mode
+                      nrepl))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
