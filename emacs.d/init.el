@@ -21,12 +21,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (solarized-dark)))
- '(custom-safe-themes (quote ("501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" "1f392dc4316da3e648c6dc0f4aad1a87d4be556c" default)))
+ '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" "1f392dc4316da3e648c6dc0f4aad1a87d4be556c" default)))
+ '(evil-want-C-u-scroll t)
  '(hippie-expand-try-functions-list (quote (yas/hippie-try-expand try-complete-file-name try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
  '(ns-command-modifier nil)
- '(smart-tab-using-hippie-expand t)
- '(vimpulse-want-C-u-like-Vim t)
- '(viper-want-ctl-h-help t))
+ '(smart-tab-using-hippie-expand t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -58,6 +57,7 @@
                       starter-kit-lisp
                       starter-kit-ruby
                       starter-kit-bindings
+                      evil
                       undo-tree
                       smex
                       rainbow-delimiters
@@ -96,13 +96,11 @@
 
 (global-rainbow-delimiters-mode 1)
 (global-undo-tree-mode 1)
+(require 'smart-tab)
 (global-smart-tab-mode 1)
 (global-auto-revert-mode 1)
 
-(setq viper-mode t)
-(require 'viper)
-(add-to-list 'load-path "~/.emacs.d/vimpulse")
-(require 'vimpulse)
+(evil-mode 1)
 
 (desktop-save-mode 1)
 
@@ -135,8 +133,7 @@
                 ruby-mode-hook
                 prog-mode-hook
                 c-mode-common-hook))
-  (add-hook hook 'flyspell-prog-mode)
-  (add-hook hook 'viper-mode))
+  (add-hook hook 'flyspell-prog-mode))
 
 (dolist (ruby-fn '(ruby-end-mode))
   (add-hook 'ruby-mode-hook ruby-fn))
@@ -154,27 +151,19 @@
 (setq ring-bell-function nil
       visible-bell nil
       sentence-end-double-space nil
-      mouse-yank-at-point nil
-      viper-auto-indent t)
+      mouse-yank-at-point nil)
 
 ;; auto-indent by default
 (define-key global-map "\C-m" 'newline-and-indent)
-(define-key viper-insert-global-user-map "\r" 'newline-and-indent)
-(define-key viper-insert-global-user-map (kbd "<C-return>") 'newline)
 (global-set-key "\r" 'newline-and-indent)
-
-(defadvice viper-maybe-checkout (around viper-vcs-check-is-dumb activate) nil)
 
 ; don't indent ruby stupidly
 (setq-default ruby-deep-indent-paren nil)
 (setq-default ruby-deep-indent-paren-style nil)
 (setq-default ruby-deep-arglist nil)
 
-;; Make viper work properly in nrepl mode (like slime)
-(add-to-list 'viper-major-mode-modifier-list
-             '(nrepl-mode insert-state viper-comint-mode-modifiere-map))
-
-(add-to-list 'viper-emacs-state-mode-list
+;; Evil modes
+(add-to-list 'evil-emacs-state-modes
              'nrepl-mode)
 
 ;; Prevent Emacs from extending file when
