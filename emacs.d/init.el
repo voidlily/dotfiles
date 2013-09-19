@@ -40,7 +40,8 @@
  '(rainbow-delimiters-depth-7-face ((t (:foreground "brown"))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "#90a890"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "#a2b6da"))))
- '(rainbow-delimiters-unmatched-face ((((background dark)) (:background "red" :foreground "white")))))
+ '(rainbow-delimiters-unmatched-face ((((background dark)) (:background "red" :foreground "white"))))
+ '(whitespace-tab ((t (:background "red2" :foreground "#dc322f" :weight bold)))))
 
 ;; Add marmalade repos
 (require 'package)
