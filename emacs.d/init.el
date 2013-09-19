@@ -196,7 +196,7 @@
 ;; yelp tabs
 (add-to-list 'load-path "~/.emacs.d/scripts")
 (require 'smart-tabs-mode)
-(smart-tabs-advice python-indent-line-1 python-indent)
+(smart-tabs-advice python-indent-line python-indent-offset)
 (defun my-yelp-python-mode-hook ()
 	  (setq tab-width 4)
 	  (setq py-indent-offset 4)
@@ -211,11 +211,6 @@
         (when yelp-project-p
           (setq indent-tabs-mode yelp-project-p)
           (smart-tabs-mode)))
-
-	  ;; (if indent-tabs-mode (setq tab-width 3)) ;; for funsies
-	  (setq py-indent-offset tab-width)
-	  (setq python-indent tab-width)
-	  (setq py-smart-indentation nil)
 
 	  (setq-default show-trailing-whitespace t)
 	  (add-hook 'before-save-hook 'delete-trailing-whitespace)
