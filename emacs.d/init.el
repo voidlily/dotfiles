@@ -84,7 +84,7 @@
 
 ;; Snippets
 (require 'yasnippet)
-(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.8.0/snippets")
+;(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.8.0/snippets")
 (setq yas/root-directory "~/.emacs.d/snippets")
 (yas/load-directory yas/root-directory)
 (yas/global-mode 1)
