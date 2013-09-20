@@ -175,6 +175,10 @@
 ;; or make Emacs ask about missing newline
 (setq require-final-newline nil)
 
+;; Show and delete trailing whitespace
+(setq-default show-trailing-whitespace t)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; cheetah mode
 (define-derived-mode cheetah-mode html-mode "Cheetah"
   (make-face 'cheetah-variable-face)
