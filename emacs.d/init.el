@@ -166,6 +166,12 @@
 ;; Evil modes
 (add-to-list 'evil-emacs-state-modes
              'nrepl-mode)
+(define-key evil-normal-state-map "\C-y" 'yank)
+(define-key evil-insert-state-map "\C-y" 'yank)
+(define-key evil-visual-state-map "\C-y" 'yank)
+(define-key evil-normal-state-map "\C-k" 'kill-line)
+(define-key evil-insert-state-map "\C-k" 'kill-line)
+(define-key evil-visual-state-map "\C-k" 'kill-line)
 
 ;; Prevent Emacs from extending file when
 ;; pressing down arrow at end of buffer.
