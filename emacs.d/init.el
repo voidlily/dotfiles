@@ -169,9 +169,9 @@
 (define-key evil-normal-state-map "\C-y" 'yank)
 (define-key evil-insert-state-map "\C-y" 'yank)
 (define-key evil-visual-state-map "\C-y" 'yank)
-(define-key evil-normal-state-map "\C-k" 'kill-line)
-(define-key evil-insert-state-map "\C-k" 'kill-line)
-(define-key evil-visual-state-map "\C-k" 'kill-line)
+(define-key evil-normal-state-map "\C-k" 'paredit-kill)
+(define-key evil-insert-state-map "\C-k" 'paredit-kill)
+(define-key evil-visual-state-map "\C-k" 'paredit-kill)
 
 ;; Prevent Emacs from extending file when
 ;; pressing down arrow at end of buffer.
