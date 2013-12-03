@@ -77,7 +77,7 @@
                       coffee-mode
                       clojure-mode
                       clojure-test-mode
-                      nrepl))
+                      cider))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -165,7 +165,8 @@
 
 ;; Evil modes
 (add-to-list 'evil-emacs-state-modes
-             'nrepl-mode)
+             'nrepl-mode
+             'cider-repl-mode)
 (define-key evil-normal-state-map "\C-y" 'yank)
 (define-key evil-insert-state-map "\C-y" 'yank)
 (define-key evil-visual-state-map "\C-y" 'yank)
