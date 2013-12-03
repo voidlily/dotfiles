@@ -125,6 +125,9 @@
 ;; Starter kit has hl-mode and uses it as a hook, that's stupid
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 (remove-hook 'prog-mode-hook 'esk-idle-highlight-mode)
+
+(add-hook 'prog-mode-hook 'rainbow-mode)
+
 (dolist (hook '(lisp-mode-hook
                 elisp-mode-hook
                 ruby-mode-hook
