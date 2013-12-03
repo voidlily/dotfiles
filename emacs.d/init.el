@@ -70,6 +70,7 @@
                       clojure-mode
                       clojure-test-mode
                       cider
+                      flycheck
                       exec-path-from-shell))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -93,6 +94,8 @@
 (require 'smart-tab)
 (global-smart-tab-mode 1)
 (global-auto-revert-mode 1)
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (evil-mode 1)
 
