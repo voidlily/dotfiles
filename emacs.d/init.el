@@ -1,17 +1,9 @@
 (require 'cl)
 (setenv "EDITOR" "emacsclient")
 ;; mac=dumb
-(when (string-equal "darwin" (symbol-name system-type))
-  (setenv "PATH" (shell-command-to-string "source ~/.profile ; echo -n $PATH"))
-  (loop for path in (split-string (getenv "PATH") ":") do (add-to-list 'exec-path path)))
-(setenv "LD_LIBRARY_PATH" (shell-command-to-string "source ~/.profile ; echo -n $LD_LIBRARY_PATH"))
-(setenv "EMACS" (first command-line-args))
-
-;; Update exec-path with the contents of $PATH
-(loop for path in (split-string (getenv "PATH") ":") do
-      (add-to-list 'exec-path path))
-
-(push (first (last exec-path)) exec-path)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "LD_LIBRARY_PATH"))
 
 (setq comint-buffer-maximum-size 1024)
 
@@ -77,7 +69,8 @@
                       coffee-mode
                       clojure-mode
                       clojure-test-mode
-                      cider))
+                      cider
+                      exec-path-from-shell))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
