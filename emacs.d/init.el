@@ -17,7 +17,9 @@
  '(evil-want-C-u-scroll t)
  '(hippie-expand-try-functions-list (quote (yas/hippie-try-expand try-complete-file-name try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
  '(ns-command-modifier nil)
- '(smart-tab-using-hippie-expand t))
+ '(smart-tab-using-hippie-expand t)
+ '(tab-width 4))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -33,7 +35,7 @@
  '(rainbow-delimiters-depth-8-face ((t (:foreground "#90a890"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "#a2b6da"))))
  '(rainbow-delimiters-unmatched-face ((((background dark)) (:background "red" :foreground "white"))))
- '(whitespace-tab ((t (:background "red2" :foreground "#dc322f" :weight bold)))))
+ '(whitespace-tab ((t (:background "red2" :foreground "#dc322f" :weight bold))) t))
 
 ;; Add marmalade repos
 (require 'package)
@@ -57,7 +59,6 @@
                       paredit
                       solarized-theme
                       smart-tab
-                      smart-tabs-mode
                       hippie-expand-slime
                       ruby-mode
                       ruby-end
@@ -205,26 +206,3 @@
 
 ;; yelp tabs
 (add-to-list 'load-path "~/.emacs.d/scripts")
-(require 'smart-tabs-mode)
-(smart-tabs-advice python-indent-line python-indent-offset)
-(defun my-yelp-python-mode-hook ()
-	  (setq tab-width 4)
-	  (setq py-indent-offset 4)
-          (let ((yelp-project-p (and buffer-file-name (or (string-match "/pg/yelp-main/" (buffer-file-name))
-                                                          (string-match "/pg/yelp_conn/" (buffer-file-name))
-                                                          (string-match "/pg/yelp_lib/" (buffer-file-name))
-                                                          (string-match "/pg/yelp_logging/" (buffer-file-name))
-                                                          (string-match "/pg/yelp_gearman/" (buffer-file-name))
-                                                          (and (string-match "/pg/services/" (buffer-file-name))
-                                                               (not (or (string-match "/zygote/" (buffer-file-name))
-                                                                        (string-match "/google/" (buffer-file-name)))))))))
-        (when yelp-project-p
-          (setq indent-tabs-mode yelp-project-p)
-          (smart-tabs-mode)))
-
-	  (setq-default show-trailing-whitespace t)
-	  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-	  (message "yelp python mode, tabs is %s" indent-tabs-mode))
-
-(add-hook 'python-mode-hook 'my-yelp-python-mode-hook)
