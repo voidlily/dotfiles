@@ -9,4 +9,5 @@
                   [lein-marginalia "0.7.1"]
                   [lein-try "0.3.2"]
                   [lein-kibit "0.0.8"]
-                  [lein-ancient "0.5.1"]]}}
+                  [lein-ancient "0.5.1"]
+                  [lein-licenses "0.1.1"]]}}
