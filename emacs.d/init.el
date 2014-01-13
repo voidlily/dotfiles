@@ -17,6 +17,7 @@
  '(evil-want-C-u-scroll t)
  '(hippie-expand-try-functions-list (quote (yas/hippie-try-expand try-complete-file-name try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
  '(ns-command-modifier nil)
+ '(scss-compile-at-save nil)
  '(smart-tab-using-hippie-expand t)
  '(tab-width 4))
 
@@ -72,6 +73,7 @@
                       clojure-test-mode
                       cider
                       flycheck
+                      scss-mode
                       exec-path-from-shell))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -201,8 +203,6 @@
   (setq indent-tabs-mode 1)
   (setq tab-width 4))
 (add-to-list 'auto-mode-alist '("\\.tmpl\\'" . cheetah-mode))
-
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . sass-mode))
 
 ;; yelp tabs
 (add-to-list 'load-path "~/.emacs.d/scripts")
