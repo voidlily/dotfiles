@@ -14,5 +14,6 @@
                   [lein-licenses "0.1.1"]
                   [jonase/eastwood "0.1.0"]
                   [lein-pprint "1.1.1"]
+                  [lein-exec "0.3.2"]
                   ]
    }}
