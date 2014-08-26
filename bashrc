@@ -109,6 +109,9 @@ export EDITOR=vim
 
 calc(){ awk "BEGIN{ print $* }" ;}
 
-export PATH=${PATH}:/sbin:/usr/sbin
+export GOROOT=`go env GOROOT`
+export GOPATH=$HOME/go
+
+export PATH=${PATH}:${GOPATH}/bin:${GOROOT}/bin:/sbin:/usr/sbin
 
 export PACMAN="pacmatic"

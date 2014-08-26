@@ -70,7 +70,14 @@
                       cider
                       flycheck
                       scss-mode
-                      exec-path-from-shell))
+                      exec-path-from-shell
+                      feature-mode
+                      dockerfile-mode
+                      go-mode
+                      go-snippets
+                      go-autocomplete
+                      go-eldoc
+                      ))
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -78,7 +85,9 @@
 ;; mac=dumb
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "LD_LIBRARY_PATH"))
+  (exec-path-from-shell-copy-env "LD_LIBRARY_PATH")
+  (exec-path-from-shell-copy-env "GOPATH")
+  )
 
 ;; Snippets
 (require 'yasnippet)
@@ -100,6 +109,7 @@
 (global-auto-revert-mode 1)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'after-init-hook #'global-auto-complete-mode)
 
 (evil-mode 1)
 
@@ -147,6 +157,17 @@
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(defun my-go-mode-hook ()
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (if (not (string-match "go" compile-command))
+      (set (make-local-variable 'compile-command)
+           "go build -v && go test -v && go vet"))
+  )
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+(require 'auto-complete-config)
+(require 'go-autocomplete)
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . ruby-mode))
