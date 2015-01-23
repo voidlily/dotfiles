@@ -34,53 +34,10 @@
  '(rainbow-delimiters-unmatched-face ((((background dark)) (:background "red" :foreground "white"))))
  '(whitespace-tab ((t (:background "red2" :foreground "#dc322f" :weight bold))) t))
 
-;; Add marmalade repos
-(require 'package)
-(add-to-list 'package-archives
-             ;'("marmalade" . "http://marmalade-repo.org/packages/")
-             '("melpa" . "http://melpa.milkbox.net/packages/"))
-(package-initialize)
-
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-;; ruby-electric is missing?
-(defvar my-packages '(starter-kit
-                      starter-kit-lisp
-                      starter-kit-ruby
-                      starter-kit-bindings
-                      evil
-                      undo-tree
-                      smex
-                      rainbow-delimiters
-                      paredit
-                      solarized-theme
-                      smart-tab
-                      hippie-expand-slime
-                      ruby-mode
-                      ruby-end
-                      rainbow-mode
-                      markdown-mode
-                      yaml-mode
-                      yasnippet
-                      haskell-mode
-                      coffee-mode
-                      clojure-mode
-                      clojure-test-mode
-                      cider
-                      flycheck
-                      scss-mode
-                      exec-path-from-shell
-                      feature-mode
-                      dockerfile-mode
-                      go-mode
-                      go-snippets
-                      go-autocomplete
-                      go-eldoc
-                      ))
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(require 'cask)
+(cask-initialize)
+(require 'pallet)
+(pallet-mode t)
 
 ;; mac=dumb
 (when (memq window-system '(mac ns))
@@ -102,7 +59,7 @@
 (require 'slime)
 (slime-setup '(slime-fancy))
 
-(global-rainbow-delimiters-mode 1)
+;; (global-rainbow-delimiters-mode 1)
 (global-undo-tree-mode 1)
 (require 'smart-tab)
 (global-smart-tab-mode 1)
@@ -141,6 +98,7 @@
 (remove-hook 'prog-mode-hook 'esk-idle-highlight-mode)
 
 (add-hook 'prog-mode-hook 'rainbow-mode)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 (dolist (hook '(lisp-mode-hook
                 elisp-mode-hook
