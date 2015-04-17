@@ -1,3 +1,4 @@
+# -*- mode: shell-script; -*-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -86,9 +87,12 @@ alias ldp='LD_PRELOAD=/usr/lib32/nvidia-current/libGL.so'
 
 #alias gtk-redshift-myloc='gtk-redshift -l 33.781538:-84.399097 -t 5700:4900'
 alias gtk-redshift-myloc='gtk-redshift -l 33.781538:-84.399097 -t 5700:4500'
+alias redshift-gtk-myloc='redshift-gtk -l 33.781538:-84.399097 -t 5700:4500'
 #alias gtk-redshift-myloc='gtk-redshift -l 33.781538:-84.399097'
 alias gtk-redshift-myloc-ca='gtk-redshift -l 37.619720:-122.364723 -t 5700:4900'
+alias redshift-gtk-myloc-ca='redshift-gtk -l 37.619720:-122.364723 -t 5700:4900'
 alias pisg='$HOME/src/pisg/pisg'
+alias skype='PULSE_LATENCY_MSEC=60 skype'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -111,7 +115,18 @@ calc(){ awk "BEGIN{ print $* }" ;}
 
 export GOROOT=`go env GOROOT`
 export GOPATH=$HOME/go
+export NPM_PACKAGES=${HOME}/.npm-packages
 
-export PATH=${PATH}:${GOPATH}/bin:${GOROOT}/bin:/sbin:/usr/sbin
+export PATH=${PATH}:${GOPATH}/bin:${GOROOT}/bin:/sbin:/usr/sbin:${NPM_PACKAGES}/bin
 
 export PACMAN="pacmatic"
+
+# fix for gtk3/lxdm
+# https://bugs.archlinux.org/task/36427
+# may not be needed anymore?
+export GDK_CORE_DEVICE_EVENTS=1
+# fix for cheese 3.16
+# https://bugs.archlinux.org/task/44531
+export CLUTTER_BACKEND=x11
+
+eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
