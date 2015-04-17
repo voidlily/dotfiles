@@ -131,7 +131,6 @@
 (require 'go-autocomplete)
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . ruby-mode))
 
 ;; Change starter kit defaults
 (setq ring-bell-function nil

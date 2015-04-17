@@ -1,5 +1,5 @@
-(source "melpa" "http://melpa.milkbox.net/packages/")
 (source gnu)
+(source melpa)
 
 (depends-on "auto-complete")
 (depends-on "cask")
@@ -28,6 +28,8 @@
 (depends-on "go-mode")
 (depends-on "go-snippets")
 (depends-on "goto-chg")
+(depends-on "haml-mode")
+(depends-on "handlebars-mode")
 (depends-on "haskell-mode")
 (depends-on "hippie-expand-slime")
 (depends-on "idle-highlight-mode")
