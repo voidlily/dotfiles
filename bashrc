@@ -93,6 +93,7 @@ alias gtk-redshift-myloc-ca='gtk-redshift -l 37.619720:-122.364723 -t 5700:4900'
 alias redshift-gtk-myloc-ca='redshift-gtk -l 37.619720:-122.364723 -t 5700:4900'
 alias pisg='$HOME/src/pisg/pisg'
 alias skype='PULSE_LATENCY_MSEC=60 skype'
+alias gthumb='nomacs'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
