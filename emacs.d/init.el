@@ -34,9 +34,20 @@
  '(rainbow-delimiters-unmatched-face ((((background dark)) (:background "red" :foreground "white"))))
  '(whitespace-tab ((t (:background "red2" :foreground "#dc322f" :weight bold))) t))
 
-(require 'cask)
+;; OS X puts cask in a different place than linux
+(if (eq system-type 'darwin)
+  (require 'cask "/usr/local/share/emacs/site-lisp/cask.el")
+  (require 'cask))
+
 (cask-initialize)
+
+;; make sure pallet is installed before doing pallety things
+(when (not (package-installed-p 'pallet))
+  (package-install 'pallet))
+
 (require 'pallet)
+;; install all our packages
+(pallet-install)
 (pallet-mode t)
 
 ;; mac=dumb
@@ -53,11 +64,11 @@
 (yas/load-directory yas/root-directory)
 (yas/global-mode 1)
 
-;; Set up the Common Lisp environment
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "/usr/bin/env sbcl")
-(require 'slime)
-(slime-setup '(slime-fancy))
+;;; Set up the Common Lisp environment
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (setq inferior-lisp-program "/usr/bin/env sbcl")
+;; (require 'slime)
+;; (slime-setup '(slime-fancy))
 
 ;; (global-rainbow-delimiters-mode 1)
 (global-undo-tree-mode 1)
