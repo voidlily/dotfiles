@@ -180,22 +180,3 @@
 ;;; Show and delete trailing whitespace
 (setq-default show-trailing-whitespace t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; cheetah mode
-(define-derived-mode cheetah-mode html-mode "Cheetah"
-  (make-face 'cheetah-variable-face)
-  (font-lock-add-keywords
-   nil
-   '(
-     ("\\(#\\(from\\|else\\|include\\|extends\\|set\\|def\\|import\\|for\\|if\\|end\\)+\\)\\>" 1 font-lock-type-face)
-     ("\\(#\\(from\\|for\\|end\\)\\).*\\<\\(for\\|import\\|def\\|if\\|in\\)\\>" 3 font-lock-type-face)
-     ("\\(##.*\\)\n" 1 font-lock-comment-face)
-     ("\\(\\$\\(?:\\sw\\|}\\|{\\|\\s_\\)+\\)" 1 font-lock-variable-name-face))
-   )
-  (font-lock-mode 1)
-  (setq indent-tabs-mode 1)
-  (setq tab-width 4))
-(add-to-list 'auto-mode-alist '("\\.tmpl\\'" . cheetah-mode))
-
-;; yelp tabs
-(add-to-list 'load-path "~/.emacs.d/scripts")
