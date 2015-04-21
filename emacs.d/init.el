@@ -50,16 +50,16 @@
 (pallet-install)
 (pallet-mode t)
 
-;; mac=dumb
+;;; mac=dumb
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "LD_LIBRARY_PATH")
   (exec-path-from-shell-copy-env "GOPATH")
   )
 
-;; Snippets
+;;; Snippets
 (require 'yasnippet)
-;(yas/load-directory "~/.emacs.d/elpa/yasnippet-0.8.0/snippets")
+;; (yas/load-directory "~/.emacs.d/elpa/yasnippet-0.8.0/snippets")
 (setq yas/root-directory "~/.emacs.d/snippets")
 (yas/load-directory yas/root-directory)
 (yas/global-mode 1)
@@ -86,7 +86,7 @@
 (tool-bar-mode -1)
 (load-theme 'solarized-dark)
 
-;; Use smex for M-x
+;;; Use smex for M-x
 (global-set-key [(meta x)] (lambda ()
                              (interactive)
                              (or (boundp 'smex-cache)
@@ -104,7 +104,7 @@
 (defun set-up-slime-hippie-expand-fuzzy ()
   (set-up-slime-hippie-expand t))
 
-;; Starter kit has hl-mode and uses it as a hook, that's stupid
+;;; Starter kit has hl-mode and uses it as a hook, that's stupid
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 (remove-hook 'prog-mode-hook 'esk-idle-highlight-mode)
 
@@ -143,22 +143,22 @@
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;; Change starter kit defaults
+;;; Change starter kit defaults
 (setq ring-bell-function nil
       visible-bell nil
       sentence-end-double-space nil
       mouse-yank-at-point nil)
 
-;; auto-indent by default
+;;; auto-indent by default
 (define-key global-map "\C-m" 'newline-and-indent)
 (global-set-key "\r" 'newline-and-indent)
 
-; don't indent ruby stupidly
+;;; don't indent ruby stupidly
 (setq-default ruby-deep-indent-paren nil)
 (setq-default ruby-deep-indent-paren-style nil)
 (setq-default ruby-deep-arglist nil)
 
-;; Evil modes
+;;; Evil modes
 (add-to-list 'evil-emacs-state-modes
              'nrepl-mode
              'cider-repl-mode)
@@ -169,15 +169,15 @@
 (define-key evil-insert-state-map "\C-k" 'paredit-kill)
 (define-key evil-visual-state-map "\C-k" 'paredit-kill)
 
-;; Prevent Emacs from extending file when
-;; pressing down arrow at end of buffer.
+;;; Prevent Emacs from extending file when
+;;; pressing down arrow at end of buffer.
 (setq next-line-add-newlines nil)
-;; Silently ensure newline at end of file
+;;; Silently ensure newline at end of file
 ;; (setq require-final-newline t)
 ;; or make Emacs ask about missing newline
 (setq require-final-newline nil)
 
-;; Show and delete trailing whitespace
+;;; Show and delete trailing whitespace
 (setq-default show-trailing-whitespace t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
