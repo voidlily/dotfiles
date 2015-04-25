@@ -180,3 +180,6 @@
 ;;; Show and delete trailing whitespace
 (setq-default show-trailing-whitespace t)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;;; Load editorconfig - requires editorconfig C core installed on system
+(load "editorconfig")
