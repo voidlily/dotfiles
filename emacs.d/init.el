@@ -9,9 +9,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (solarized-dark)))
- '(custom-safe-themes (quote ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" "1f392dc4316da3e648c6dc0f4aad1a87d4be556c" default)))
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" "54d1bcf3fcf758af4812f98eb53b5d767f897442753e1aa468cfeb221f8734f9" "1440d751f5ef51f9245f8910113daee99848e2c0" "485737acc3bedc0318a567f1c0f5e7ed2dfde3fb" "1f392dc4316da3e648c6dc0f4aad1a87d4be556c" default)))
  '(evil-want-C-u-scroll t)
- '(hippie-expand-try-functions-list (quote (yas/hippie-try-expand try-complete-file-name try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
+ '(hippie-expand-try-functions-list
+   (quote
+    (yas-hippie-try-expand try-complete-file-name try-expand-all-abbrevs try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-lisp-symbol-partially try-complete-lisp-symbol)))
  '(ns-command-modifier nil)
  '(scss-compile-at-save nil)
  '(smart-tab-using-hippie-expand t)
@@ -50,6 +54,8 @@
 (pallet-install)
 (pallet-mode t)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;;; mac=dumb
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)
@@ -57,12 +63,74 @@
   (exec-path-from-shell-copy-env "GOPATH")
   )
 
+;;; helm config
+(require 'helm)
+(require 'helm-config)
+(require 'helm-c-yasnippet)
+
+;; disable ido-mode in case another file enabled it
+(ido-mode nil)
+
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-unset-key (kbd "C-x c"))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t)
+
+;; helm-mx
+(global-set-key (kbd "M-x") 'helm-M-x)
+(setq helm-M-x-fuzzy-match t) ;; optional fuzzy matching for helm-M-x
+
+;; helm-mini
+(global-set-key (kbd "C-x b") 'helm-mini)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+
+(setq helm-locate-fuzzy-match t)
+
+(define-key helm-command-map (kbd "y") 'helm-yas-complete)
+
+(helm-mode 1)
+
+(defun sr-open-file ()
+  "Open file using projectile+helm or just helm"
+  (interactive)
+  (if (projectile-project-p)
+      (helm-projectile)
+    ;; (helm-for-files)
+    (helm-find-files)
+    ))
+
 ;;; Snippets
 (require 'yasnippet)
-;; (yas/load-directory "~/.emacs.d/elpa/yasnippet-0.8.0/snippets")
-(setq yas/root-directory "~/.emacs.d/snippets")
-(yas/load-directory yas/root-directory)
-(yas/global-mode 1)
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+(yas-global-mode 1)
+
+;;; Projectile config
+;; projectile base
+(projectile-global-mode t)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+(setq projectile-switch-project-action 'helm-projectile)
+
+;; projectile-rails
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+(eval-after-load 'projectile
+  '(setq rake-completion-system projectile-completion-system))
+
 
 ;;; Set up the Common Lisp environment
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
@@ -85,21 +153,6 @@
 
 (tool-bar-mode -1)
 (load-theme 'solarized-dark)
-
-;;; Use smex for M-x
-(global-set-key [(meta x)] (lambda ()
-                             (interactive)
-                             (or (boundp 'smex-cache)
-                                 (smex-initialize))
-                             (global-set-key [(meta x)] 'smex)
-                             (smex)))
-
-(global-set-key [(shift meta x)] (lambda ()
-                                   (interactive)
-                                   (or (boundp 'smex-cache)
-                                       (smex-initialize))
-                                   (global-set-key [(shift meta x)] 'smex-major-mode-commands)
-                                   (smex-major-mode-commands)))
 
 (defun set-up-slime-hippie-expand-fuzzy ()
   (set-up-slime-hippie-expand t))
@@ -139,6 +192,8 @@
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 (require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
 (require 'go-autocomplete)
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
