@@ -1,3 +1,4 @@
+# -*- mode: shell-script; -*-
 if [ -f $HOME/.resolution ]; then
     . $HOME/.resolution
 fi

@@ -1,3 +1,4 @@
+# -*- mode: shell-script; -*-
 alias df='df -h'
 alias du='du -h'
 alias pgrep='pgrep -l'
