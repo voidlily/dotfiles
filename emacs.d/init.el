@@ -225,6 +225,9 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
+(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
+
 (require 'go-autocomplete)
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
