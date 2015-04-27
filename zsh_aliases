@@ -1,3 +1,8 @@
+alias df='df -h'
+alias du='du -h'
+alias pgrep='pgrep -l'
+alias diff='colordiff'
+
 #alias gtk-redshift-myloc='gtk-redshift -l 33.781538:-84.399097 -t 5700:4900'
 alias gtk-redshift-myloc='gtk-redshift -l 33.781538:-84.399097 -t 5700:4500'
 alias redshift-gtk-myloc='redshift-gtk -l 33.781538:-84.399097 -t 5700:4500'
