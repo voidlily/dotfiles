@@ -19,6 +19,7 @@
  '(ns-command-modifier nil)
  '(scss-compile-at-save nil)
  '(smart-tab-using-hippie-expand t)
+ '(sp-base-key-bindings (quote paredit))
  '(tab-width 4))
 
 (custom-set-faces
@@ -55,6 +56,19 @@
 (pallet-mode t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'auto-tail-revert-mode 'tail-mode)
+
+(setq-default indicate-empty-lines t)
+
+(eval-after-load 'diff-mode
+  '(progn
+     (set-face-foreground 'diff-added "green4")
+     (set-face-foreground 'diff-removed "red3")))
+
+(eval-after-load 'magit
+  '(progn
+     (set-face-foreground 'magit-diff-add "green4")
+     (set-face-foreground 'magit-diff-del "red3")))
 
 ;;; mac=dumb
 (when (memq window-system '(mac ns))
@@ -70,6 +84,8 @@
 
 ;; disable ido-mode in case another file enabled it
 (ido-mode nil)
+
+(column-number-mode t)
 
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
@@ -116,7 +132,6 @@
 
 ;;; Snippets
 (require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
 (yas-global-mode 1)
 
 ;;; Projectile config
@@ -144,6 +159,10 @@
 (global-smart-tab-mode 1)
 (global-auto-revert-mode 1)
 
+(require 'smartparens-config)
+(smartparens-global-mode t)
+(add-hook 'smartparens-enabled-hook 'evil-smartparens-mode)
+
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (add-hook 'after-init-hook #'global-auto-complete-mode)
 
@@ -158,11 +177,20 @@
   (set-up-slime-hippie-expand t))
 
 ;;; Starter kit has hl-mode and uses it as a hook, that's stupid
-(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
-(remove-hook 'prog-mode-hook 'esk-idle-highlight-mode)
-
+(add-hook 'prog-mode-hook 'idle-highlight-mode)
 (add-hook 'prog-mode-hook 'rainbow-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+
+;;; prettify-symbols
+(defun prettify-symbols-js2 ()
+  (push '("function" . "ƒ") prettify-symbols-alist))
+
+(add-hook 'js2-mode-hook 'prettify-symbols-js2)
+
+(global-prettify-symbols-mode t)
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (dolist (hook '(lisp-mode-hook
                 elisp-mode-hook
@@ -170,9 +198,6 @@
                 prog-mode-hook
                 c-mode-common-hook))
   (add-hook hook 'flyspell-prog-mode))
-
-(dolist (ruby-fn '(ruby-end-mode))
-  (add-hook 'ruby-mode-hook ruby-fn))
 
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-off-auto-fill)
@@ -191,9 +216,15 @@
            "go build -v && go test -v && go vet"))
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
+
+;;; auto-complete-mode
 (require 'auto-complete-config)
+;; Add yasnippet to all ac sources
+(defun ac-common-setup ()
+  (add-to-list 'ac-sources 'ac-source-yasnippet))
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
+
 (require 'go-autocomplete)
 
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
