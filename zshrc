@@ -25,6 +25,8 @@ antigen bundle redis-cli
 antigen bundle tmux
 antigen bundle virtualenv
 antigen bundle virtualenvwrapper
+
+antigen bundle Tarrasch/zsh-autoenv
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 
