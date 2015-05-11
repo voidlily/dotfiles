@@ -170,7 +170,18 @@
 
 (desktop-save-mode 1)
 
-(tool-bar-mode -1)
+(defun turn-off-tool-bar ()
+  (if (functionp 'tool-bar-mode) (tool-bar-mode -1)))
+
+;; Doing it this way so emacsclient will turn off toolbars properly
+(add-hook 'before-make-frame-hook 'turn-off-tool-bar)
+
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (tooltip-mode -1)
+  (mouse-wheel-mode t)
+  (blink-cursor-mode -1))
+
 (load-theme 'solarized-dark)
 
 (defun set-up-slime-hippie-expand-fuzzy ()
