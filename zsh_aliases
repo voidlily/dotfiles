@@ -10,3 +10,7 @@ alias praat='PULSE_LATENCY_MSEC=60 praat'
 alias gthumb='nomacs'
 
 alias redis-cli="noglob redis-cli"
+
+function livestreamer-twitch() {
+    livestreamer -p mpv "https://twitch.tv/$1" best
+}
