@@ -3,6 +3,9 @@
 
 (setq comint-buffer-maximum-size 1024)
 
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'emblemjs-mode)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
