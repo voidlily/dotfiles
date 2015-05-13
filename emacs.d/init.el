@@ -80,7 +80,6 @@
 ;;; helm config
 (require 'helm)
 (require 'helm-config)
-(require 'helm-c-yasnippet)
 
 ;; disable ido-mode in case another file enabled it
 (ido-mode nil)
@@ -117,8 +116,6 @@
 
 (setq helm-locate-fuzzy-match t)
 
-(define-key helm-command-map (kbd "y") 'helm-yas-complete)
-
 (helm-mode 1)
 
 (defun sr-open-file ()
@@ -129,10 +126,6 @@
     ;; (helm-for-files)
     (helm-find-files)
     ))
-
-;;; Snippets
-(require 'yasnippet)
-(yas-global-mode 1)
 
 ;;; Projectile config
 ;; projectile base
@@ -230,9 +223,6 @@
 
 ;;; auto-complete-mode
 (require 'auto-complete-config)
-;; Add yasnippet to all ac sources
-(defun ac-common-setup ()
-  (add-to-list 'ac-sources 'ac-source-yasnippet))
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
