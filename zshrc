@@ -31,12 +31,27 @@ antigen bundle Tarrasch/zsh-autoenv
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-#POWERLINE_RIGHT_A="exit-status"
-#POWERLINE_FULL_CURRENT_PATH=1
-#antigen-theme jeremyFreeAgent/oh-my-zsh-powerline-theme powerline
-ZSH_POWERLINE_SHOW_OS=false
-antigen-theme KuoE0/oh-my-zsh-solarized-powerline-theme solarized-powerline
+antigen-theme agnoster
 antigen-apply
+
+# Show time as well
+prompt_context() {
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
+    prompt_segment green black "%D{%H:%M:%S}"
+}
+
+# Only show 2 directory depth
+prompt_dir() {
+  prompt_segment blue black '%2~'
+}
+
+PROMPT="%E
+${PROMPT} %E
+${SEGMENT_SEPARATOR}"
+#  ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
+
+# reset
+PROMPT="$PROMPT ${RESET} "
 
 # function powerline_precmd() {
 #     export PS1="$(~/powerline-shell.py $? --shell zsh 2> /dev/null)"
