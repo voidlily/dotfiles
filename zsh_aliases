@@ -14,3 +14,9 @@ alias redis-cli="noglob redis-cli"
 function livestreamer-twitch() {
     livestreamer -p mpv "https://twitch.tv/$1" best
 }
+
+function calc() {
+    noglob awk "BEGIN{ print $* }";
+}
+
+alias calc='noglob calc'
