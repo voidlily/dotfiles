@@ -155,6 +155,8 @@
 (global-smart-tab-mode 1)
 (global-auto-revert-mode 1)
 
+(global-flycheck-mode 1)
+
 (require 'smartparens-config)
 (smartparens-global-mode t)
 (add-hook 'smartparens-enabled-hook 'evil-smartparens-mode)
