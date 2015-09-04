@@ -20,4 +20,3 @@ function calc() {
 }
 
 alias calc='noglob calc'
-alias ssh='echo UPDATESTARTUPTTY | gpg-connect-agent -q > /dev/null 2>&1 && ssh $@'

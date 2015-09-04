@@ -38,6 +38,13 @@ export GPG_TTY
 # Refresh gpg-agent tty in case user switches into an X session
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
+# Updates the GPG-Agent TTY before every command since SSH does not set it.
+function _gpg-agent-update-tty {
+    gpg-connect-agent UPDATESTARTUPTTY /bye >/dev/null
+}
+autoload add-zsh-hook
+add-zsh-hook preexec _gpg-agent-update-tty
+
 # fix for gtk3/lxdm
 # https://bugs.archlinux.org/task/36427
 # may not be needed anymore?
