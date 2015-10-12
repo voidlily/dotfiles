@@ -1,6 +1,7 @@
 [submodule "antigen"]
 	path = antigen
 	url = git://github.com/zsh-users/antigen
+	branch = master
 [submodule "emacs.d"]
 	path = emacs.d
 	url = git://github.com/syl20bnr/spacemacs
