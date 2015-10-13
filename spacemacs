@@ -1,4 +1,4 @@
-;; -*- mode: emacs-lisp -*-
+;; -*- mode: emacs-lisp coding: utf-8 -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -27,7 +27,7 @@ values."
      auto-completion
      ;; better-defaults
      (colors :variables colors-enable-rainbow-identifiers t)
-     (clojure :variables clojure-enable-fancify-symbols t)
+     clojure
      django
      dockerfile
      emacs-lisp
@@ -50,7 +50,11 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(editorconfig)
+   dotspacemacs-additional-packages
+   '(
+     editorconfig
+     whitespace-cleanup-mode
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -208,6 +212,23 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  (global-prettify-symbols-mode 1)
+
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (push '("function" . ?λ) prettify-symbols-alist)))
+
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (push '("fn" . ?ƒ) prettify-symbols-alist)
+              (push '("partial" . ?Ƥ) prettify-symbols-alist)
+              (push '("comp" . ?∘) prettify-symbols-alist)))
+
+  (setq-default show-trailing-whitespace t)
+  (global-whitespace-cleanup-mode 1)
+  (diminish 'whitespace-cleanup-mode)
+
   ;; TODO delete this when
   ;; Workaround until the following PR is on master
   ;; https://github.com/syl20bnr/spacemacs/pull/3289
