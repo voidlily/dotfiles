@@ -45,6 +45,7 @@ values."
      syntax-checking
      themes-megapack
      version-control
+     yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -239,6 +240,10 @@ layers configuration. You are free to put any user code."
   ;; Turn on spell checking in prog mode
   (add-hook 'prog-mode-hook 'spacemacs/toggle-spelling-checking-on)
   (add-hook 'prog-mode-hook 'spacemacs/toggle-auto-fill-mode-on)
+
+  (defun highlight-todos ()
+    (font-lock-add-keywords nil '(("\\<\\(NOTE\\|TODO\\|HACK\\|BUG\\|XXX\\)" 1 font-lock-warning-face t))))
+  (add-hook 'prog-mode-hook 'highlight-todos)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -261,7 +266,7 @@ layers configuration. You are free to put any user code."
  '(rainbow-delimiters-depth-8-face ((t (:foreground "#d91f00"))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "#6f0b0a"))))
  '(rainbow-delimiters-unmatched-face ((t (:foreground "#CC1514" :background "#011827" :inverse-video t))))
- '(whitespace-tab ((t (:background "#011e30"))) t))
+ '(whitespace-tab ((t (:background "#011e30")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
