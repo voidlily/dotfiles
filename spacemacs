@@ -310,6 +310,10 @@ layers configuration. You are free to put any user code."
 
   (add-hook 'markdown-mode-hook #'flycheck-mode)
   (add-hook 'text-mode-hook #'flycheck-mode)
+
+  ;; Remove `git push origin HEAD:master' from magit
+  (with-eval-after-load 'magit
+    (magit-remove-popup-key 'magit-push-popup :action ?u))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
