@@ -4,21 +4,9 @@ if [ -f $HOME/.resolution ]; then
     . $HOME/.resolution
 fi
 
-export EDITOR=vim
-
-export GOROOT=`go env GOROOT`
-export GOPATH=$HOME/go
-export NPM_PACKAGES=${HOME}/.npm-packages
-path=(
-    $HOME/.local/bin
-    $HOME/bin
-    $path
-    $GOPATH/bin
-    $NPM_PACKAGES/bin
-    $GOROOT/bin
-)
-
-export PACMAN="pacmatic"
+if [ -z "$ZSHENV_INIT" ]; then
+    . $HOME/.zshenv
+fi
 
 # Start the gpg-agent if not already running
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then

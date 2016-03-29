@@ -28,3 +28,5 @@ export VDPAU_NVIDIA_NO_OVERLAY=1
 # fix for cheese 3.16
 # https://bugs.archlinux.org/task/44531
 export CLUTTER_BACKEND=x11
+
+export ZSHENV_INIT=1
