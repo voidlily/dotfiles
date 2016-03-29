@@ -249,6 +249,9 @@ user code."
 
   (require 'cl)
 
+  ;; set up ropemacs
+  (require 'pymacs)
+  (pymacs-load "ropemacs" "rope-")
   )
 
 (defun dotspacemacs/user-config ()
@@ -276,6 +279,23 @@ layers configuration. You are free to put any user code."
   (defun highlight-todos ()
     (font-lock-add-keywords nil '(("\\<\\(NOTE\\|TODO\\|HACK\\|BUG\\|XXX\\)" 1 font-lock-warning-face t))))
   (add-hook 'prog-mode-hook 'highlight-todos)
+
+  ;; ropemacs config
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode
+    ;; *r*efactor *e*xtract *v*ariable
+    "rev" 'rope-extract-variable
+    ;; *r*efactor *e*xtract *m*ethod
+    "rem" 'rope-extract-method
+    ;; *r*efactor *m*ove
+    "rm" 'rope-move
+    ;; *r*efactor move m*o*dule
+    "ro" 'rope-move-current-module
+    ;; *r*efactor *r*ename
+    "rr" 'rope-rename
+    ;; *find* *o*currences
+    "/o" 'rope-find-occurrences
+    )
+
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -310,6 +330,10 @@ layers configuration. You are free to put any user code."
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(ropemacs-enable-shortcuts nil)
+ '(ropemacs-global-prefix nil)
+ '(ropemacs-guess-project t)
+ '(ropemacs-local-prefix nil)
  '(safe-local-variable-values
    (quote
     ((pytest-global-name . "bin/test.sh")
