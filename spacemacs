@@ -32,10 +32,12 @@ values."
      dockerfile
      emacs-lisp
      git
+     github
      html
      javascript
      markdown
-     org
+     (org :variables
+          org-enable-github-support t)
      (python :variables python-test-runner 'pytest)
      restclient
      ;; (shell :variables
