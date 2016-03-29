@@ -17,8 +17,6 @@ path=(
 
 export PACMAN="pacmatic"
 
-eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
-
 # fix for gtk3/lxdm
 # https://bugs.archlinux.org/task/36427
 # may not be needed anymore?
