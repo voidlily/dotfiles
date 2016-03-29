@@ -56,9 +56,11 @@ values."
    dotspacemacs-additional-packages
    '(
      editorconfig
+     pivotal-tracker
+     virtualenvwrapper
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(pyvenv)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -260,6 +262,12 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  (use-package virtualenvwrapper
+    :defer t
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "V" 'venv-workon))
 
   (global-prettify-symbols-mode 1)
 
