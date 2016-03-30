@@ -3,8 +3,11 @@ if [ -f $HOME/.resolution ]; then
     . $HOME/.resolution
 fi
 
-export GOROOT=`go env GOROOT`
-export GOPATH=$HOME/go
+if (($+commands[go])); then
+    export GOROOT=`go env GOROOT`
+    export GOPATH=$HOME/go
+fi
+
 export NPM_PACKAGES=${HOME}/.npm-packages
 path=(
     $HOME/.local/bin

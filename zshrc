@@ -113,7 +113,9 @@ PROMPT="$PROMPT ${RESET} "
 # install_powerline_precmd
 
 # source $HOME/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
-eval `dircolors $HOME/dotfiles/dir_colors`
+if (($+commands[dircolors])); then
+    eval `dircolors $HOME/dotfiles/dir_colors`
+fi
 
 function chpwd() {
     ls
