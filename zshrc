@@ -33,6 +33,13 @@ function _gpg-agent-update-tty {
 autoload add-zsh-hook
 add-zsh-hook preexec _gpg-agent-update-tty
 
+if (($+commands[docker-machine])); then
+    function _docker-machine-default {
+        eval "$(docker-machine env default)"
+    }
+    add-zsh-hook preexec _docker-machine-default
+fi
+
 # fix for gtk3/lxdm
 # https://bugs.archlinux.org/task/36427
 # may not be needed anymore?
