@@ -1,13 +1,4 @@
 # -*- mode: shell-script; -*-
-# zshenv section moved here because it doesn't work on arch in ~/.zshenv
-if [ -f $HOME/.resolution ]; then
-    . $HOME/.resolution
-fi
-
-if [ -z "$ZSHENV_INIT" ]; then
-    . $HOME/.zshenv
-fi
-
 # Start the gpg-agent if not already running
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
     gpg-connect-agent /bye >/dev/null 2>&1
