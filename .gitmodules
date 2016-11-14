@@ -6,3 +6,6 @@
 	path = emacs.d
 	url = git://github.com/syl20bnr/spacemacs
 	branch = master
+[submodule "tpm"]
+	path = tpm
+	url = git://github.com/tmux-plugins/tpm
