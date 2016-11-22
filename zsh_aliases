@@ -8,12 +8,19 @@ alias pisg='$HOME/src/pisg/pisg'
 alias skype='PULSE_LATENCY_MSEC=60 skype'
 alias praat='PULSE_LATENCY_MSEC=60 praat'
 alias gthumb='nomacs'
+alias mplayer='mpv'
 
 alias redis-cli="noglob redis-cli"
+
+if (($+commands[streamlink])); then
+    alias livestreamer='streamlink'
+fi
 
 function livestreamer-twitch() {
     livestreamer -p mpv "https://twitch.tv/$1" best
 }
+
+alias streamlink-twitch='livestreamer-twitch'
 
 function calc() {
     noglob awk "BEGIN{ print $* }";
