@@ -24,13 +24,6 @@ function _gpg-agent-update-tty {
 autoload add-zsh-hook
 add-zsh-hook preexec _gpg-agent-update-tty
 
-if (($+commands[docker-machine])); then
-    function _docker-machine-default {
-        eval "$(docker-machine env default)"
-    }
-    add-zsh-hook preexec _docker-machine-default
-fi
-
 [ -e "${HOME}/.zsh_aliases" ] && source "${HOME}/.zsh_aliases"
 [ -e "${HOME}/.zshrc_local" ] && source "${HOME}/.zshrc_local"
 source "$HOME/dotfiles/antigen/antigen.zsh"
