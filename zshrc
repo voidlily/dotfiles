@@ -45,7 +45,6 @@ antigen bundle mosh
 antigen bundle pip
 antigen bundle python
 antigen bundle rake
-antigen bundle rails
 antigen bundle rbenv
 antigen bundle redis-cli
 antigen bundle tmux
