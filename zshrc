@@ -55,8 +55,8 @@ antigen bundle Tarrasch/zsh-autoenv
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-antigen-theme agnoster
-antigen-apply
+antigen theme agnoster
+antigen apply
 
 # Show time as well
 prompt_context() {
