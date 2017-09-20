@@ -7,7 +7,9 @@ fi
 # Set SSH to use gpg-agent
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-    export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+    export SSH_AUTH_SOCK_OLD=$SSH_AUTH_SOCK
+    #export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+    export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
 fi
 
 # Set GPG TTY
@@ -31,7 +33,9 @@ source "$HOME/dotfiles/antigen/antigen.zsh"
 antigen use oh-my-zsh
 
 antigen bundle battery
-antigen bundle bgnotify
+if [[ $DISPLAY ]] then
+    antigen bundle bgnotify
+fi
 antigen bundle bower
 antigen bundle bundler
 antigen bundle colorize
@@ -54,6 +58,7 @@ antigen bundle virtualenvwrapper
 antigen bundle Tarrasch/zsh-autoenv
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle lukechilds/zsh-nvm
 
 antigen theme agnoster
 antigen apply
