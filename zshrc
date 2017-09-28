@@ -1,4 +1,19 @@
 # -*- mode: shell-script; -*-
+
+UNAME=`uname`
+
+case $UNAME in
+    Darwin*)
+        OS=OSX
+        ;;
+    Linux*)
+        OS=Linux
+        ;;
+    *)
+        OS=Linux
+        ;;
+esac
+
 # Start the gpg-agent if not already running
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
     gpg-connect-agent /bye >/dev/null 2>&1
@@ -8,8 +23,14 @@ fi
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
     export SSH_AUTH_SOCK_OLD=$SSH_AUTH_SOCK
-    #export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
-    export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+    case $OS in
+        OSX)
+            export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+            ;;
+        *)
+            export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+            ;;
+    esac
 fi
 
 # Set GPG TTY
@@ -33,8 +54,17 @@ source "$HOME/dotfiles/antigen/antigen.zsh"
 antigen use oh-my-zsh
 
 antigen bundle battery
-if [[ $DISPLAY ]] then
+if [[ $OS -eq 'Linux' && $DISPLAY ]]; then
     antigen bundle bgnotify
+fi
+if [[ $OS -eq 'OSX' ]]; then
+    if (( $+commands[terminal-notifier] )); then
+        # TODO reenable when
+        # https://github.com/julienXX/terminal-notifier/issues/223 is fixed
+        #antigen bundle bgnotify
+    else
+        echo 'terminal-notifier not installed, install with `brew install terminal-notifier`'
+    fi
 fi
 antigen bundle bower
 antigen bundle bundler
