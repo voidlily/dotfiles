@@ -56,12 +56,11 @@ antigen use oh-my-zsh
 antigen bundle battery
 if [[ $OS -eq 'Linux' && $DISPLAY ]]; then
     antigen bundle bgnotify
-fi
-if [[ $OS -eq 'OSX' ]]; then
+elif [[ $OS -eq 'OSX' ]]; then
     if (( $+commands[terminal-notifier] )); then
         # TODO reenable when
         # https://github.com/julienXX/terminal-notifier/issues/223 is fixed
-        #antigen bundle bgnotify
+        antigen bundle bgnotify
     else
         echo 'terminal-notifier not installed, install with `brew install terminal-notifier`'
     fi
