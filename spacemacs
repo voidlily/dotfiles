@@ -470,7 +470,9 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
   (when (spacemacs/system-is-mac)
-    (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
+    (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
+    (setq mac-command-modifier 'meta)
+    (setq mac-option-modifier nil))
 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/private/themes")
 
