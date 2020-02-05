@@ -51,3 +51,5 @@ Session.vim
 /emacs.d/projectile-bookmarks.eld
 /emacs.d/projectile.cache
 /emacs.d/recentf
+clojure/.cpcache
+/clojure/.nrepl-port
