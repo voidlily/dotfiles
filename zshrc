@@ -88,9 +88,13 @@ antigen bundle Tarrasch/zsh-autoenv
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle lukechilds/zsh-nvm
+antigen bundle nnao45/zsh-kubectl-completion
+antigen bundle mattberther/zsh-pyenv
 
 antigen theme agnoster
 antigen apply
+
+export PYENV_ROOT=`pyenv root`
 
 # Show time as well
 prompt_context() {
