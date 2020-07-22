@@ -65,6 +65,7 @@ elif [[ $OS -eq 'OSX' ]]; then
         echo 'terminal-notifier not installed, install with `brew install terminal-notifier`'
     fi
 fi
+antigen bundle asdf
 antigen bundle bower
 antigen bundle bundler
 antigen bundle colorize
