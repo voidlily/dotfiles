@@ -1,14 +1,14 @@
 [submodule "antigen"]
 	path = antigen
-	url = git://github.com/zsh-users/antigen
+	url = https://github.com/zsh-users/antigen
 	branch = master
 [submodule "emacs.d"]
 	path = emacs.d
-	url = git://github.com/syl20bnr/spacemacs
+	url = https://github.com/syl20bnr/spacemacs
 	branch = master
 [submodule "tpm"]
 	path = tpm
-	url = git://github.com/tmux-plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
 [submodule "asdf"]
 	path = asdf
-	url = git://github.com/asdf-vm/asdf
+	url = https://github.com/asdf-vm/asdf

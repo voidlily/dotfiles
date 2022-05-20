@@ -5,11 +5,6 @@ fi
 
 export EDITOR=vim
 
-if (($+commands[go])); then
-    export GOROOT=`go env GOROOT`
-    export GOPATH=$HOME/go
-fi
-
 export NPM_PACKAGES=${HOME}/.npm-packages
 export PACMAN="pacmatic"
 
