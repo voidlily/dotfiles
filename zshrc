@@ -1,5 +1,12 @@
 # -*- mode: shell-script; -*-
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 UNAME=`uname`
 
 case $UNAME in
@@ -92,46 +99,11 @@ antigen bundle lukechilds/zsh-nvm
 antigen bundle nnao45/zsh-kubectl-completion
 antigen bundle mattberther/zsh-pyenv
 
-antigen theme agnoster
+antigen theme romkatv/powerlevel10k
 antigen apply
 
 export PYENV_ROOT=`pyenv root`
 
-# Show time as well
-prompt_context() {
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-    prompt_segment green black "%D{%H:%M:%S}"
-}
-
-# Only show 2 directory depth
-prompt_dir() {
-  prompt_segment blue black '%2~'
-}
-
-PROMPT="%E
-${PROMPT} %E
-${SEGMENT_SEPARATOR}"
-#  ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
-
-# reset
-PROMPT="$PROMPT ${RESET} "
-
-# function powerline_precmd() {
-#     export PS1="$(~/powerline-shell.py $? --shell zsh 2> /dev/null)"
-# }
-
-# function install_powerline_precmd() {
-#     for s in "${precmd_functions[@]}"; do
-#         if [ "$s" = "powerline_precmd" ]; then
-#             return
-#         fi
-#     done
-#     precmd_functions+=(powerline_precmd)
-# }
-
-# install_powerline_precmd
-
-# source $HOME/.local/lib/python3.4/site-packages/powerline/bindings/zsh/powerline.zsh
 if (($+commands[dircolors])); then
     eval `dircolors $HOME/dotfiles/dir_colors`
 fi
@@ -141,4 +113,7 @@ function chpwd() {
 }
 
 REPORTTIME=1
-bgnotify_threshold=5
+bgnotify_threshold=30
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
