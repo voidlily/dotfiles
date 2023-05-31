@@ -5,4 +5,5 @@ path=(
     $GOPATH/bin
     $NPM_PACKAGES/bin
     $GOROOT/bin
+    $HOME/.krew/bin
 )
