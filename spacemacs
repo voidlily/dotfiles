@@ -606,6 +606,8 @@ before packages are loaded."
 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/private/themes")
 
+  (setq auto-mode-alist (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode) auto-mode-alist))
+
   (use-package virtualenvwrapper
     :defer t
     :init
