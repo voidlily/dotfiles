@@ -55,13 +55,16 @@ This function should only modify configuration layer settings."
      emacs-lisp
      finance
      git
+     go
      haskell
      helm
      html
      javascript
+     lsp
      markdown
      multiple-cursors
      nginx
+     nix
      (org :variables
           org-enable-github-support t)
      (python :variables
@@ -724,7 +727,7 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
- '(package-selected-packages '(tern ox-gfm evil-unimpaired f s dash))
+ '(package-selected-packages '(dap-mode lsp-docker bui ox-gfm evil-unimpaired f s dash))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
 (custom-set-faces
