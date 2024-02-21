@@ -64,7 +64,8 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      nginx
-     nix
+     (nixos :variables
+            nixos-format-on-save t)
      (org :variables
           org-enable-github-support t)
      (python :variables
@@ -710,7 +711,6 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
- '(highlight-parentheses-colors '("#2aa198" "#b58900" "#268bd2" "#6c71c4" "#859900"))
  '(hl-todo-keyword-faces
    '(("TODO" . "#dc752f")
      ("NEXT" . "#dc752f")
@@ -727,7 +727,7 @@ This function is called at the very end of Spacemacs initialization."
      ("FIXME" . "#dc752f")
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
- '(package-selected-packages '(dap-mode lsp-docker bui ox-gfm evil-unimpaired f s dash))
+ '(package-selected-packages '(lsp-docker bui ox-gfm evil-unimpaired f s dash))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
 (custom-set-faces
@@ -736,7 +736,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((((class color) (min-colors 89)) (:foreground "#839496" :background "#002b36"))))
- '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)e
 )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -745,3 +745,4 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages '(ox-gfm evil-unimpaired f s dash)))
+)
