@@ -56,13 +56,17 @@ add-zsh-hook preexec _gpg-agent-update-tty
 
 [ -e "${HOME}/.zsh_aliases" ] && source "${HOME}/.zsh_aliases"
 [ -e "${HOME}/.zshrc_local" ] && source "${HOME}/.zshrc_local"
-source "$HOME/dotfiles/antigen/antigen.zsh"
+zstyle ':antidote:bundle' use-friendly-names on
+source "$HOME/.antidote/antidote.zsh"
+source <(antidote init)
 
-antigen use oh-my-zsh
+antidote bundle zsh-users/zsh-completions
+antidote bundle belak/zsh-utils path:completion
+antidote bundle ohmyzsh/ohmyzsh path:lib
 
-antigen bundle battery
+antidote bundle ohmyzsh/ohmyzsh path:plugins/battery
 if [[ $OS -eq 'Linux' && $DISPLAY ]]; then
-    antigen bundle bgnotify
+    antidote bundle ohmyzsh/ohmyzsh path:plugins/bgnotify
 elif [[ $OS -eq 'OSX' ]]; then
     if (( $+commands[terminal-notifier] )); then
         # see oh-my-zsh README for explanation of this setting for gnu ls and
@@ -70,40 +74,37 @@ elif [[ $OS -eq 'OSX' ]]; then
         zstyle ':omz:lib:theme-and-appearance' gnu-ls yes
         # TODO reenable when
         # https://github.com/julienXX/terminal-notifier/issues/223 is fixed
-        antigen bundle bgnotify
+        antidote bundle ohmyzsh/ohmyzsh path:plugins/bgnotify
     else
         echo 'terminal-notifier not installed, install with `brew install terminal-notifier`'
     fi
 fi
-antigen bundle asdf
-antigen bundle bower
-antigen bundle bundler
-antigen bundle colorize
-antigen bundle command-not-found
-antigen bundle docker
-antigen bundle git
-antigen bundle heroku
-antigen bundle history
-antigen bundle lein
-antigen bundle mosh
-antigen bundle pip
-antigen bundle python
-antigen bundle rake
-antigen bundle rbenv
-antigen bundle redis-cli
-antigen bundle tmux
-antigen bundle virtualenv
-antigen bundle virtualenvwrapper
+antidote bundle ohmyzsh/ohmyzsh path:plugins/asdf
+antidote bundle ohmyzsh/ohmyzsh path:plugins/bower
+antidote bundle ohmyzsh/ohmyzsh path:plugins/bundler
+antidote bundle ohmyzsh/ohmyzsh path:plugins/colorize
+antidote bundle ohmyzsh/ohmyzsh path:plugins/command-not-found
+antidote bundle ohmyzsh/ohmyzsh path:plugins/docker/completions kind:fpath
+antidote bundle ohmyzsh/ohmyzsh path:plugins/git
+antidote bundle ohmyzsh/ohmyzsh path:plugins/heroku
+antidote bundle ohmyzsh/ohmyzsh path:plugins/history
+antidote bundle ohmyzsh/ohmyzsh path:plugins/lein kind:fpath
+antidote bundle ohmyzsh/ohmyzsh path:plugins/mosh
+antidote bundle ohmyzsh/ohmyzsh path:plugins/pip
+antidote bundle ohmyzsh/ohmyzsh path:plugins/python
+antidote bundle ohmyzsh/ohmyzsh path:plugins/rake
+antidote bundle ohmyzsh/ohmyzsh path:plugins/rbenv
+antidote bundle ohmyzsh/ohmyzsh path:plugins/redis-cli kind:fpath
+antidote bundle ohmyzsh/ohmyzsh path:plugins/tmux
+antidote bundle ohmyzsh/ohmyzsh path:plugins/virtualenv
 
-antigen bundle Tarrasch/zsh-autoenv
-antigen bundle zsh-users/zsh-completions src
-antigen bundle zsh-users/zsh-syntax-highlighting
-#antigen bundle lukechilds/zsh-nvm
-antigen bundle nnao45/zsh-kubectl-completion
-antigen bundle mattberther/zsh-pyenv
+antidote bundle Tarrasch/zsh-autoenv
+antidote bundle zsh-users/zsh-syntax-highlighting
+#antidote bundle lukechilds/zsh-nvm
+antidote bundle nnao45/zsh-kubectl-completion
+antidote bundle mattberther/zsh-pyenv
 
-antigen theme romkatv/powerlevel10k
-antigen apply
+antidote bundle romkatv/powerlevel10k
 
 export PYENV_ROOT=`pyenv root`
 

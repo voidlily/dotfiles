@@ -81,6 +81,7 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".antidote".source = config.lib.file.mkOutOfStoreSymlink ./antidote;
     ".asdf".source = config.lib.file.mkOutOfStoreSymlink ./asdf;
     ".clojure".source = config.lib.file.mkOutOfStoreSymlink ./clojure;
     ".dircolors".source = ./dir_colors;
