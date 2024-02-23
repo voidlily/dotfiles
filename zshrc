@@ -65,6 +65,9 @@ if [[ $OS -eq 'Linux' && $DISPLAY ]]; then
     antigen bundle bgnotify
 elif [[ $OS -eq 'OSX' ]]; then
     if (( $+commands[terminal-notifier] )); then
+        # see oh-my-zsh README for explanation of this setting for gnu ls and
+        # colors
+        zstyle ':omz:lib:theme-and-appearance' gnu-ls yes
         # TODO reenable when
         # https://github.com/julienXX/terminal-notifier/issues/223 is fixed
         antigen bundle bgnotify
@@ -105,7 +108,7 @@ antigen apply
 export PYENV_ROOT=`pyenv root`
 
 if (($+commands[dircolors])); then
-    eval `dircolors $HOME/dotfiles/dir_colors`
+    eval `dircolors $HOME/.dircolors`
 fi
 
 function chpwd() {

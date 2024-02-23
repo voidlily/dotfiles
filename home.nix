@@ -53,6 +53,11 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    # TODO coreutils-prefixed on osx only
+    pkgs.coreutils
+    # pkgs.coreutils-prefixed
+    pkgs.gnupg
+
     pkgs.nixfmt
     pkgs.nerdfonts
     pkgs.dejavu_fonts
@@ -78,6 +83,7 @@
     # '';
     ".asdf".source = config.lib.file.mkOutOfStoreSymlink ./asdf;
     ".clojure".source = config.lib.file.mkOutOfStoreSymlink ./clojure;
+    ".dircolors".source = ./dir_colors;
     # impure because emacs writes back to cache/elpa/etc dirs in here
     ".emacs.d".source = config.lib.file.mkOutOfStoreSymlink ./emacs.d;
     ".gemrc".source = ./gemrc;
