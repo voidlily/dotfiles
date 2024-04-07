@@ -17,3 +17,9 @@ export VDPAU_NVIDIA_NO_OVERLAY=1
 # fix for cheese 3.16
 # https://bugs.archlinux.org/task/44531
 export CLUTTER_BACKEND=x11
+
+# https://github.com/elFarto/nvidia-vaapi-driver
+export MOZ_DISABLE_RDD_SANDBOX=1
+export LIBVA_DRIVER_NAME=nvidia
+export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+export NVD_BACKEND=direct
