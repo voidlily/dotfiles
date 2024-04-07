@@ -22,7 +22,7 @@
     font = {
       name = "Noto Sans";
       package = pkgs.noto-fonts;
-      size = 10;
+      size = 9.5;
     };
 
     # gtk3 = {
@@ -149,6 +149,14 @@
       };
     };
   };
+
+  # TODO replace antigen with antidote
+  # https://getantidote.github.io/migrating-from-antigen
+  # homemanager can manage it but may need to migrate most of my zshrc to homemanager instead?
+
+  # TODO https://github.com/srid/nixos-config for example
+  # home-manager as flake instead of needing a channel
+  # figure out how to separate by host and architecture rather than current modifying on dirty checkout for mac systems
 
   programs.git-credential-oauth.enable = true;
 

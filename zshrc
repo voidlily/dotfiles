@@ -60,6 +60,12 @@ zstyle ':antidote:bundle' use-friendly-names on
 source "$HOME/.antidote/antidote.zsh"
 source <(antidote init)
 
+if [[ $OS -eq 'OSX' ]]; then
+    # see oh-my-zsh README for explanation of this setting for gnu ls and
+    # colors
+    zstyle ':omz:lib:theme-and-appearance' gnu-ls yes
+fi
+
 antidote bundle zsh-users/zsh-completions
 antidote bundle belak/zsh-utils path:completion
 antidote bundle ohmyzsh/ohmyzsh path:lib
@@ -69,9 +75,6 @@ if [[ $OS -eq 'Linux' && $DISPLAY ]]; then
     antidote bundle ohmyzsh/ohmyzsh path:plugins/bgnotify
 elif [[ $OS -eq 'OSX' ]]; then
     if (( $+commands[terminal-notifier] )); then
-        # see oh-my-zsh README for explanation of this setting for gnu ls and
-        # colors
-        zstyle ':omz:lib:theme-and-appearance' gnu-ls yes
         # TODO reenable when
         # https://github.com/julienXX/terminal-notifier/issues/223 is fixed
         antidote bundle ohmyzsh/ohmyzsh path:plugins/bgnotify
