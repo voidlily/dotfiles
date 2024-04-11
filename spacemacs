@@ -68,6 +68,9 @@ This function should only modify configuration layer settings."
             nixos-format-on-save t)
      (org :variables
           org-enable-github-support t)
+     ; on mac - <spc> f e e, set SSH_AUTH_SOCK manually to the correct path for gnupg
+     (osx :variables
+          osx-swap-option-and-command t)
      (python :variables
              python-test-runner 'pytest
              python-formatter 'black
@@ -602,11 +605,6 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq require-final-newline t)
-
-  (when (spacemacs/system-is-mac)
-    (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
-    (setq mac-command-modifier 'meta)
-    (setq mac-option-modifier nil))
 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/private/themes")
 
