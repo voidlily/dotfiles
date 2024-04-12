@@ -64,10 +64,14 @@ config, ... }: {
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    # TODO coreutils-prefixed on osx only
     pkgs.coreutils
-    # pkgs.coreutils-prefixed
     pkgs.gnupg
+
+    pkgs.devenv
+
+    pkgs.awscli
+    pkgs.yubikey-manager
+    pkgs.yq
 
     pkgs.nixfmt
     pkgs.nerdfonts
@@ -140,6 +144,12 @@ config, ... }: {
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 
   programs.git = {

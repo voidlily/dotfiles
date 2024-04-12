@@ -84,9 +84,11 @@ elif [[ $OS -eq 'OSX' ]]; then
 fi
 antidote bundle ohmyzsh/ohmyzsh path:plugins/asdf
 antidote bundle ohmyzsh/ohmyzsh path:plugins/bower
+antidote bundle ohmyzsh/ohmyzsh path:plugins/brew
 antidote bundle ohmyzsh/ohmyzsh path:plugins/bundler
 antidote bundle ohmyzsh/ohmyzsh path:plugins/colorize
 antidote bundle ohmyzsh/ohmyzsh path:plugins/command-not-found
+antidote bundle ohmyzsh/ohmyzsh path:plugins/direnv
 antidote bundle ohmyzsh/ohmyzsh path:plugins/docker/completions kind:fpath
 antidote bundle ohmyzsh/ohmyzsh path:plugins/git
 antidote bundle ohmyzsh/ohmyzsh path:plugins/heroku

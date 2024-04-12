@@ -16,7 +16,7 @@ virtual
 host, # The host name for this home.
 
 # All other arguments come from the home home.
-config, ... }:
-{
+config, ... }: {
   # Your configuration.
+  home.packages = with pkgs; [ coreutils-prefixed ];
 }

@@ -18,4 +18,5 @@ systems, # An attribute map of your defined hosts.
 # All other arguments come from the system system.
 config, ... }: {
   nix.settings.ssl-cert-file = "/opt/nix-and-zscaler.crt";
+  nix.settings.trusted-users = [ "root" "lilymrappaport" ];
 }
