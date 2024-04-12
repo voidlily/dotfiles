@@ -18,7 +18,8 @@
     };
   };
 
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.snowfall-lib.mkFlake {
       # You must provide our flake inputs to Snowfall Lib.
       inherit inputs;
@@ -27,7 +28,6 @@
       # in the next section for information on how you can move your
       # Nix files to a separate directory.
       src = ./.;
-
     };
 
   # outputs = { nixpkgs, home-manager, ... }:

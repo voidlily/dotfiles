@@ -1,22 +1,24 @@
 {
-# Snowfall Lib provides a customized `lib` instance with access to your flake's library
-# as well as the libraries available from your flake's inputs.
-lib,
-# An instance of `pkgs` with your overlays and packages applied is also available.
-pkgs,
-# You also have access to your flake's inputs.
-inputs,
+  # Snowfall Lib provides a customized `lib` instance with access to your flake's library
+  # as well as the libraries available from your flake's inputs.
+  lib,
+  # An instance of `pkgs` with your overlays and packages applied is also available.
+  pkgs,
+  # You also have access to your flake's inputs.
+  inputs,
 
-# Additional metadata is provided by Snowfall Lib.
-system, # The system architecture for this host (eg. `x86_64-linux`).
-target, # The Snowfall Lib target for this system (eg. `x86_64-iso`).
-format, # A normalized name for the system target (eg. `iso`).
-virtual
-, # A boolean to determine whether this system is a virtual target using nixos-generators.
-systems, # An attribute map of your defined hosts.
+  # Additional metadata is provided by Snowfall Lib.
+  system, # The system architecture for this host (eg. `x86_64-linux`).
+  target, # The Snowfall Lib target for this system (eg. `x86_64-iso`).
+  format, # A normalized name for the system target (eg. `iso`).
+  virtual, # A boolean to determine whether this system is a virtual target using nixos-generators.
+  systems, # An attribute map of your defined hosts.
 
-# All other arguments come from the module system.
-config, ... }: {
+  # All other arguments come from the module system.
+  config,
+  ...
+}:
+{
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -73,7 +75,7 @@ config, ... }: {
     pkgs.yubikey-manager
     pkgs.yq
 
-    pkgs.nixfmt
+    pkgs.nixfmt-rfc-style
     pkgs.nerdfonts
     pkgs.dejavu_fonts
     pkgs.material-design-icons
@@ -100,8 +102,7 @@ config, ... }: {
     # ".antidote".source = config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "antidote");
     # doesn't work on mac, split out to linux specific
     # ".asdf".source = config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "asdf");
-    ".clojure".source =
-      config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "clojure");
+    ".clojure".source = config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "clojure");
     ".dircolors".source = lib.snowfall.fs.get-file "dir_colors";
     # impure because emacs writes back to cache/elpa/etc dirs in here
     # doesn't work on mac, split out to linux specific
@@ -111,8 +112,7 @@ config, ... }: {
     ".p10k.zsh".source = lib.snowfall.fs.get-file "p10k.zsh";
     ".pryrc".source = lib.snowfall.fs.get-file "pryrc";
     # impure because of spacemacs shortcuts <spc> f e D
-    ".spacemacs".source = config.lib.file.mkOutOfStoreSymlink
-      (lib.snowfall.fs.get-file "spacemacs");
+    ".spacemacs".source = config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "spacemacs");
     # ".terraformrc".source = lib.snowfall.fs.get-file "terraformrc";
     ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
     # doesn't work on mac, split out to linux specific
@@ -161,9 +161,15 @@ config, ... }: {
       signByDefault = true;
     };
     extraConfig = {
-      gist = { private = true; };
-      rebase = { autosquash = true; };
-      rerere = { enabled = 1; };
+      gist = {
+        private = true;
+      };
+      rebase = {
+        autosquash = true;
+      };
+      rerere = {
+        enabled = 1;
+      };
     };
   };
 
@@ -189,5 +195,4 @@ config, ... }: {
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }
