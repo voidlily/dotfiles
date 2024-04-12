@@ -107,7 +107,8 @@ config, ... }: {
     ".p10k.zsh".source = lib.snowfall.fs.get-file "p10k.zsh";
     ".pryrc".source = lib.snowfall.fs.get-file "pryrc";
     # impure because of spacemacs shortcuts <spc> f e D
-    ".spacemacs".source = config.lib.file.mkOutOfStoreSymlink ./spacemacs;
+    ".spacemacs".source = config.lib.file.mkOutOfStoreSymlink
+      (lib.snowfall.fs.get-file "spacemacs");
     # ".terraformrc".source = lib.snowfall.fs.get-file "terraformrc";
     ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
     # doesn't work on mac, split out to linux specific
