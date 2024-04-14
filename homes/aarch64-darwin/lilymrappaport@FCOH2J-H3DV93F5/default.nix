@@ -20,5 +20,6 @@
 }:
 {
   # Your configuration.
-  home.packages = with pkgs; [ coreutils-prefixed ];
+  config.homes.common.enable = true;
+  config.homes.darwin.enable = true;
 }

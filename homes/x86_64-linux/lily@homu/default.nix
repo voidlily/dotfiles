@@ -20,4 +20,5 @@
 }:
 {
   # Your configuration.
+  config.homes.common.enable = true;
 }
