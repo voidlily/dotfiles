@@ -120,14 +120,14 @@ in
       #   org.gradle.console=verbose
       #   org.gradle.daemon.idletimeout=3600000
       # '';
-      # BEGIN doesn't work on mac, split out to linux specific
+      # BEGIN out of store symlinks
       ".antidote".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/antidote";
       ".asdf".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/asdf";
       # impure because emacs writes back to cache/elpa/etc dirs in here
       ".emacs.d".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/emacs.d";
       # doesn't work on mac, split out to linux specific
       ".vim".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/vim";
-      # END doesn't work on mac
+      # END out of store symlinks
 
       ".clojure".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/clojure";
       ".dircolors".source = lib.snowfall.fs.get-file "dir_colors";
