@@ -80,16 +80,24 @@ in
       # (pkgs.writeShellScriptBin "my-hello" ''
       #   echo "Hello, ${config.home.username}!"
       # '')
+      # coreutils-related
       pkgs.coreutils
       pkgs.gnupg
+      pkgs.ispell
 
+      # nix and dev stuff
       pkgs.devenv
+      pkgs.nixfmt-rfc-style
 
+      # devops
       pkgs.awscli
+      pkgs.aws-iam-authenticator
+      pkgs.aws-vault
+      pkgs.kubectl
       pkgs.yubikey-manager
       pkgs.yq
 
-      pkgs.nixfmt-rfc-style
+      # fonts
       pkgs.nerdfonts
       pkgs.dejavu_fonts
       pkgs.material-design-icons
