@@ -192,6 +192,9 @@ in
         rerere = {
           enabled = 1;
         };
+        core = {
+          excludesfile = "~/.gitignore";
+        };
       };
     };
 
