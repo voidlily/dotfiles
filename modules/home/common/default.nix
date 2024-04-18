@@ -84,6 +84,7 @@ in
       pkgs.coreutils
       pkgs.gnupg
       pkgs.ispell
+      pkgs.ripgrep
 
       # nix and dev stuff
       pkgs.devenv
