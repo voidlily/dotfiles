@@ -94,7 +94,9 @@ in
       pkgs.awscli
       pkgs.aws-iam-authenticator
       pkgs.aws-vault
+      pkgs.glab
       pkgs.kubectl
+      pkgs.kustomize
       pkgs.yubikey-manager
       pkgs.yq
 
@@ -182,6 +184,7 @@ in
         key = "0x3FBFB3CCE12E7D19";
         signByDefault = true;
       };
+      includes = [ { path = "~/.config/git/config.local"; } ];
       extraConfig = {
         gist = {
           private = true;
@@ -194,6 +197,9 @@ in
         };
         core = {
           excludesfile = "~/.gitignore";
+        };
+        github = {
+          user = "voidlily";
         };
       };
     };
