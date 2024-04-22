@@ -89,6 +89,7 @@ in
       # nix and dev stuff
       pkgs.devenv
       pkgs.nixfmt-rfc-style
+      pkgs.nix-tree
 
       # devops
       pkgs.awscli
