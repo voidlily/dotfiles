@@ -610,6 +610,8 @@ before packages are loaded."
 
   (setq auto-mode-alist (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode) auto-mode-alist))
 
+  (add-to-list 'forge-alist '("gitlab.login.gov" "gitlab.login.gov/api/v4" "gitlab.login.gov" forge-gitlab-repository))
+
   (use-package virtualenvwrapper
     :defer t
     :init
