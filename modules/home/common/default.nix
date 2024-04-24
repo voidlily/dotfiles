@@ -91,6 +91,19 @@ in
       pkgs.nixfmt-rfc-style
       pkgs.nix-tree
 
+      # python
+      pkgs.mypy
+      pkgs.poetry
+      pkgs.ruff
+      (pkgs.python3.withPackages (ppkgs: [
+        ppkgs.boto3
+        ppkgs.python-lsp-server
+        ppkgs.ruff-lsp
+      ]))
+
+      # ruby
+      (pkgs.ruby.withPackages (rpkgs: [ rpkgs.solargraph ]))
+
       # devops
       pkgs.awscli
       pkgs.aws-iam-authenticator

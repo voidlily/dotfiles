@@ -73,7 +73,7 @@ This function should only modify configuration layer settings."
           osx-swap-option-and-command t)
      (python :variables
              python-test-runner 'pytest
-             python-formatter 'black
+             python-formatter 'lsp
              python-format-on-save t)
      react
      restclient
@@ -84,7 +84,8 @@ This function should only modify configuration layer settings."
      spell-checking
      sql
      syntax-checking
-     terraform
+     (terraform :variables
+                terraform-auto-format-on-save t)
      themes-megapack
      treemacs
      version-control
@@ -610,7 +611,8 @@ before packages are loaded."
 
   (setq auto-mode-alist (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode) auto-mode-alist))
 
-  (add-to-list 'forge-alist '("gitlab.login.gov" "gitlab.login.gov/api/v4" "gitlab.login.gov" forge-gitlab-repository))
+  (with-eval-after-load 'forge
+    (add-to-list 'forge-alist '("gitlab.login.gov" "gitlab.login.gov/api/v4" "gitlab.login.gov" forge-gitlab-repository)))
 
   (use-package virtualenvwrapper
     :defer t
@@ -683,7 +685,6 @@ This uses the Leiningen convention of appending '-test' to the namespace name."
 
   (add-hook 'markdown-mode-hook #'flycheck-mode)
   (add-hook 'text-mode-hook #'flycheck-mode)
-  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode)
 
   ;; ;; Remove `git push origin HEAD:master' from magit
   ;; (with-eval-after-load 'magit
