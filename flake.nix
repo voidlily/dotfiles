@@ -28,6 +28,8 @@
       # in the next section for information on how you can move your
       # Nix files to a separate directory.
       src = ./.;
+
+      channels-config.allowUnfree = true;
     };
 
   # outputs = { nixpkgs, home-manager, ... }:

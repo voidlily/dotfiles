@@ -110,7 +110,12 @@ in
       pkgs.aws-vault
       pkgs.glab
       pkgs.kubectl
+      pkgs.kubernetes-helm
       pkgs.kustomize
+      pkgs.nova
+      pkgs.pluto
+      pkgs.terraform
+      pkgs.terraform-ls
       pkgs.yubikey-manager
       pkgs.yq
 
@@ -240,5 +245,261 @@ in
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
+
+    programs.k9s = {
+      enable = true;
+      settings = {
+        k9s = {
+          skin = "solarized-16";
+        };
+      };
+      skins = {
+        # TODO move this to another file
+        solarized-16 = {
+          base03 = "gray";
+          base02 = "black";
+          base01 = "lime";
+          base00 = "yellow";
+          base0 = "blue";
+          base1 = "aqua";
+          base2 = "silver";
+          base3 = "white";
+          yellow = "olive";
+          orange = "red";
+          red = "maroon";
+          magenta = "purple";
+          violet = "fuchsia";
+          blue = "navy";
+          cyan = "teal";
+          green = "green";
+          background = "default";
+          foreground = "yellow";
+          current_line = "white";
+          selection = "silver";
+          comment = "aqua";
+          k9s = {
+            body = {
+              fgColor = "yellow";
+              bgColor = "default";
+              logoColor = "purple";
+            };
+            prompt = {
+              fgColor = "yellow";
+              bgColor = "default";
+              suggestColor = "red";
+            };
+            info = {
+              fgColor = "navy";
+              sectionColor = "yellow";
+            };
+            dialog = {
+              fgColor = "yellow";
+              bgColor = "default";
+              buttonFgColor = "yellow";
+              buttonBgColor = "purple";
+              buttonFocusFgColor = "silver";
+              buttonFocusBgColor = "teal";
+              labelFgColor = "red";
+              fieldFgColor = "yellow";
+            };
+            frame = {
+              border = {
+                fgColor = "silver";
+                focusColor = "yellow";
+              };
+              menu = {
+                fgColor = "yellow";
+                keyColor = "navy";
+                numKeyColor = "green";
+              };
+              crumbs = {
+                fgColor = "silver";
+                bgColor = "blue";
+                activeColor = "navy";
+              };
+              status = {
+                newColor = "yellow";
+                modifyColor = "navy";
+                addColor = "olive";
+                errorColor = "maroon";
+                highlightColor = "red";
+                killColor = "fuchsia";
+                completedColor = "green";
+              };
+              title = {
+                fgColor = "yellow";
+                bgColor = "default";
+                highlightColor = "navy";
+                counterColor = "purple";
+                filterColor = "purple";
+              };
+            };
+            views = {
+              charts = {
+                bgColor = "default";
+                defaultDialColors = [
+                  "navy"
+                  "maroon"
+                ];
+                defaultChartColors = [
+                  "navy"
+                  "maroon"
+                ];
+              };
+              table = {
+                fgColor = "yellow";
+                bgColor = "default";
+                cursorFgColor = "silver";
+                cursorBgColor = "default";
+                markColor = "purple";
+                header = {
+                  fgColor = "yellow";
+                  bgColor = "default";
+                  sorterColor = "purple";
+                };
+              };
+              xray = {
+                fgColor = "yellow";
+                bgColor = "default";
+                cursorColor = "white";
+                graphicColor = "navy";
+                showIcons = false;
+              };
+              yaml = {
+                keyColor = "green";
+                colonColor = "black";
+                valueColor = "yellow";
+              };
+              logs = {
+                fgColor = "yellow";
+                bgColor = "default";
+                indicator = {
+                  fgColor = "yellow";
+                  bgColor = "silver";
+                };
+              };
+            };
+          };
+        };
+        # source: https://github.com/derailed/k9s/blob/master/skins/solarized-dark.yaml
+        solarized-dark = {
+          foreground = "#839495";
+          background = "#002833";
+          current_line = "#003440";
+          selection = "#003440";
+          comment = "#6272a4";
+          cyan = "#2aa197";
+          green = "#859901";
+          orange = "#cb4a16";
+          magenta = "#d33582";
+          blue = "#2aa198";
+          red = "#dc312e";
+          k9s = {
+            body = {
+              fgColor = "#839495";
+              bgColor = "#002833";
+              logoColor = "#2aa198";
+            };
+            prompt = {
+              fgColor = "#839495";
+              bgColor = "#002833";
+              suggestColor = "#cb4a16";
+            };
+            info = {
+              fgColor = "#d33582";
+              sectionColor = "#839495";
+            };
+            dialog = {
+              fgColor = "#839495";
+              bgColor = "#002833";
+              buttonFgColor = "#839495";
+              buttonBgColor = "#d33582";
+              buttonFocusFgColor = "white";
+              buttonFocusBgColor = "#2aa197";
+              labelFgColor = "#cb4a16";
+              fieldFgColor = "#839495";
+            };
+            frame = {
+              border = {
+                fgColor = "#003440";
+                focusColor = "#003440";
+              };
+              menu = {
+                fgColor = "#839495";
+                keyColor = "#d33582";
+                numKeyColor = "#d33582";
+              };
+              crumbs = {
+                fgColor = "#839495";
+                bgColor = "#003440";
+                activeColor = "#003440";
+              };
+              status = {
+                newColor = "#2aa197";
+                modifyColor = "#2aa198";
+                addColor = "#859901";
+                errorColor = "#dc312e";
+                highlightColor = "#cb4a16";
+                killColor = "#6272a4";
+                completedColor = "#6272a4";
+              };
+              title = {
+                fgColor = "#839495";
+                bgColor = "#003440";
+                highlightColor = "#cb4a16";
+                counterColor = "#2aa198";
+                filterColor = "#d33582";
+              };
+            };
+            views = {
+              charts = {
+                bgColor = "default";
+                defaultDialColors = [
+                  "#2aa198"
+                  "#dc312e"
+                ];
+                defaultChartColors = [
+                  "#2aa198"
+                  "#dc312e"
+                ];
+              };
+              table = {
+                fgColor = "#839495";
+                bgColor = "#002833";
+                cursorFgColor = "#003440";
+                cursorBgColor = "#003440";
+                header = {
+                  fgColor = "#839495";
+                  bgColor = "#002833";
+                  sorterColor = "#2aa197";
+                };
+              };
+              xray = {
+                fgColor = "#839495";
+                bgColor = "#002833";
+                cursorColor = "#003440";
+                graphicColor = "#2aa198";
+                showIcons = false;
+              };
+              yaml = {
+                keyColor = "#d33582";
+                colonColor = "#2aa198";
+                valueColor = "#839495";
+              };
+              logs = {
+                fgColor = "#839495";
+                bgColor = "#002833";
+                indicator = {
+                  fgColor = "#839495";
+                  bgColor = "#003440";
+                  toggleOnColor = "#d33582";
+                  toggleOffColor = "#2aa198";
+                };
+              };
+            };
+          };
+        };
+      };
+    };
   };
 }
