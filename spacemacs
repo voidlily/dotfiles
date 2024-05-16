@@ -636,6 +636,10 @@ before packages are loaded."
               (push '("partial" . ?Ƥ) prettify-symbols-alist)
               (push '("comp" . ?∘) prettify-symbols-alist)))
 
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'lsp-format-buffer nil t)))
+
   (spacemacs/toggle-mode-line-battery-on)
 
   ;; Turn on spell checking in prog mode
