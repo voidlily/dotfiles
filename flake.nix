@@ -15,11 +15,6 @@
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils-plus.follows = "flake-utils-plus";
-    };
-    # https://github.com/snowfallorg/lib/issues/80
-    flake-utils-plus = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
     };
   };
 

@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715871485,
-        "narHash": "sha256-ywapEXmBBI+DVRx/YYC6+6Lk+W8vhShz1uJNvqPKzng=",
+        "lastModified": 1715901937,
+        "narHash": "sha256-eMyvWP56ZOdraC2IOvZo0/RTDcrrsqJ0oJWDC76JTak=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "cb02884fa1ff5a619a44ab5f1bcc4dedd2d623c2",
+        "rev": "ffc01182f90118119930bdfc528c1ee9a39ecef8",
         "type": "github"
       },
       "original": {
@@ -79,11 +79,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715486357,
-        "narHash": "sha256-4pRuzsHZOW5W4CsXI9uhKtiJeQSUoe1d2M9mWU98HC4=",
+        "lastModified": 1715930644,
+        "narHash": "sha256-W9pyM3/vePxrffHtzlJI6lDS3seANQ+Nqp+i58O46LI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "44677a1c96810a8e8c4ffaeaad10c842402647c1",
+        "rev": "e3ad5108f54177e6520535768ddbf1e6af54b59d",
         "type": "github"
       },
       "original": {
@@ -111,7 +111,6 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
-        "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "snowfall-lib": "snowfall-lib"
@@ -120,19 +119,17 @@
     "snowfall-lib": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils-plus": [
-          "flake-utils-plus"
-        ],
+        "flake-utils-plus": "flake-utils-plus",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1715107207,
-        "narHash": "sha256-Lq38yoHyY8t+zkVdpYlr2Fonb89Id4o5zgIfz8KCB8Y=",
+        "lastModified": 1715989320,
+        "narHash": "sha256-Xb9IY8iHzROqjBaNW89hXiZUOHvEdSeyBCbeYtKuVp0=",
         "owner": "snowfallorg",
         "repo": "lib",
-        "rev": "299b24861ebfa98a5b586dfa9ec8138ab6a4c626",
+        "rev": "363035500da347ee647201d895e62bf51d29b919",
         "type": "github"
       },
       "original": {
