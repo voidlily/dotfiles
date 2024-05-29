@@ -90,6 +90,7 @@ in
       pkgs.devenv
       pkgs.nixfmt-rfc-style
       pkgs.nix-tree
+      pkgs.nvd
 
       # python
       pkgs.mypy
