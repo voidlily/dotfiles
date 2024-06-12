@@ -120,6 +120,11 @@ in
       pkgs.yubikey-manager
       pkgs.yq
 
+      # security
+      pkgs.cosign
+      pkgs.grype
+      pkgs.syft
+
       # fonts
       pkgs.nerdfonts
       pkgs.dejavu_fonts
