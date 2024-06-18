@@ -96,7 +96,7 @@ in
       pkgs.mypy
       pkgs.poetry
       pkgs.ruff
-      (pkgs.python3.withPackages (ppkgs: [
+      (pkgs.python312.withPackages (ppkgs: [
         ppkgs.boto3
         ppkgs.python-lsp-server
         ppkgs.ruff-lsp
