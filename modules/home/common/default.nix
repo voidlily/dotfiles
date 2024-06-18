@@ -112,9 +112,11 @@ in
       pkgs.glab
       pkgs.kubectl
       pkgs.kubernetes-helm
+      pkgs.kubeswitch
       pkgs.kustomize
       pkgs.nova
       pkgs.pluto
+      pkgs.ssm-session-manager-plugin
       pkgs.terraform
       pkgs.terraform-ls
       pkgs.yubikey-manager

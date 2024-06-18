@@ -124,5 +124,13 @@ function chpwd() {
 REPORTTIME=1
 bgnotify_threshold=30
 
+source <(switcher init zsh)
+
+# optionally use alias `s` instead of `switch`
+alias s=switch
+
+# optionally use command completion
+source <(switch completion zsh)
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
