@@ -33,9 +33,6 @@
   programs.zsh.enable = true; # default shell on catalina
   # programs.fish.enable = true;
 
-  # Set Git commit hash for darwin-version.
-  system.configurationRevision = inputs.rev or inputs.dirtyRev or null;
-
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
