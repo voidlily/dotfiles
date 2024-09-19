@@ -106,6 +106,7 @@ in
       (pkgs.ruby.withPackages (rpkgs: [ rpkgs.solargraph ]))
 
       # devops
+      pkgs.argo-rollouts
       pkgs.awscli
       pkgs.aws-iam-authenticator
       pkgs.aws-vault
@@ -259,6 +260,59 @@ in
       settings = {
         k9s = {
           skin = "solarized-16";
+        };
+      };
+      plugin = {
+        plugins = {
+          # https://github.com/derailed/k9s/blob/master/plugins/argo-rollouts.yaml
+          argo-rollouts-get = {
+            shortCut = "g";
+            confirm = false;
+            description = "Get details";
+            scopes = [ "rollouts" ];
+            command = "bash";
+            background = false;
+            args = [
+              "-c"
+              "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE |& less"
+            ];
+          };
+          argo-rollouts-watch = {
+            shortCut = "w";
+            confirm = false;
+            description = "Watch progress";
+            scopes = [ "rollouts" ];
+            command = "bash";
+            background = false;
+            args = [
+              "-c"
+              "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE -w |& less"
+            ];
+          };
+          argo-rollouts-promote = {
+            shortCut = "p";
+            confirm = true;
+            description = "Promote";
+            scopes = [ "rollouts" ];
+            command = "bash";
+            background = false;
+            args = [
+              "-c"
+              "kubectl argo rollouts promote $NAME --context $CONTEXT -n $NAMESPACE |& less"
+            ];
+          };
+          argo-rollouts-restart = {
+            shortCut = "r";
+            confirm = true;
+            description = "Restart";
+            scopes = [ "rollouts" ];
+            command = "bash";
+            background = false;
+            args = [
+              "-c"
+              "kubectl argo rollouts restart $NAME --context $CONTEXT -n $NAMESPACE |& less"
+            ];
+          };
         };
       };
       skins = {
