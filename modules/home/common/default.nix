@@ -110,6 +110,7 @@ in
       pkgs.awscli
       pkgs.aws-iam-authenticator
       pkgs.aws-vault
+      pkgs.eks-node-viewer
       pkgs.glab
       pkgs.kubectl
       pkgs.kubernetes-helm
