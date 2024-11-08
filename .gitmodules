@@ -5,9 +5,6 @@
 [submodule "tpm"]
 	path = tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "asdf"]
-	path = asdf
-	url = https://github.com/asdf-vm/asdf
 [submodule "antidote"]
 	path = antidote
 	url = https://github.com/mattmc3/antidote

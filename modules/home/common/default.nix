@@ -96,11 +96,6 @@ in
       pkgs.mypy
       pkgs.poetry
       pkgs.ruff
-      (pkgs.python312.withPackages (ppkgs: [
-        ppkgs.boto3
-        ppkgs.python-lsp-server
-        ppkgs.ruff-lsp
-      ]))
 
       # ruby
       (pkgs.ruby.withPackages (rpkgs: [ rpkgs.solargraph ]))
@@ -154,7 +149,6 @@ in
       # '';
       # BEGIN out of store symlinks
       ".antidote".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/antidote";
-      ".asdf".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/asdf";
       # impure because emacs writes back to cache/elpa/etc dirs in here
       ".emacs.d".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/emacs.d";
       # doesn't work on mac, split out to linux specific

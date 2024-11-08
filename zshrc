@@ -82,7 +82,6 @@ elif [[ $OS -eq 'OSX' ]]; then
         echo 'terminal-notifier not installed, install with `brew install terminal-notifier`'
     fi
 fi
-antidote bundle ohmyzsh/ohmyzsh path:plugins/asdf
 antidote bundle ohmyzsh/ohmyzsh path:plugins/bower
 antidote bundle ohmyzsh/ohmyzsh path:plugins/brew
 antidote bundle ohmyzsh/ohmyzsh path:plugins/bundler
