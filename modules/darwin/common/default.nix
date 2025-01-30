@@ -20,7 +20,10 @@
 }:
 {
   # Your configuration.
-  environment.systemPackages = [ pkgs.vim ];
+  environment.systemPackages = [
+    pkgs.docker-credential-helpers
+    pkgs.vim
+  ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

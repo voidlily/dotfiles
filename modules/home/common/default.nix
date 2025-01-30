@@ -85,6 +85,7 @@ in
       pkgs.gnupg
       pkgs.ispell
       pkgs.ripgrep
+      pkgs.wget
 
       # nix and dev stuff
       pkgs.devenv
@@ -94,8 +95,6 @@ in
 
       # python
       pkgs.mypy
-      pkgs.poetry
-      pkgs.ruff
 
       # ruby
       (pkgs.ruby.withPackages (rpkgs: [ rpkgs.solargraph ]))
@@ -108,7 +107,9 @@ in
       pkgs.eks-node-viewer
       pkgs.glab
       pkgs.kubectl
+      pkgs.kubectl-neat
       pkgs.kubernetes-helm
+      pkgs.kubeseal
       pkgs.kubeswitch
       pkgs.kustomize
       pkgs.nova
@@ -116,6 +117,7 @@ in
       pkgs.ssm-session-manager-plugin
       pkgs.terraform
       pkgs.terraform-ls
+      pkgs.velero
       pkgs.yubikey-manager
       pkgs.yq
 
@@ -125,14 +127,13 @@ in
       pkgs.syft
 
       # fonts
-      pkgs.nerdfonts
       pkgs.dejavu_fonts
       pkgs.material-design-icons
       pkgs.font-awesome
       pkgs.source-sans
       pkgs.source-serif
       pkgs.noto-fonts
-    ];
+    ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
@@ -306,6 +307,33 @@ in
             args = [
               "-c"
               "kubectl argo rollouts restart $NAME --context $CONTEXT -n $NAMESPACE |& less"
+            ];
+          };
+          krr = {
+            shortCut = "Shift-K";
+            confirm = false;
+            description = "Get krr";
+            scopes = [
+              "deployments"
+              "statefulsets"
+              "daemonsets"
+              "rollouts"
+            ];
+            command = "bash";
+            background = false;
+            args = [
+              "-c"
+              ''
+                LABELS=$(kubectl get $RESOURCE_NAME $NAME -n $NAMESPACE  --context $CONTEXT  --show-labels | awk '{print $NF}' | awk '{if(NR>1)print}')
+                krr simple --cluster $CONTEXT --selector $LABELS
+                echo "Press 'q' to exit"
+                while : ; do
+                read -n 1 k <&1
+                if [[ $k = q ]] ; then
+                break
+                fi
+                done
+              ''
             ];
           };
         };
@@ -558,5 +586,8 @@ in
         };
       };
     };
+    programs.poetry.enable = true;
+    programs.ruff.enable = true;
+    programs.ruff.settings = { };
   };
 }
