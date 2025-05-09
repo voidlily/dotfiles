@@ -103,8 +103,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages
    '(
      editorconfig
-     fcitx
-     virtualenvwrapper
+     pet
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -639,15 +638,15 @@ before packages are loaded."
   (with-eval-after-load 'forge
     (add-to-list 'forge-alist '("gitlab.login.gov" "gitlab.login.gov/api/v4" "gitlab.login.gov" forge-gitlab-repository)))
 
+  (use-package pet
+    :config
+    (add-hook 'python-base-mode-hook 'pet-mode -10))
+
   (use-package virtualenvwrapper
     :defer t
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "V" 'venv-workon))
-
-  (use-package fcitx
-    :init
-    (fcitx-evil-turn-on))
 
   (global-prettify-symbols-mode 1)
 
