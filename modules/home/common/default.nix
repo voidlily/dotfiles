@@ -255,7 +255,7 @@ in
       enable = true;
       settings = {
         k9s = {
-          skin = "solarized-16";
+          skin = "solarized-dark";
         };
       };
       plugin = {
