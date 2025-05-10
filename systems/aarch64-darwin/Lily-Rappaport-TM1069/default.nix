@@ -19,9 +19,8 @@
   ...
 }:
 {
-  nix.settings.ssl-cert-file = "/opt/nix-and-zscaler.crt";
   nix.settings.trusted-users = [
     "root"
-    "lilymrappaport"
+    "lilyrappaport"
   ];
 }
