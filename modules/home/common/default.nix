@@ -101,7 +101,7 @@ in
 
       # devops
       pkgs.argo-rollouts
-      pkgs.awscli
+      pkgs.awscli2
       pkgs.aws-iam-authenticator
       pkgs.aws-vault
       pkgs.eks-node-viewer
