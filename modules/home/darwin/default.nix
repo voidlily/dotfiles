@@ -32,5 +32,12 @@ in
     };
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ coreutils-prefixed ]; };
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      coreutils-prefixed
+      # dependencies for emacs/vterm
+      cmake
+      glibtool
+    ];
+  };
 }
