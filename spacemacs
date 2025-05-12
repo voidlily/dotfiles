@@ -127,29 +127,6 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; If non-nil then enable support for the portable dumper. You'll need to
-   ;; compile Emacs 27 from source following the instructions in file
-   ;; EXPERIMENTAL.org at to root of the git repository.
-   ;;
-   ;; WARNING: pdumper does not work with Native Compilation, so it's disabled
-   ;; regardless of the following setting when native compilation is in effect.
-   ;;
-   ;; (default nil)
-   dotspacemacs-enable-emacs-pdumper nil
-
-   ;; Name of executable file pointing to emacs 27+. This executable must be
-   ;; in your PATH.
-   ;; (default "emacs")
-   dotspacemacs-emacs-pdumper-executable-file "emacs"
-
-   ;; Name of the Spacemacs dump file. This is the file will be created by the
-   ;; portable dumper in the cache directory under dumps sub-directory.
-   ;; To load it when starting Emacs add the parameter `--dump-file'
-   ;; when invoking Emacs 27.1 executable on the command line, for instance:
-   ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
-   ;; (default (format "spacemacs-%s.pdmp" emacs-version))
-   dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
-
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
    dotspacemacs-elpa-timeout 5
@@ -240,7 +217,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-startup-buffer-multi-digit-delay 0.4
 
    ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
-   ;; This has no effect in terminal or if "all-the-icons" package or the font
+   ;; This has no effect in terminal or if "nerd-icons" package or the font
    ;; is not installed. (default nil)
    dotspacemacs-startup-buffer-show-icons nil
 
@@ -268,12 +245,7 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(solarized-dark
-                         solarized-light
-                         spacemacs-dark
-                         spacemacs-light
-                         leuven
-                         monokai
-                         zenburn)
+                         solarized-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -394,6 +366,11 @@ It should only modify the values of Spacemacs settings."
    ;; put the most likely path on the top of `load-path' to reduce walking
    ;; through the whole `load-path'.
    dotspacemacs-enable-load-hints t
+
+   ;; If t, enable the `package-quickstart' feature to avoid full package
+   ;; loading, otherwise no `package-quickstart' attemption (default nil).
+   ;; Refer the FAQ.org "package-quickstart" section for details.
+   dotspacemacs-enable-package-quickstart nil
 
    ;; If non-nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
@@ -664,30 +641,12 @@ before packages are loaded."
             (lambda ()
               (add-hook 'before-save-hook 'lsp-format-buffer nil t)))
 
-  (spacemacs/toggle-mode-line-battery-on)
-
   ;; Turn on spell checking in prog mode
   (add-hook 'prog-mode-hook 'spacemacs/toggle-auto-fill-mode-on)
 
   (defun highlight-todos ()
     (font-lock-add-keywords nil '(("\\<\\(NOTE\\|TODO\\|HACK\\|BUG\\|XXX\\)" 1 font-lock-warning-face t))))
   (add-hook 'prog-mode-hook 'highlight-todos)
-
-  ;; ropemacs config
-  (spacemacs/set-leader-keys-for-major-mode 'python-mode
-    ;; *r*efactor *e*xtract *v*ariable
-    "rev" 'rope-extract-variable
-    ;; *r*efactor *e*xtract *m*ethod
-    "rem" 'rope-extract-method
-    ;; *r*efactor *m*ove
-    "rm" 'rope-move
-    ;; *r*efactor move m*o*dule
-    "ro" 'rope-move-current-module
-    ;; *r*efactor *r*ename
-    "rr" 'rope-rename
-    ;; *find* *o*currences
-    "/o" 'rope-find-occurrences
-    )
 
   (defun cider-test-spec-test-ns-fn (ns)
     "For a NS, return the test namespace, which may be the argument itself.
@@ -697,22 +656,6 @@ This uses the Leiningen convention of appending '-test' to the namespace name."
         (if (string-suffix-p suffix ns)
             ns
           (concat ns suffix)))))
-
-
-  (with-eval-after-load 'flycheck
-    (flycheck-define-checker proselint
-      "A linter for prose."
-      :command ("proselint" source-inplace)
-      :error-patterns
-      ((warning line-start (file-name) ":" line ":" column ": "
-                (id (one-or-more (not (any " "))))
-                (message) line-end))
-      :modes (text-mode markdown-mode gfm-mode))
-    (add-to-list 'flycheck-checkers 'proselint)
-    )
-
-  (add-hook 'markdown-mode-hook #'flycheck-mode)
-  (add-hook 'text-mode-hook #'flycheck-mode)
 
   ;; ;; Remove `git push origin HEAD:master' from magit
   ;; (with-eval-after-load 'magit
@@ -756,7 +699,6 @@ This function is called at the very end of Spacemacs initialization."
        ("FIXME" . "#dc752f")
        ("XXX+" . "#dc752f")
        ("\\?\\?\\?+" . "#dc752f")))
-   '(package-selected-packages '(lsp-docker bui ox-gfm evil-unimpaired f s dash))
    '(paradox-github-token t)
    '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
   (custom-set-faces
@@ -765,13 +707,11 @@ This function is called at the very end of Spacemacs initialization."
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(default ((((class color) (min-colors 89)) (:foreground "#839496" :background "#002b36"))))
-   '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)e
+   '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)
    )
   (custom-set-variables
    ;; custom-set-variables was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(evil-want-Y-yank-to-eol nil)
-   '(package-selected-packages '(ox-gfm evil-unimpaired f s dash)))
-  )
+   '(evil-want-Y-yank-to-eol nil)))
