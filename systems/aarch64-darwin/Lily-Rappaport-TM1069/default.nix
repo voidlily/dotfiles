@@ -23,4 +23,6 @@
     "root"
     "lilyrappaport"
   ];
+
+  system.primaryUser = "lilyrappaport";
 }

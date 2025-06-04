@@ -112,12 +112,14 @@ in
       pkgs.kubeseal
       pkgs.kubeswitch
       pkgs.kustomize
+      pkgs.markdownlint-cli
       pkgs.nova
       pkgs.pluto
       pkgs.ssm-session-manager-plugin
-      pkgs.terraform
+      pkgs.tenv
       pkgs.terraform-ls
       pkgs.velero
+      pkgs.yamllint
       pkgs.yubikey-manager
       pkgs.yq
 

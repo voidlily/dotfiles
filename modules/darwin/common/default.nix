@@ -26,6 +26,7 @@
   ];
 
   # Auto upgrade nix package and the daemon service.
+  # disable, because nix is managed by determinate now
   nix.enable = false;
   # services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
