@@ -87,14 +87,21 @@ in
       pkgs.ripgrep
       pkgs.wget
 
+      # js
+      pkgs.nodejs
+
       # nix and dev stuff
       pkgs.devenv
+      pkgs.meld
       pkgs.nixfmt-rfc-style
       pkgs.nix-tree
       pkgs.nvd
 
+      pkgs.jjui
+
       # python
       pkgs.mypy
+      pkgs.uv
 
       # ruby
       (pkgs.ruby.withPackages (rpkgs: [ rpkgs.solargraph ]))
@@ -109,14 +116,17 @@ in
       pkgs.kubectl
       pkgs.kubectl-neat
       pkgs.kubernetes-helm
+      pkgs.kubelogin-oidc
       pkgs.kubeseal
       pkgs.kubeswitch
       pkgs.kustomize
       pkgs.markdownlint-cli
       pkgs.nova
       pkgs.pluto
+      pkgs.popeye
       pkgs.ssm-session-manager-plugin
       pkgs.tenv
+      pkgs.terraform-docs
       pkgs.terraform-ls
       pkgs.velero
       pkgs.yamllint
@@ -135,7 +145,8 @@ in
       pkgs.source-sans
       pkgs.source-serif
       pkgs.noto-fonts
-    ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+    ]
+    ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
@@ -153,7 +164,17 @@ in
       # BEGIN out of store symlinks
       ".antidote".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/antidote";
       # impure because emacs writes back to cache/elpa/etc dirs in here
-      ".emacs.d".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/emacs.d";
+      # ".config/emacs" = {
+      #   recursive = true;
+      #   source = pkgs.fetchFromGitHub {
+      #     owner = "syl20bnr";
+      #     repo = "spacemacs";
+      #     rev = "214de2f3398dd8b7b402ff90802012837b8827a5";
+      #     # sha256 = lib.fakeSha256;
+      #     sha256 = "a3EkS4tY+VXWqm61PmLnF0Zt94VAsoe5NmubaLPNxhE=";
+      #   };
+      # };
+      # ".config/emacs".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/emacs.d";
       # doesn't work on mac, split out to linux specific
       ".vim".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/vim";
       # END out of store symlinks
@@ -172,6 +193,8 @@ in
       ".zsh_aliases".source = lib.snowfall.fs.get-file "zsh_aliases";
       ".zshenv".source = lib.snowfall.fs.get-file "zshenv";
       ".zshrc".source = lib.snowfall.fs.get-file "zshrc";
+
+      ".config/jjui/config.toml".source = lib.snowfall.fs.get-file "jjui-config.toml";
     };
 
     # TODO all the random go binaries in ~/bin get those in nix packages or fetch
@@ -253,6 +276,31 @@ in
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
+    programs.jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Lily";
+          email = "voidlily@users.noreply.github.com";
+        };
+
+        git = {
+          private-commits = "bookmarks(exact:'megamerge') | description(glob:'wip:*') | description(glob:'private:*')";
+        };
+
+        signing = {
+          behavior = "own";
+          backend = "gpg";
+          key = "0x3FBFB3CCE12E7D19";
+        };
+
+        ui = {
+          editor = "emacsclient";
+          diff-editor = "meld-3";
+        };
+      };
+    };
+
     programs.k9s = {
       enable = true;
       settings = {
@@ -260,84 +308,82 @@ in
           skin = "solarized-dark";
         };
       };
-      plugin = {
-        plugins = {
-          # https://github.com/derailed/k9s/blob/master/plugins/argo-rollouts.yaml
-          argo-rollouts-get = {
-            shortCut = "g";
-            confirm = false;
-            description = "Get details";
-            scopes = [ "rollouts" ];
-            command = "bash";
-            background = false;
-            args = [
-              "-c"
-              "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE |& less"
-            ];
-          };
-          argo-rollouts-watch = {
-            shortCut = "w";
-            confirm = false;
-            description = "Watch progress";
-            scopes = [ "rollouts" ];
-            command = "bash";
-            background = false;
-            args = [
-              "-c"
-              "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE -w |& less"
-            ];
-          };
-          argo-rollouts-promote = {
-            shortCut = "p";
-            confirm = true;
-            description = "Promote";
-            scopes = [ "rollouts" ];
-            command = "bash";
-            background = false;
-            args = [
-              "-c"
-              "kubectl argo rollouts promote $NAME --context $CONTEXT -n $NAMESPACE |& less"
-            ];
-          };
-          argo-rollouts-restart = {
-            shortCut = "r";
-            confirm = true;
-            description = "Restart";
-            scopes = [ "rollouts" ];
-            command = "bash";
-            background = false;
-            args = [
-              "-c"
-              "kubectl argo rollouts restart $NAME --context $CONTEXT -n $NAMESPACE |& less"
-            ];
-          };
-          krr = {
-            shortCut = "Shift-K";
-            confirm = false;
-            description = "Get krr";
-            scopes = [
-              "deployments"
-              "statefulsets"
-              "daemonsets"
-              "rollouts"
-            ];
-            command = "bash";
-            background = false;
-            args = [
-              "-c"
-              ''
-                LABELS=$(kubectl get $RESOURCE_NAME $NAME -n $NAMESPACE  --context $CONTEXT  --show-labels | awk '{print $NF}' | awk '{if(NR>1)print}')
-                krr simple --cluster $CONTEXT --selector $LABELS
-                echo "Press 'q' to exit"
-                while : ; do
-                read -n 1 k <&1
-                if [[ $k = q ]] ; then
-                break
-                fi
-                done
-              ''
-            ];
-          };
+      plugins = {
+        # https://github.com/derailed/k9s/blob/master/plugins/argo-rollouts.yaml
+        argo-rollouts-get = {
+          shortCut = "g";
+          confirm = false;
+          description = "Get details";
+          scopes = [ "rollouts" ];
+          command = "bash";
+          background = false;
+          args = [
+            "-c"
+            "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE |& less"
+          ];
+        };
+        argo-rollouts-watch = {
+          shortCut = "w";
+          confirm = false;
+          description = "Watch progress";
+          scopes = [ "rollouts" ];
+          command = "bash";
+          background = false;
+          args = [
+            "-c"
+            "kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE -w |& less"
+          ];
+        };
+        argo-rollouts-promote = {
+          shortCut = "p";
+          confirm = true;
+          description = "Promote";
+          scopes = [ "rollouts" ];
+          command = "bash";
+          background = false;
+          args = [
+            "-c"
+            "kubectl argo rollouts promote $NAME --context $CONTEXT -n $NAMESPACE |& less"
+          ];
+        };
+        argo-rollouts-restart = {
+          shortCut = "r";
+          confirm = true;
+          description = "Restart";
+          scopes = [ "rollouts" ];
+          command = "bash";
+          background = false;
+          args = [
+            "-c"
+            "kubectl argo rollouts restart $NAME --context $CONTEXT -n $NAMESPACE |& less"
+          ];
+        };
+        krr = {
+          shortCut = "Shift-K";
+          confirm = false;
+          description = "Get krr";
+          scopes = [
+            "deployments"
+            "statefulsets"
+            "daemonsets"
+            "rollouts"
+          ];
+          command = "bash";
+          background = false;
+          args = [
+            "-c"
+            ''
+              LABELS=$(kubectl get $RESOURCE_NAME $NAME -n $NAMESPACE  --context $CONTEXT  --show-labels | awk '{print $NF}' | awk '{if(NR>1)print}')
+              krr simple --cluster $CONTEXT --selector $LABELS
+              echo "Press 'q' to exit"
+              while : ; do
+              read -n 1 k <&1
+              if [[ $k = q ]] ; then
+              break
+              fi
+              done
+            ''
+          ];
         };
       };
       skins = {
