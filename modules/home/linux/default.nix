@@ -21,20 +21,20 @@
 let
   inherit (lib) mkIf mkOption types;
 
-  cfg = config.homes.darwin;
+  cfg = config.homes.linux;
 in
 {
-  options.homes.darwin = {
+  options.homes.linux = {
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = "Whether to enable the darwin home module.";
+      description = "Whether to enable the linux home module.";
     };
   };
 
   config = mkIf cfg.enable {
     home.file = {
-      "Library/Application Support/k9s/skins" = {
+      ".config/k9s/skins" = {
         recursive = true;
         source =
           pkgs.fetchFromGitHub {
@@ -47,14 +47,6 @@ in
           + "/skins";
       };
     };
-    home.packages = with pkgs; [
-      coreutils-prefixed
-      # dependencies for emacs/vterm
-      cmake
-      glibtool
-      terminal-notifier
-    ];
-
-    services.gpg-agent.pinentry.package = null;
+    services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
   };
 }
