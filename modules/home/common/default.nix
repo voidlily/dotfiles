@@ -98,6 +98,7 @@ in
       pkgs.nvd
 
       pkgs.jjui
+      inputs.starship-jj.packages.${system}.default
 
       # python
       pkgs.mypy
@@ -161,9 +162,10 @@ in
       #   org.gradle.console=verbose
       #   org.gradle.daemon.idletimeout=3600000
       # '';
+
       # BEGIN out of store symlinks
-      ".antidote".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/antidote";
-      # impure because emacs writes back to cache/elpa/etc dirs in here
+      # TODO on new systems, clone spacemacs manually:
+      # git clone git@github.com;syl20bnr/spacemacs ~/.config/emacs
       # ".config/emacs" = {
       #   recursive = true;
       #   source = pkgs.fetchFromGitHub {
@@ -175,12 +177,23 @@ in
       #   };
       # };
       # ".config/emacs".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/emacs.d";
+      ".config/jjui/themes" = {
+        recursive = true;
+        source =
+          pkgs.fetchFromGitHub {
+            owner = "vic";
+            repo = "tinted-jjui";
+            rev = "25dc3531e01fe155d4bdcf4bcb4b707fe5e56b3f";
+            # sha256 = lib.fakeSha256;
+            sha256 = "sT3TVSjGq5X/nJQtPQN4Kby7254udrZCAMAO5rCzUjk=";
+          }
+          + "/themes";
+      };
       # doesn't work on mac, split out to linux specific
       ".vim".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/vim";
       # END out of store symlinks
 
       ".clojure".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/clojure";
-      ".dircolors".source = lib.snowfall.fs.get-file "dir_colors";
       ".gemrc".source = lib.snowfall.fs.get-file "gemrc";
       ".irbrc".source = lib.snowfall.fs.get-file "irbrc";
       ".p10k.zsh".source = lib.snowfall.fs.get-file "p10k.zsh";
@@ -189,12 +202,9 @@ in
       ".spacemacs".source = config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "spacemacs");
       ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
       ".vimrc".source = lib.snowfall.fs.get-file "vimrc";
-      ".zprofile".source = lib.snowfall.fs.get-file "zprofile";
-      ".zsh_aliases".source = lib.snowfall.fs.get-file "zsh_aliases";
-      ".zshenv".source = lib.snowfall.fs.get-file "zshenv";
-      ".zshrc".source = lib.snowfall.fs.get-file "zshrc";
 
       ".config/jjui/config.toml".source = lib.snowfall.fs.get-file "jjui-config.toml";
+      ".config/starship-jj/starship-jj.toml".source = lib.snowfall.fs.get-file "starship-jj.toml";
     };
 
     # TODO all the random go binaries in ~/bin get those in nix packages or fetch
@@ -217,11 +227,17 @@ in
     #
     home.sessionVariables = {
       # EDITOR = "emacs";
+      DIRCOLORS_SOLARIZED_ZSH_THEME = "ansi-dark";
+    };
+
+    home.shell.enableZshIntegration = true;
+
+    programs.dircolors = {
+      enable = true;
     };
 
     programs.direnv = {
       enable = true;
-      enableZshIntegration = true;
       nix-direnv.enable = true;
     };
 
@@ -262,14 +278,6 @@ in
         };
       };
     };
-
-    # TODO replace antigen with antidote
-    # https://getantidote.github.io/migrating-from-antigen
-    # homemanager can manage it but may need to migrate most of my zshrc to homemanager instead?
-
-    # TODO https://github.com/srid/nixos-config for example
-    # home-manager as flake instead of needing a channel
-    # figure out how to separate by host and architecture rather than current modifying on dirty checkout for mac systems
 
     programs.git-credential-oauth.enable = true;
 
@@ -637,5 +645,263 @@ in
     programs.poetry.enable = true;
     programs.ruff.enable = true;
     programs.ruff.settings = { };
+    programs.starship = {
+      enable = true;
+      settings = {
+        format = lib.concatStrings [
+          "$username"
+          "$hostname"
+          "$time"
+          "$directory"
+          "$git_branch"
+          "$git_status"
+          "\${custom.jj}"
+          # "$c"
+          # "$elixir"
+          # "$elm"
+          # "$golang"
+          # "$gradle"
+          # "$haskell"
+          # "$java"
+          # "$julia"
+          # "$nodejs"
+          # "$nim"
+          # "$rust"
+          # "$scala"
+          # "$docker_context"
+          "\${custom.spcr}"
+          "$fill"
+          "$cmd_duration"
+          "$jobs"
+          "$line_break"
+          "$character"
+        ];
+        add_newline = true;
+        palette = "solarized_dark";
+        palettes.solarized_dark = {
+          # ansi color order from old theme:
+          # base02 red green yellow blue magenta cyan base2
+          # base03 orange base01 base00 base0 violet base1 base3
+          base03 = "#002b36";
+          base02 = "#073642";
+          base01 = "#586e75";
+          base00 = "#657b83";
+          base0 = "#839496";
+          base1 = "#93a1a1";
+          base2 = "#eee8d5";
+          base3 = "#fdf6e3";
+          yellow = "#b58900";
+          orange = "#cb4b16";
+          red = "#dc322f";
+          magenta = "#d33682";
+          violet = "#6c71c4";
+          blue = "#268bd2";
+          cyan = "#2aa198";
+          green = "#859900";
+
+          # remove these? were using for "character" but can just use the
+          # solarized variants for consistency
+          strong_green = "#5fd700";
+          light_red = "#ff0000";
+        };
+        username = {
+          show_always = true;
+          style_user = "bg:base02 fg:base0";
+          format = "[ $user@]($style)";
+        };
+        hostname = {
+          ssh_only = false;
+          style = "bg:base02 fg:base0";
+          format = "[$hostname ]($style)";
+        };
+        time = {
+          disabled = false;
+          style = "bg:green fg:base02";
+          format = "[ ](fg:prev_bg bg:green)[$time ]($style)";
+        };
+        directory = {
+          fish_style_pwd_dir_length = 2;
+          style = "bg:blue fg:base02";
+          format = "[ ](fg:prev_bg bg:blue)[$path ]($style)";
+        };
+        git_branch = {
+          style = "bg:yellow fg:base02";
+          format = "[ ](fg:prev_bg bg:yellow)[$branch ]($style)";
+        };
+        git_status = {
+          conflicted = "=$count ";
+          ahead = "⇡$count ";
+          behind = "⇣$count ";
+          diverged = "⇕$count ";
+          untracked = "?$count ";
+          stashed = "*$count ";
+          modified = "!$count ";
+          staged = "+$count ";
+          renamed = "»$count ";
+          deleted = "✘$count ";
+          style = "bg:yellow fg:base02";
+          format = "[$all_status$ahead_behind]($style)";
+        };
+        custom.spcr = {
+          when = true;
+          format = "[ ]($style)";
+          style = "fg:prev_bg";
+        };
+        cmd_duration = {
+          min_time = 3000;
+          style = "bg:yellow fg:base02";
+          format = "[ ](bg:prev_bg fg:yellow)[ $duration ]($style)";
+        };
+        jobs = {
+          symbol = "";
+          style = "bg:base02 fg:cyan";
+          format = "[ ](bg:prev_bg fg:base02)[ $symbol $number ]($style)";
+        };
+        custom.jj = {
+          command = "prompt";
+          format = "[ ](fg:prev_bg bg:base03)[$output]()";
+          ignore_timeout = true;
+          shell = [
+            "starship-jj"
+            "--ignore-working-copy"
+            "starship"
+          ];
+          use_stdin = false;
+          when = true;
+        };
+      };
+    };
+
+    programs.ghostty = {
+      enable = true;
+      package = null;
+      settings = {
+        theme = "Builtin Solarized Dark";
+        bold-is-bright = false;
+      };
+    };
+
+    programs.sesh = {
+      enable = true;
+    };
+    programs.fzf = {
+      enable = true;
+      tmux.enableShellIntegration = true;
+    };
+    programs.zoxide.enable = true;
+
+    # programs.tmux = {
+    #   enable = true;
+    #   baseIndex = 1;
+    #   sensibleOnTop = true;
+    #   plugins = [
+    #     pkgs.tmuxPlugins.sensible
+    #     pkgs.tmuxPlugins.resurrect
+    #     pkgs.tmuxPlugins.continuum
+    #     pkgs.tmuxPlugins.copycat
+    #     pkgs.tmuxPlugins.yank
+    #     pkgs.tmuxPlugins.open
+    #     pkgs.tmuxPlugins.pain-control
+    #   ];
+
+    #   extraConfig = ''
+    #     set -g @continuum-restore 'on'
+    #   '';
+    # };
+
+    programs.uv.enable = true;
+
+    programs.zsh = {
+      enable = true;
+      antidote = {
+        enable = true;
+        plugins = [
+          "mattmc3/ez-compinit"
+          # TODO evaluate which ones are still needed
+          "zsh-users/zsh-completions"
+          "belak/zsh-utils path:completion"
+
+          "getantidote/use-omz"
+          "ohmyzsh/ohmyzsh path:lib"
+
+          "ohmyzsh/ohmyzsh path:plugins/bgnotify"
+
+          "ohmyzsh/ohmyzsh path:plugins/brew"
+          "ohmyzsh/ohmyzsh path:plugins/bundler"
+          # "ohmyzsh/ohmyzsh path:plugins/colored-man-pages"
+          "ohmyzsh/ohmyzsh path:plugins/command-not-found"
+
+          "zsh-users/zsh-syntax-highlighting"
+          "pinelibg/dircolors-solarized-zsh"
+          # doesn't work?
+          # "olets/zsh-transient-prompt"
+        ];
+      };
+      shellAliases = {
+        df = "df -h";
+        du = "du -h";
+        pgrep = "pgrep -l";
+        diff = "colordiff";
+        gthumb = "nomacs";
+        mplayer = "mpv";
+        calc = "noglob calc";
+        pacmatic = "sudo --preserve-env=pacman_program /usr/bin/pacmatic";
+        paru = ''pacman_program="sudo -u #$UID /usr/bin/paru" pacmatic"'';
+      };
+      initContent = ''
+        function chpwd() {
+            ls
+        }
+
+        function streamlink-twitch() {
+            streamlink -p mpv "https://twitch.tv/$1" best
+        }
+
+        function calc() {
+            noglob awk "BEGIN{ print $* }";
+        }
+
+        REPORTTIME=1
+        bgnotify_threshold=30
+      '';
+      # TODO move all this up to sessionVariables
+      envExtra = ''
+        if [ -f $HOME/.resolution ]; then
+            . $HOME/.resolution
+        fi
+
+        export EDITOR=vim
+
+        export NPM_PACKAGES="$HOME/.npm-packages"
+        export PACMAN="pacmatic"
+
+        # fix for gtk3/lxdm
+        # https://bugs.archlinux.org/task/36427
+        # may not be needed anymore?
+        export GDK_CORE_DEVICE_EVENTS=1
+        # temporary until nvidia fixes the vdpau kernel bug
+        export VDPAU_NVIDIA_NO_OVERLAY=1
+        # fix for cheese 3.16
+        # https://bugs.archlinux.org/task/44531
+        #export CLUTTER_BACKEND=x11
+
+        # https://github.com/elFarto/nvidia-vaapi-driver
+        export MOZ_DISABLE_RDD_SANDBOX=1
+        export LIBVA_DRIVER_NAME=nvidia
+        export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+        export NVD_BACKEND=direct
+
+        export TENV_AUTO_INSTALL=true
+      '';
+    };
+
+    services.gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      grabKeyboardAndMouse = false;
+      defaultCacheTtl = 86400;
+      maxCacheTtl = 86400;
+      pinentry.package = pkgs.pinentry-gnome3;
+    };
   };
 }

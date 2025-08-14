@@ -3,3 +3,6 @@
 "remove selected from megamerge" = {args = ["rebase", "-s", "megamerge", "-d", "all:megamerge- ~$change_id"]}
 "rebase all" = {args = ["rebase", "-b", "megamerge", "-d", "main"]}
 "new main" = {args = ["new", "main"]}
+
+[ui]
+theme = "base16-solarized-dark"

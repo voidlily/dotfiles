@@ -38,6 +38,7 @@ in
       # dependencies for emacs/vterm
       cmake
       glibtool
+      terminal-notifier
     ];
   };
 }

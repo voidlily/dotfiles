@@ -34,6 +34,11 @@
       url = "github:DeterminateSystems/flake-checker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    starship-jj = {
+      url = "gitlab:lanastara_foss/starship-jj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
