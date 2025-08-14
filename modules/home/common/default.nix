@@ -747,6 +747,9 @@ in
           format = "[ ]($style)";
           style = "fg:prev_bg";
         };
+        fill = {
+          symbol = " ";
+        };
         cmd_duration = {
           min_time = 3000;
           style = "bg:yellow fg:base02";
