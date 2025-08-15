@@ -177,17 +177,17 @@ in
       #   };
       # };
       # ".config/emacs".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/emacs.d";
-      ".config/jjui/themes" = {
+      ".config/ghostty/themes" = {
         recursive = true;
         source =
           pkgs.fetchFromGitHub {
-            owner = "vic";
-            repo = "tinted-jjui";
-            rev = "25dc3531e01fe155d4bdcf4bcb4b707fe5e56b3f";
+            owner = "tinted-theming";
+            repo = "tinted-terminal";
+            rev = "21ebc0e4ee155280a759779139f0e9b1aed0a530";
             # sha256 = lib.fakeSha256;
-            sha256 = "sT3TVSjGq5X/nJQtPQN4Kby7254udrZCAMAO5rCzUjk=";
+            sha256 = "MRJdcdn0gZ/o4hWf9VuZl5UMqe66Ad4YAPTqoKfLJ8Q=";
           }
-          + "/themes";
+          + "/themes/ghostty";
       };
       # doesn't work on mac, split out to linux specific
       ".vim".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/vim";
@@ -534,7 +534,7 @@ in
       enable = true;
       package = null;
       settings = {
-        theme = "Builtin Solarized Dark";
+        theme = "base16-solarized-dark";
         bold-is-bright = false;
       };
     };
@@ -608,7 +608,7 @@ in
       };
       initContent = ''
         function chpwd() {
-            ls
+            ls --color
         }
 
         function streamlink-twitch() {
