@@ -307,6 +307,8 @@ in
           editor = "emacsclient";
           diff-editor = "meld-3";
           merge-editor = "mergiraf";
+          ui.diff-formatter = ":git";
+          conflict-marker-style = "git";
         };
 
         # https://github.com/jj-vcs/jj/wiki/Fix-tools
