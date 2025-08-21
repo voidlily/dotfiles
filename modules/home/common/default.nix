@@ -305,6 +305,7 @@ in
         ui = {
           editor = "emacsclient";
           diff-editor = "meld-3";
+          merge-editor = "mergiraf";
         };
       };
     };
@@ -538,6 +539,8 @@ in
         bold-is-bright = false;
       };
     };
+
+    programs.mergiraf.enable = true;
 
     programs.sesh = {
       enable = true;
