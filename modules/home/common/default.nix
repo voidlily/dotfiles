@@ -122,6 +122,7 @@ in
       pkgs.kubeswitch
       pkgs.kustomize
       pkgs.markdownlint-cli
+      pkgs.nodePackages.prettier
       pkgs.nova
       pkgs.pluto
       pkgs.popeye
@@ -307,6 +308,45 @@ in
           diff-editor = "meld-3";
           merge-editor = "mergiraf";
         };
+
+        # https://github.com/jj-vcs/jj/wiki/Fix-tools
+        fix.tools.prettier = {
+          command = [
+            "prettier"
+            "--stdin-filepath"
+            "$path"
+          ];
+          patterns = [
+            "glob:'**/*.js'"
+            "glob:'**/*.jsx'"
+            "glob:'**/*.ts'"
+            "glob:'**/*.tsx'"
+            "glob:'**/*.json'"
+            "glob:'**/*.html'"
+            "glob:'**/*.md'"
+            "glob:'**/*.css'"
+            "glob:'**/*.yaml'"
+          ];
+        };
+
+        fix.tools.ruff = {
+          command = [
+            "ruff"
+            "-"
+            "--stdin-filename=$path"
+          ];
+          patterns = [ "glob:'**/*.py'" ];
+        };
+
+        fix.tools.terraform = {
+          command = [
+            "tofu"
+            "fmt"
+            "-"
+          ];
+          patterns = [ "glob:'**/*.tf'" ];
+        };
+
       };
     };
 

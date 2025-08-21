@@ -75,6 +75,7 @@ This function should only modify configuration layer settings."
              python-test-runner 'pytest
              python-formatter 'lsp
              python-format-on-save t)
+     prettier
      react
      restclient
      ruby
@@ -609,8 +610,14 @@ before packages are loaded."
   (setq require-final-newline t)
 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/private/themes")
+  (add-to-list 'spacemacs--prettier-modes 'yaml-mode)
+  (add-hook 'yaml-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'prettier-js nil t)))
 
   (setq auto-mode-alist (delete '("/git-rebase-todo$" . helm-ls-git-rebase-todo-mode) auto-mode-alist))
+
+  (setq-default flycheck-disabled-checkers '(yaml-ruby))
 
   (with-eval-after-load 'forge
     (add-to-list 'forge-alist '("gitlab.login.gov" "gitlab.login.gov/api/v4" "gitlab.login.gov" forge-gitlab-repository)))

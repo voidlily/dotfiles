@@ -4,3 +4,4 @@
 "rebase all" = {args = ["rebase", "-b", "megamerge", "-d", "main"]}
 "new main" = {args = ["new", "main"]}
 "resolve mergiraf" = {key = ["R"], args = ["resolve", "--tool", "mergiraf"]}
+"fix" = {key = ["F"], args = ["fix"]}
