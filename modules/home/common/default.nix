@@ -109,6 +109,7 @@ in
       (pkgs.ruby.withPackages (rpkgs: [ rpkgs.solargraph ]))
 
       # devops
+      pkgs._1password-cli
       pkgs.argo-rollouts
       pkgs.awscli2
       pkgs.aws-iam-authenticator
