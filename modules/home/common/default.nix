@@ -229,6 +229,7 @@ in
     home.sessionVariables = {
       # EDITOR = "emacs";
       DIRCOLORS_SOLARIZED_ZSH_THEME = "ansi-dark";
+      DO_NOT_TRACK = "1";
     };
 
     home.shell.enableZshIntegration = true;
