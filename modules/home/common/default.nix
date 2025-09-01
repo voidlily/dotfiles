@@ -237,6 +237,9 @@ in
 
     programs.atuin = {
       enable = true;
+      flags = [
+        "--disable-up-arrow"
+      ];
       settings = {
         workspaces = true;
       };
