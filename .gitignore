@@ -53,3 +53,5 @@ Session.vim
 /emacs.d/recentf
 clojure/.cpcache
 /clojure/.nrepl-port
+
+.DS_Store
