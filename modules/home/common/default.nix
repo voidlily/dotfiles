@@ -234,6 +234,27 @@ in
 
     home.shell.enableZshIntegration = true;
 
+    programs.atuin = {
+      enable = true;
+      settings = {
+        workspaces = true;
+      };
+    };
+
+    programs.bat = {
+      enable = true;
+      config = {
+        theme = "Solarized (dark)";
+      };
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batman
+        batgrep
+        batwatch
+        prettybat
+      ];
+    };
+
     programs.dircolors = {
       enable = true;
     };
@@ -241,6 +262,12 @@ in
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
+    };
+
+    programs.eza = {
+      enable = true;
+      icons = "auto";
+      extraOptions = [ "--hyperlink" ];
     };
 
     programs.git = {
@@ -252,7 +279,16 @@ in
         signByDefault = true;
       };
       includes = [ { path = "~/.config/git/config.local"; } ];
+      delta = {
+        enable = true;
+        options = {
+          syntax-theme = "Solarized (dark)";
+          line-numbers = true;
+        };
+      };
       extraConfig = {
+        # https://dandavison.github.io/delta/merge-conflicts.html
+        merge.conflictStyle = "zdiff3";
         gist = {
           private = true;
         };
@@ -311,8 +347,17 @@ in
           editor = "emacsclient";
           diff-editor = "meld-3";
           merge-editor = "mergiraf";
-          ui.diff-formatter = ":git";
+          diff-formatter = "delta";
           conflict-marker-style = "git";
+        };
+
+        merge-tools.delta = {
+          # delta exits with 0 if no diff, 1 if diff, 2 if a real error
+          # https://jj-vcs.github.io/jj/latest/config/#generating-diffs-by-external-command
+          diff-expected-exit-codes = [
+            0
+            1
+          ];
         };
 
         # https://github.com/jj-vcs/jj/wiki/Fix-tools
