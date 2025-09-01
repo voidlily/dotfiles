@@ -55,10 +55,6 @@ in
       terminal-notifier
     ];
 
-    programs.zsh.shellAliases = {
-      ls = "ls --color";
-    };
-
     services.gpg-agent.pinentry.package = null;
   };
 }
