@@ -634,6 +634,14 @@ in
 
     programs.mergiraf.enable = true;
 
+    programs.nh = {
+      enable = true;
+      clean = {
+        enable = true;
+      };
+      flake = "$HOME/dotfiles";
+    };
+
     programs.sesh = {
       enable = true;
     };
