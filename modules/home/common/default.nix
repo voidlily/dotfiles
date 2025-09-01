@@ -96,6 +96,7 @@ in
       pkgs.nixfmt-rfc-style
       pkgs.nix-tree
       pkgs.nvd
+      pkgs.nixd
 
       pkgs.jjui
       inputs.starship-jj.packages.${system}.default
