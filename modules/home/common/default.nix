@@ -203,6 +203,7 @@ in
       ".spacemacs".source = config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "spacemacs");
       ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
       ".vimrc".source = lib.snowfall.fs.get-file "vimrc";
+      ".config/git/ignore".source = lib.snowfall.fs.get-file "gitignore-global";
 
       ".config/jjui/config.toml".source = lib.snowfall.fs.get-file "jjui-config.toml";
       ".config/starship-jj/starship-jj.toml".source = lib.snowfall.fs.get-file "starship-jj.toml";
@@ -299,7 +300,7 @@ in
           enabled = 1;
         };
         core = {
-          excludesfile = "~/.gitignore";
+          excludesfile = "~/.config/git/ignore";
         };
         github = {
           user = "voidlily";
