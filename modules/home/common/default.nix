@@ -715,7 +715,7 @@ in
       };
       initContent = ''
         function chpwd() {
-            ls --color
+            eza --icons auto --hyperlink
         }
 
         function streamlink-twitch() {
