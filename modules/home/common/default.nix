@@ -294,7 +294,8 @@ in
       };
       extraConfig = {
         # https://dandavison.github.io/delta/merge-conflicts.html
-        merge.conflictStyle = "zdiff3";
+        # https://mergiraf.org/usage.html#enabling-diff3-conflict-style
+        merge.conflictStyle = "diff3";
         gist = {
           private = true;
         };

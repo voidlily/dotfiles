@@ -3,5 +3,5 @@
 "remove selected from megamerge" = {args = ["rebase", "-s", "megamerge", "-d", "all:megamerge- ~$change_id"]}
 "rebase all" = {args = ["rebase", "-b", "megamerge", "-d", "main"]}
 "new main" = {args = ["new", "main"]}
-"resolve mergiraf" = {key = ["R"], args = ["resolve", "--tool", "mergiraf", "-r", "$change_id"]}
+"resolve mergiraf" = {key = ["V"], args = ["resolve", "--tool", "mergiraf", "-r", "$change_id"]}
 "fix" = {key = ["F"], args = ["fix"]}
