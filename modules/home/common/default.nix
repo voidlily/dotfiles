@@ -711,7 +711,7 @@ in
         mplayer = "mpv";
         calc = "noglob calc";
         pacmatic = "sudo --preserve-env=pacman_program /usr/bin/pacmatic";
-        paru = ''pacman_program="sudo -u #$UID /usr/bin/paru" pacmatic"'';
+        paru = ''pacman_program="sudo -u #$UID /usr/bin/paru" pacmatic'';
       };
       initContent = ''
         function chpwd() {
