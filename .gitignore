@@ -55,3 +55,4 @@ clojure/.cpcache
 /clojure/.nrepl-port
 
 .DS_Store
+result
