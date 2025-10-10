@@ -128,6 +128,7 @@ in
       pkgs.nova
       pkgs.pluto
       pkgs.popeye
+      pkgs.postgresql
       pkgs.ssm-session-manager-plugin
       pkgs.tenv
       pkgs.terraform-docs
@@ -255,10 +256,20 @@ in
       extraPackages = with pkgs.bat-extras; [
         batdiff
         batman
-        batgrep
+        # TODO broken - https://github.com/NixOS/nixpkgs/issues/454391
+        # batgrep
         batwatch
         prettybat
       ];
+    };
+
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        syntax-theme = "Solarized (dark)";
+        line-numbers = true;
+      };
     };
 
     programs.dircolors = {
@@ -278,21 +289,16 @@ in
 
     programs.git = {
       enable = true;
-      userName = "Lily";
-      userEmail = "voidlily@users.noreply.github.com";
       signing = {
         key = "0x3FBFB3CCE12E7D19";
         signByDefault = true;
       };
       includes = [ { path = "~/.config/git/config.local"; } ];
-      delta = {
-        enable = true;
-        options = {
-          syntax-theme = "Solarized (dark)";
-          line-numbers = true;
+      settings = {
+        user = {
+          name = "Lily";
+          email = "voidlily@users.noreply.github.com";
         };
-      };
-      extraConfig = {
         # https://dandavison.github.io/delta/merge-conflicts.html
         # https://mergiraf.org/usage.html#enabling-diff3-conflict-style
         merge.conflictStyle = "diff3";
