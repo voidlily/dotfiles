@@ -126,6 +126,7 @@ in
       pkgs.markdownlint-cli
       pkgs.nodePackages.prettier
       pkgs.nova
+      pkgs.open-policy-agent
       pkgs.pluto
       pkgs.popeye
       pkgs.postgresql
@@ -374,6 +375,15 @@ in
         };
 
         # https://github.com/jj-vcs/jj/wiki/Fix-tools
+        fix.tools.opa = {
+          command = [
+            "opa"
+            "fmt"
+            "-"
+          ];
+          patterns = [ "glob:'**/*.rego'" ];
+        };
+
         fix.tools.prettier = {
           command = [
             "prettier"
@@ -498,6 +508,45 @@ in
               fi
               done
             ''
+          ];
+        };
+        raw-logs-follow = {
+          shortCut = "Ctrl-L";
+          description = "logs -f";
+          scopes = [
+            "po"
+          ];
+          command = "kubectl";
+          background = false;
+          args = [
+            "logs"
+            "-f"
+            "$NAME"
+            "-n"
+            "$NAMESPACE"
+            "--context"
+            "$CONTEXT"
+          ];
+        };
+        log-less = {
+          shortCut = "Shift-L";
+          description = "logs|less";
+          scopes = [
+            "po"
+          ];
+          command = "bash";
+          background = false;
+          args = [
+            "-c"
+            "\"$@\" | less"
+            "dummy-arg"
+            "kubectl"
+            "logs"
+            "$NAME"
+            "-n"
+            "$NAMESPACE"
+            "--context"
+            "$CONTEXT"
           ];
         };
       };

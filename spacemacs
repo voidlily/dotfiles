@@ -105,6 +105,7 @@ This function should only modify configuration layer settings."
    '(
      editorconfig
      pet
+     rego-mode
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -631,6 +632,11 @@ before packages are loaded."
     :init
     (spacemacs/set-leader-keys-for-major-mode 'python-mode
       "V" 'venv-workon))
+
+  (use-package rego-mode
+    :ensure t
+    :custom
+    (rego-format-at-save t))
 
   (global-prettify-symbols-mode 1)
 
