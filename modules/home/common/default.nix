@@ -93,7 +93,7 @@ in
       # nix and dev stuff
       pkgs.devenv
       pkgs.meld
-      pkgs.nixfmt-rfc-style
+      pkgs.nixfmt
       pkgs.nix-tree
       pkgs.nvd
       pkgs.nixd
