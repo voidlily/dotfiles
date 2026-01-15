@@ -734,6 +734,10 @@ in
 
     programs.uv.enable = true;
 
+    programs.uv.settings = {
+      keyring-provider = "subprocess";
+    };
+
     programs.zsh = {
       enable = true;
       antidote = {
