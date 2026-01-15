@@ -687,6 +687,7 @@ in
 
     programs.ghostty = {
       enable = true;
+      systemd.enable = false;
       package = null;
       settings = {
         theme = "base16-solarized-dark";
