@@ -126,7 +126,8 @@ in
       pkgs.markdownlint-cli
       pkgs.nodePackages.prettier
       pkgs.nova
-      pkgs.open-policy-agent
+      # broken on darwin due to failing tests?
+      # pkgs.open-policy-agent
       pkgs.pluto
       pkgs.popeye
       pkgs.postgresql
