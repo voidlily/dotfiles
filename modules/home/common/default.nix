@@ -97,6 +97,7 @@ in
       pkgs.nix-tree
       pkgs.nvd
       pkgs.nixd
+      pkgs.microplane
 
       pkgs.jjui
       inputs.starship-jj.packages.${system}.default
