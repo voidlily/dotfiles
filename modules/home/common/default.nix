@@ -111,6 +111,7 @@ in
 
       # devops
       pkgs._1password-cli
+      pkgs.argocd
       pkgs.argo-rollouts
       pkgs.awscli2
       pkgs.aws-iam-authenticator
@@ -139,7 +140,7 @@ in
       pkgs.velero
       pkgs.yamllint
       pkgs.yubikey-manager
-      pkgs.yq
+      pkgs.yq-go
 
       # security
       pkgs.cosign
@@ -408,7 +409,7 @@ in
         fix.tools.ruff = {
           command = [
             "ruff"
-            "-"
+            "format"
             "--stdin-filename=$path"
           ];
           patterns = [ "glob:'**/*.py'" ];
