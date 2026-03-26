@@ -99,7 +99,6 @@ in
       pkgs.nixd
       pkgs.microplane
 
-      pkgs.jjui
       inputs.starship-jj.packages.${system}.default
 
       # python
@@ -214,7 +213,6 @@ in
       ".vimrc".source = lib.snowfall.fs.get-file "vimrc";
       ".config/git/ignore".source = lib.snowfall.fs.get-file "gitignore-global";
 
-      ".config/jjui/config.toml".source = lib.snowfall.fs.get-file "jjui-config.toml";
       ".config/starship-jj/starship-jj.toml".source = lib.snowfall.fs.get-file "starship-jj.toml";
     };
 
@@ -343,6 +341,98 @@ in
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
+
+    programs.jjui = {
+      enable = true;
+      settings = {
+        actions = [
+          {
+            name = "megamerge.add";
+            lua = ''
+              jj_async("rebase", "-r", context.change_id(), "-A", "trunk()", "-B", "megamerge")
+              revisions.refresh()
+            '';
+          }
+          {
+            name = "megamerge.remove";
+            lua = ''
+              jj_async("rebase", "-s", "megamerge", "-d", "megamerge- ~" .. context.change_id())
+              revisions.refresh()
+            '';
+          }
+          {
+            name = "rebase-all";
+            lua = ''
+              jj_async("rebase", "-b", "megamerge", "-d", "trunk()")
+              revisions.refresh()
+            '';
+          }
+          {
+            name = "new-main";
+            lua = ''
+              jj_async("new", "trunk()")
+              revisions.refresh()
+            '';
+          }
+          {
+            name = "resolve-mergiraf";
+            lua = ''
+              jj_async("resolve", "--tool", "mergiraf", "-r", context.change_id())
+              revisions.refresh()
+            '';
+          }
+          {
+            name = "fix";
+            lua = ''
+              jj_async("fix")
+              revisions.refresh()
+            '';
+          }
+        ];
+        bindings = [
+          {
+            action = "resolve-mergiraf";
+            key = "V";
+            scope = "revisions";
+            desc = "resolve mergiraf";
+          }
+          {
+            action = "fix";
+            key = "F";
+            scope = "revisions";
+            desc = "fix";
+          }
+          {
+            action = "megamerge.add";
+            seq = [
+              "x"
+              "a"
+            ];
+            scope = "revisions";
+            desc = "add to megamerge";
+
+          }
+          {
+            action = "megamerge.remove";
+            seq = [
+              "x"
+              "d"
+            ];
+            scope = "revisions";
+            desc = "remove from megamerge";
+          }
+          {
+            action = "rebase-all";
+            seq = [
+              "x"
+              "r"
+            ];
+            scope = "revisions";
+            desc = "rebase all";
+          }
+        ];
+      };
+    };
 
     programs.jujutsu = {
       enable = true;
