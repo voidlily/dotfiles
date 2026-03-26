@@ -365,7 +365,6 @@ in
         ui = {
           editor = "emacsclient";
           diff-editor = "meld-3";
-          merge-editor = "mergiraf";
           diff-formatter = "delta";
           conflict-marker-style = "git";
         };
@@ -699,7 +698,11 @@ in
       };
     };
 
-    programs.mergiraf.enable = true;
+    programs.mergiraf = {
+      enable = true;
+      enableGitIntegration = true;
+      enableJujutsuIntegration = true;
+    };
 
     programs.nh = {
       enable = true;
