@@ -154,6 +154,8 @@ in
       pkgs.source-sans
       pkgs.source-serif
       pkgs.noto-fonts
+
+      pkgs.internal.stakk
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
