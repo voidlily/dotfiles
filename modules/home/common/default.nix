@@ -107,6 +107,7 @@ in
       pkgs.nvd
       pkgs.nixd
       pkgs.microplane
+      pkgs.treefmt
 
       inputs.starship-jj.packages.${system}.default
 

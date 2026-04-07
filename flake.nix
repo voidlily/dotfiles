@@ -41,6 +41,11 @@
       url = "gitlab:lanastara_foss/starship-jj";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -57,7 +62,23 @@
 
       };
     in
-    lib.mkFlake { channels-config.allowUnfree = true; };
+    lib.mkFlake {
+      channels-config.allowUnfree = true;
+      outputs-builder =
+        channels:
+        let
+          treefmtEval = inputs.treefmt-nix.lib.evalModule channels.nixpkgs {
+            projectRootFile = "flake.nix";
+            programs.nixfmt.enable = true;
+          };
+        in
+        {
+          formatter = treefmtEval.config.build.wrapper;
+          checks = {
+            treefmt = treefmtEval.config.build.check ./.;
+          };
+        };
+    };
 
   # outputs = { nixpkgs, home-manager, ... }:
   #   let
