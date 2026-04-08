@@ -139,6 +139,7 @@ in
       pkgs.nova
       # broken on darwin due to failing tests?
       # pkgs.open-policy-agent
+      pkgs.pack
       pkgs.pluto
       pkgs.popeye
       pkgs.postgresql
