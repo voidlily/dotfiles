@@ -135,7 +135,7 @@ in
       pkgs.kubeswitch
       pkgs.kustomize
       pkgs.markdownlint-cli
-      pkgs.nodePackages.prettier
+      pkgs.prettier
       pkgs.nova
       # broken on darwin due to failing tests?
       # pkgs.open-policy-agent
