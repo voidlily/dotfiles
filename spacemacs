@@ -291,10 +291,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-leader-key ","
 
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m" for terminal mode, "<M-return>" for GUI mode).
+   ;; (default "C-M-m" for terminal mode, "M-<return>" for GUI mode).
    ;; Thus M-RET should work as leader key in both GUI and terminal modes.
    ;; C-M-m also should work in terminal mode, but not in GUI mode.
-   dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
+   dotspacemacs-major-mode-emacs-leader-key (if window-system "M-<return>" "C-M-m")
 
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
@@ -359,6 +359,14 @@ It should only modify the values of Spacemacs settings."
    ;; displayed in the current window. (default nil)
    dotspacemacs-switch-to-buffer-prefers-purpose nil
 
+   ;; Make consecutive tab key presses after commands such as
+   ;; `spacemacs/alternate-buffer' (SPC TAB) cycle through previous
+   ;; buffers/windows/etc. Please see the option's docstring for more information.
+   ;; Set the option to t in order to enable cycling for all current and
+   ;; future cycling commands. Alternatively, choose a subset of the currently
+   ;; supported commands: '(alternate-buffer alternate-window). (default nil)
+   dotspacemacs-enable-cycling nil
+
    ;; Whether side windows (such as those created by treemacs or neotree)
    ;; are kept or minimized by `spacemacs/toggle-maximize-window' (SPC w m).
    ;; (default t)
@@ -366,7 +374,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; If nil, no load-hints enabled. If t, enable the `load-hints' which will
    ;; put the most likely path on the top of `load-path' to reduce walking
-   ;; through the whole `load-path'.
+   ;; through the whole `load-path'. It's an experimental feature to speedup
+   ;; Spacemacs on Windows. Refer the FAQ.org "load-hints" session for details.
    dotspacemacs-enable-load-hints t
 
    ;; If t, enable the `package-quickstart' feature to avoid full package
@@ -491,16 +500,15 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-persistent-server t
 
    ;; List of search tool executable names. Spacemacs uses the first installed
-   ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
-   ;; (default '("rg" "ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   ;; tool of the list. Supported tools are `rg', `ag', `ack' and `grep'.
+   ;; (default '("rg" "ag" "ack" "grep"))
+   dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
 
    ;; The backend used for undo/redo functionality. Possible values are
-   ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
+   ;; `undo-redo', `undo-fu' and `undo-tree' see also `evil-undo-system'.
    ;; Note that saved undo history does not get transferred when changing
-   ;; your undo system. The default is currently `undo-fu' as `undo-tree'
-   ;; is not maintained anymore and `undo-redo' is very basic."
-   dotspacemacs-undo-system 'undo-fu
+   ;; your undo system from or to undo-tree. (default `undo-redo')
+   dotspacemacs-undo-system 'undo-redo
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -609,9 +617,16 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq require-final-newline t)
+  (setq debug-on-error t)
+
+  ;; set this so f-e-D works
+  (setq dotspacemacs-filepath "~/dotfiles/spacemacs")
 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/private/themes")
   (add-to-list 'spacemacs--prettier-modes 'yaml-mode)
+  ;; for some reason, emacs-lisp-mode doesn't work with the usual rainbow
+  ;; delimiters setup of dotspacemacs-highlight-delimiters
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
   (add-hook 'yaml-mode-hook
             (lambda ()
               (add-hook 'before-save-hook 'prettier-js nil t)))
@@ -721,10 +736,4 @@ This function is called at the very end of Spacemacs initialization."
    ;; If there is more than one, they won't work right.
    '(default ((((class color) (min-colors 89)) (:foreground "#839496" :background "#002b36"))))
    '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)
-   )
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(evil-want-Y-yank-to-eol nil)))
+   ))

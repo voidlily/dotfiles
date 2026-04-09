@@ -22,6 +22,15 @@ let
   inherit (lib) mkIf mkOption types;
 
   cfg = config.homes.common;
+
+  # TODO move this to its own module
+  spacemacs = pkgs.internal.spacemacs;
+  spacemacs-start-directory = "${spacemacs.out}/share/spacemacs";
+  load-spacemacs-init = f: ''
+    (setq spacemacs-start-directory "${spacemacs-start-directory}/")
+    (add-to-list 'load-path spacemacs-start-directory)
+    (load "${f}" nil t)
+  '';
 in
 {
   options.homes.common = {
@@ -154,6 +163,7 @@ in
       pkgs.source-serif
       pkgs.noto-fonts
 
+      pkgs.internal.spacemacs
       pkgs.internal.stakk
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
@@ -173,19 +183,7 @@ in
       # '';
 
       # BEGIN out of store symlinks
-      # TODO on new systems, clone spacemacs manually:
-      # git clone git@github.com;syl20bnr/spacemacs ~/.config/emacs
-      # ".config/emacs" = {
-      #   recursive = true;
-      #   source = pkgs.fetchFromGitHub {
-      #     owner = "syl20bnr";
-      #     repo = "spacemacs";
-      #     rev = "214de2f3398dd8b7b402ff90802012837b8827a5";
-      #     # sha256 = lib.fakeSha256;
-      #     sha256 = "a3EkS4tY+VXWqm61PmLnF0Zt94VAsoe5NmubaLPNxhE=";
-      #   };
-      # };
-      # ".config/emacs".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/emacs.d";
+      # TODO should this be a package?
       ".config/ghostty/themes" = {
         recursive = true;
         source =
@@ -214,6 +212,11 @@ in
       ".config/git/ignore".source = lib.snowfall.fs.get-file "gitignore-global";
 
       ".config/starship-jj/starship-jj.toml".source = lib.snowfall.fs.get-file "starship-jj.toml";
+
+      # TODO move to module
+      ".config/emacs/init.el".text = load-spacemacs-init "init";
+      ".config/emacs/early-init.el".text = load-spacemacs-init "early-init";
+      ".config/emacs/dump-init.el".text = load-spacemacs-init "dump-init";
     };
 
     # TODO all the random go binaries in ~/bin get those in nix packages or fetch
