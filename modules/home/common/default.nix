@@ -185,6 +185,16 @@ in
 
       # BEGIN out of store symlinks
       # TODO should this be a package?
+      # i think what packaging this would do is move the location of these files
+      # in the store more than anything elsee
+      #
+      # something like this?
+      # should the outputs include a ghostty subfolder output to not have to
+      # construct it myself?
+      # ".config/ghostty/themes" = {
+      #   recursive = true;
+      #   source = pkgs.internal.tinted-terminal.out + "/themes/ghostty";
+      # };
       ".config/ghostty/themes" = {
         recursive = true;
         source =
