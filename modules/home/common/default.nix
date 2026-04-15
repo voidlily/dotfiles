@@ -109,7 +109,7 @@ in
       pkgs.microplane
       pkgs.treefmt
 
-      inputs.starship-jj.packages.${system}.default
+      pkgs.starship-jj
 
       # python
       pkgs.mypy
