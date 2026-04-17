@@ -40,9 +40,8 @@ in
           pkgs.fetchFromGitHub {
             owner = "derailed";
             repo = "k9s";
-            rev = "ffdc7b70f044e1f26c2f6fbb93b5495e4ebdb1ad";
-            # sha256 = lib.fakeSha256;
-            sha256 = "wTQOBxJgrDPcWSiezCwHNgvfGa6oWBM+DNa7RC/9PJA=";
+            rev = inputs.k9s.rev;
+            hash = inputs.k9s.narHash;
           }
           + "/skins";
       };

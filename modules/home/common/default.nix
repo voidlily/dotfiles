@@ -186,7 +186,9 @@ in
       # BEGIN out of store symlinks
       # TODO should this be a package?
       # i think what packaging this would do is move the location of these files
-      # in the store more than anything elsee
+      # in the store more than anything else
+      # it would also get versioning and stuff too and make it more clear when
+      # it changes rather than being buried in the home-source derivation
       #
       # something like this?
       # should the outputs include a ghostty subfolder output to not have to
@@ -201,9 +203,8 @@ in
           pkgs.fetchFromGitHub {
             owner = "tinted-theming";
             repo = "tinted-terminal";
-            rev = "21ebc0e4ee155280a759779139f0e9b1aed0a530";
-            # sha256 = lib.fakeSha256;
-            sha256 = "MRJdcdn0gZ/o4hWf9VuZl5UMqe66Ad4YAPTqoKfLJ8Q=";
+            rev = inputs.tinted-terminal.rev;
+            hash = inputs.tinted-terminal.narHash;
           }
           + "/themes/ghostty";
       };

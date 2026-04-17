@@ -3,20 +3,18 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  inputs,
   ...
 }:
-let
-  rev = "4786a81b5e6a83cd79036ee4b1fea2d207454ca8";
-in
 stdenvNoCC.mkDerivation {
   pname = "spacemacs";
-  version = rev;
+  version = inputs.spacemacs.lastModifiedDate;
 
   src = fetchFromGitHub {
     owner = "syl20bnr";
     repo = "spacemacs";
-    rev = rev;
-    hash = "sha256-4brFi9Tqn8la39DziwaIiQVSJLErhTHRZdgpihRp98k=";
+    rev = inputs.spacemacs.rev;
+    hash = inputs.spacemacs.narHash;
   };
 
   patches = [

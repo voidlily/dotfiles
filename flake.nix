@@ -41,6 +41,21 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spacemacs = {
+      url = "github:syl20bnr/spacemacs";
+      flake = false;
+    };
+
+    k9s = {
+      url = "github:derailed/k9s";
+      flake = false;
+    };
+
+    tinted-terminal = {
+      url = "github:tinted-theming/tinted-terminal";
+      flake = false;
+    };
   };
 
   outputs =
