@@ -217,8 +217,9 @@ in
       ".irbrc".source = lib.snowfall.fs.get-file "irbrc";
       ".p10k.zsh".source = lib.snowfall.fs.get-file "p10k.zsh";
       ".pryrc".source = lib.snowfall.fs.get-file "pryrc";
-      # impure because of spacemacs shortcuts <spc> f e D
-      ".spacemacs".source = config.lib.file.mkOutOfStoreSymlink (lib.snowfall.fs.get-file "spacemacs");
+      # TODO wrap this - set env var SPACEMACSDIR
+      # https://github.com/syl20bnr/spacemacs/blob/afceaf805ded1516abcf7e4ba1e3133c6d376304/core/core-dotspacemacs.el#L49
+      ".spacemacs".source = lib.snowfall.fs.get-file "spacemacs";
       ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
       ".vimrc".source = lib.snowfall.fs.get-file "vimrc";
       ".config/git/ignore".source = lib.snowfall.fs.get-file "gitignore-global";

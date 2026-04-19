@@ -617,7 +617,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq require-final-newline t)
-  (setq debug-on-error t)
+  ;; (setq debug-on-error t)
 
   ;; set this so f-e-D works
   (setq dotspacemacs-filepath "~/dotfiles/spacemacs")
