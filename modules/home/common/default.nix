@@ -817,13 +817,17 @@ in
       flake = "$HOME/dotfiles";
     };
 
+    programs.nix-index-database.comma.enable = true;
+
     programs.sesh = {
       enable = true;
     };
+
     programs.fzf = {
       enable = true;
       tmux.enableShellIntegration = true;
     };
+
     programs.zoxide.enable = true;
 
     # programs.tmux = {

@@ -42,6 +42,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # non-flake inputs that were previously submodules pre-nix
     spacemacs = {
       url = "github:syl20bnr/spacemacs";
       flake = false;
@@ -88,6 +94,15 @@
             treefmt = treefmtEval.config.build.check ./.;
           };
         };
+      systems.modules.nixos = with inputs; [
+        nix-index-database.nixosModules.default
+      ];
+      systems.modules.darwin = with inputs; [
+        nix-index-database.darwinModules.default
+      ];
+      homes.modules = with inputs; [
+        nix-index-database.homeModules.default
+      ];
     };
 
   # outputs = { nixpkgs, home-manager, ... }:
