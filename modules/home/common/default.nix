@@ -694,6 +694,7 @@ in
           "\${custom.spcr}"
           "$fill"
           "$cmd_duration"
+          "$nix_shell"
           "$jobs"
           "$line_break"
           "$character"
@@ -790,6 +791,10 @@ in
           ];
           style = "bg:yellow fg:base02";
           when = "jj-starship detect";
+        };
+        nix_shell = {
+          style = "bg:base02 fg:cyan";
+          format = "[ ](bg:prev_bg fg:base02)[ $symbol $state $name ]($style)";
         };
       };
     };
