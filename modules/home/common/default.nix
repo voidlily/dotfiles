@@ -111,6 +111,10 @@ in
 
       pkgs.jj-starship
 
+      # oxidize your terminal
+      pkgs.ripgrep-all
+      pkgs.xh
+
       # python
       pkgs.mypy
       pkgs.uv
