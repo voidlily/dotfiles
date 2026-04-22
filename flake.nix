@@ -47,6 +47,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # non-flake inputs that were previously submodules pre-nix
     spacemacs = {
       url = "github:syl20bnr/spacemacs";
@@ -94,6 +99,9 @@
             treefmt = treefmtEval.config.build.check ./.;
           };
         };
+      overlays = with inputs; [
+        nur.overlays.default
+      ];
       systems.modules.nixos = with inputs; [
         nix-index-database.nixosModules.default
       ];

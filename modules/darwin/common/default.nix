@@ -21,6 +21,7 @@
 {
   # Your configuration.
   environment.systemPackages = [
+    pkgs.nur.repos.natsukium.emacs-plus
     pkgs.docker-credential-helpers
     pkgs.vim
   ];
