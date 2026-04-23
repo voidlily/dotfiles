@@ -109,7 +109,7 @@ in
       pkgs.microplane
       pkgs.treefmt
 
-      pkgs.starship-jj
+      pkgs.jj-starship
 
       # python
       pkgs.mypy
@@ -224,8 +224,6 @@ in
       ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
       ".vimrc".source = lib.snowfall.fs.get-file "vimrc";
       ".config/git/ignore".source = lib.snowfall.fs.get-file "gitignore-global";
-
-      ".config/starship-jj/starship-jj.toml".source = lib.snowfall.fs.get-file "starship-jj.toml";
 
       # TODO move to module
       ".config/emacs/init.el".text = load-spacemacs-init "init";
@@ -673,8 +671,8 @@ in
           "$hostname"
           "$time"
           "$directory"
-          "$git_branch"
-          "$git_status"
+          # "$git_branch"
+          # "$git_status"
           "\${custom.jj}"
           # "$c"
           # "$elixir"
@@ -781,16 +779,13 @@ in
           format = "[ ](bg:prev_bg fg:base02)[ $symbol $number ]($style)";
         };
         custom.jj = {
-          command = "prompt";
-          format = "[ ](fg:prev_bg bg:base03)[$output]()";
-          ignore_timeout = true;
+          format = "[ ](fg:prev_bg bg:yellow)[$output ]($style)";
           shell = [
-            "starship-jj"
-            "--ignore-working-copy"
-            "starship"
+            "jj-starship"
+            "--no-color"
           ];
-          use_stdin = false;
-          when = true;
+          style = "bg:yellow fg:base02";
+          when = "jj-starship detect";
         };
       };
     };
