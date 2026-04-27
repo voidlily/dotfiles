@@ -52,6 +52,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    direnv-instant.url = "github:Mic92/direnv-instant";
+
     # non-flake inputs that were previously submodules pre-nix
     spacemacs = {
       url = "github:syl20bnr/spacemacs";
@@ -110,6 +112,7 @@
       ];
       homes.modules = with inputs; [
         nix-index-database.homeModules.default
+        direnv-instant.homeModules.direnv-instant
       ];
     };
 

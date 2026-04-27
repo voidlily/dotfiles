@@ -295,9 +295,13 @@ in
       enable = true;
     };
 
-    programs.direnv = {
+    # programs.direnv = {
+    #   enable = true;
+    #   nix-direnv.enable = true;
+    # };
+
+    programs.direnv-instant = {
       enable = true;
-      nix-direnv.enable = true;
     };
 
     programs.eza = {
