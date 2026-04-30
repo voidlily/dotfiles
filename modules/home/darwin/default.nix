@@ -36,14 +36,7 @@ in
     home.file = {
       "Library/Application Support/k9s/skins" = {
         recursive = true;
-        source =
-          pkgs.fetchFromGitHub {
-            owner = "derailed";
-            repo = "k9s";
-            rev = inputs.k9s.rev;
-            hash = inputs.k9s.narHash;
-          }
-          + "/skins";
+        source = "${inputs.k9s.outPath}/skins";
       };
     };
     home.packages = with pkgs; [

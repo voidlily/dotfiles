@@ -200,14 +200,7 @@ in
       # };
       ".config/ghostty/themes" = {
         recursive = true;
-        source =
-          pkgs.fetchFromGitHub {
-            owner = "tinted-theming";
-            repo = "tinted-terminal";
-            rev = inputs.tinted-terminal.rev;
-            hash = inputs.tinted-terminal.narHash;
-          }
-          + "/themes/ghostty";
+        source = "${inputs.tinted-terminal.outPath}/themes/ghostty";
       };
       # doesn't work on mac, split out to linux specific
       ".vim".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/vim";

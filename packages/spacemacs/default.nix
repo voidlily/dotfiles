@@ -10,12 +10,7 @@ stdenvNoCC.mkDerivation {
   pname = "spacemacs";
   version = inputs.spacemacs.lastModifiedDate;
 
-  src = fetchFromGitHub {
-    owner = "syl20bnr";
-    repo = "spacemacs";
-    rev = inputs.spacemacs.rev;
-    hash = inputs.spacemacs.narHash;
-  };
+  src = inputs.spacemacs.outPath;
 
   patches = [
     # https://szakallas.net/2025/08/02/my-emacs-with-nix-macos/

@@ -36,14 +36,7 @@ in
     home.file = {
       ".config/k9s/skins" = {
         recursive = true;
-        source =
-          pkgs.fetchFromGitHub {
-            owner = "derailed";
-            repo = "k9s";
-            rev = inputs.k9s.rev;
-            hash = inputs.k9s.narHash;
-          }
-          + "/skins";
+        source = "${inputs.k9s.outPath}/skins";
       };
     };
     services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
