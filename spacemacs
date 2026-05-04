@@ -727,5 +727,5 @@ This function is called at the very end of Spacemacs initialization."
    ;; If there is more than one, they won't work right.
    '(default ((((class color) (min-colors 89)) (:foreground "#839496" :background "#002b36"))))
    '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)
-   '(tree-sitter-hl-face:property ((t (:inherit font-lock-constant-face)))))
+   '(tree-sitter-hl-face:property ((t (:inherit font-lock-property-name-face)))))
   )
