@@ -89,6 +89,7 @@ This function should only modify configuration layer settings."
                 terraform-auto-format-on-save t)
      themes-megapack
      treemacs
+     tree-sitter
      version-control
      yaml
      )
@@ -712,21 +713,11 @@ This function is called at the very end of Spacemacs initialization."
    ;; If there is more than one, they won't work right.
    '(evil-want-Y-yank-to-eol nil)
    '(hl-todo-keyword-faces
-     '(("TODO" . "#dc752f")
-       ("NEXT" . "#dc752f")
-       ("THEM" . "#2d9574")
-       ("PROG" . "#4f97d7")
-       ("OKAY" . "#4f97d7")
-       ("DONT" . "#f2241f")
-       ("FAIL" . "#f2241f")
-       ("DONE" . "#86dc2f")
-       ("NOTE" . "#b1951d")
-       ("KLUDGE" . "#b1951d")
-       ("HACK" . "#b1951d")
-       ("TEMP" . "#b1951d")
-       ("FIXME" . "#dc752f")
-       ("XXX+" . "#dc752f")
-       ("\\?\\?\\?+" . "#dc752f")))
+     '(("TODO" . "#dc752f") ("NEXT" . "#dc752f") ("THEM" . "#2d9574")
+       ("PROG" . "#4f97d7") ("OKAY" . "#4f97d7") ("DONT" . "#f2241f")
+       ("FAIL" . "#f2241f") ("DONE" . "#86dc2f") ("NOTE" . "#b1951d")
+       ("KLUDGE" . "#b1951d") ("HACK" . "#b1951d") ("TEMP" . "#b1951d")
+       ("FIXME" . "#dc752f") ("XXX+" . "#dc752f") ("\\?\\?\\?+" . "#dc752f")))
    '(paradox-github-token t)
    '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
   (custom-set-faces
@@ -736,4 +727,5 @@ This function is called at the very end of Spacemacs initialization."
    ;; If there is more than one, they won't work right.
    '(default ((((class color) (min-colors 89)) (:foreground "#839496" :background "#002b36"))))
    '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)
-   ))
+   '(tree-sitter-hl-face:property ((t (:inherit font-lock-constant-face)))))
+  )
