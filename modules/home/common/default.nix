@@ -22,15 +22,6 @@ let
   inherit (lib) mkIf mkOption types;
 
   cfg = config.homes.common;
-
-  # TODO move this to its own module
-  spacemacs = pkgs.internal.spacemacs;
-  spacemacs-start-directory = "${spacemacs.out}/share/spacemacs";
-  load-spacemacs-init = f: ''
-    (setq spacemacs-start-directory "${spacemacs-start-directory}/")
-    (add-to-list 'load-path spacemacs-start-directory)
-    (load "${f}" nil t)
-  '';
 in
 {
   options.homes.common = {
@@ -110,10 +101,14 @@ in
       pkgs.nixd
       pkgs.microplane
       pkgs.treefmt
+      # formatters wanted by `doom doctor`
+      pkgs.shfmt
+      pkgs.dockfmt
 
       pkgs.jj-starship
 
       # oxidize your terminal
+      pkgs.fd
       pkgs.ripgrep-all
       pkgs.xh
 
@@ -170,8 +165,9 @@ in
       pkgs.source-sans
       pkgs.source-serif
       pkgs.noto-fonts
+      # symbola needed for doom emacs as a fallback
+      pkgs.symbola
 
-      pkgs.internal.spacemacs
       pkgs.internal.stakk
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
@@ -217,17 +213,9 @@ in
       ".irbrc".source = lib.snowfall.fs.get-file "irbrc";
       ".p10k.zsh".source = lib.snowfall.fs.get-file "p10k.zsh";
       ".pryrc".source = lib.snowfall.fs.get-file "pryrc";
-      # TODO wrap this - set env var SPACEMACSDIR
-      # https://github.com/syl20bnr/spacemacs/blob/afceaf805ded1516abcf7e4ba1e3133c6d376304/core/core-dotspacemacs.el#L49
-      ".spacemacs".source = lib.snowfall.fs.get-file "spacemacs";
       ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
       ".vimrc".source = lib.snowfall.fs.get-file "vimrc";
       ".config/git/ignore".source = lib.snowfall.fs.get-file "gitignore-global";
-
-      # TODO move to module
-      ".config/emacs/init.el".text = load-spacemacs-init "init";
-      ".config/emacs/early-init.el".text = load-spacemacs-init "early-init";
-      ".config/emacs/dump-init.el".text = load-spacemacs-init "dump-init";
     };
 
     # TODO all the random go binaries in ~/bin get those in nix packages or fetch
@@ -305,6 +293,15 @@ in
 
     programs.direnv-instant = {
       enable = true;
+    };
+
+    programs.doom-emacs = {
+      enable = true;
+      # TODO find a better way to reference root path of flake
+      doomDir = ../../../doom.d;
+      extraPackages = epkgs: [
+        epkgs.treesit-grammars.with-all-grammars
+      ];
     };
 
     programs.eza = {

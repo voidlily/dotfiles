@@ -47,6 +47,10 @@ in
       terminal-notifier
     ];
 
+    programs.doom-emacs = {
+      emacs = pkgs.nur.repos.natsukium.emacs-plus;
+    };
+
     services.gpg-agent.pinentry.package = null;
   };
 }

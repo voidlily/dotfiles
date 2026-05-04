@@ -54,6 +54,12 @@
 
     direnv-instant.url = "github:Mic92/direnv-instant";
 
+    nix-doom-emacs-unstraightened = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      # Optional, to download less. Neither the module nor the overlay uses this input.
+      inputs.nixpkgs.follows = "";
+    };
+
     # non-flake inputs that were previously submodules pre-nix
     spacemacs = {
       url = "github:syl20bnr/spacemacs";
@@ -114,6 +120,7 @@
       homes.modules = with inputs; [
         nix-index-database.homeModules.default
         direnv-instant.homeModules.direnv-instant
+        nix-doom-emacs-unstraightened.homeModule
       ];
     };
 
