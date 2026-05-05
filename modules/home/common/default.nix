@@ -95,6 +95,7 @@ in
       pkgs.ispell
       pkgs.ripgrep
       pkgs.wget
+      pkgs.internal.lns
 
       # js
       pkgs.nodejs
