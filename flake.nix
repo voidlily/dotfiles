@@ -15,6 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -88,69 +90,90 @@
   };
 
   outputs =
-    inputs:
-    let
-      lib = inputs.snowfall-lib.mkLib {
-        # You must provide our flake inputs to Snowfall Lib.
-        inherit inputs;
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{
+        config,
+        withSystem,
+        moduleWithSystem,
+        ...
+      }:
+      {
+        imports = [ ];
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          # TODO x86_64-darwin going away soon
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+        perSystem = { config, pkgs, ... }: { };
+        # Everything pre-flake-parts from snowfall-lib is in here, move it
+        flake =
+          let
+            lib = inputs.snowfall-lib.mkLib {
+              # You must provide our flake inputs to Snowfall Lib.
+              inherit inputs;
 
-        # The `src` must be the root of the flake. See configuration
-        # in the next section for information on how you can move your
-        # Nix files to a separate directory.
-        src = ./.;
+              # The `src` must be the root of the flake. See configuration
+              # in the next section for information on how you can move your
+              # Nix files to a separate directory.
+              src = ./.;
 
-      };
-    in
-    lib.mkFlake {
-      channels-config.allowUnfree = true;
-      # mirror neeeds libsoup2, nothing else uses it
-      channels-config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
-      channels-config.nvidia.acceptLicense = true;
-      outputs-builder =
-        channels:
-        let
-          treefmtEval = inputs.treefmt-nix.lib.evalModule channels.nixpkgs {
-            projectRootFile = "flake.nix";
-            programs.nixfmt.enable = true;
+            };
+          in
+          lib.mkFlake {
+            channels-config.allowUnfree = true;
+            # mirror neeeds libsoup2, nothing else uses it
+            channels-config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
+            channels-config.nvidia.acceptLicense = true;
+            outputs-builder =
+              channels:
+              let
+                treefmtEval = inputs.treefmt-nix.lib.evalModule channels.nixpkgs {
+                  projectRootFile = "flake.nix";
+                  programs.nixfmt.enable = true;
+                };
+              in
+              {
+                formatter = treefmtEval.config.build.wrapper;
+                checks = {
+                  treefmt = treefmtEval.config.build.check ./.;
+                };
+              };
+            overlays = with inputs; [
+              nur.overlays.default
+            ];
+            systems.modules.nixos = with inputs; [
+              nix-index-database.nixosModules.default
+            ];
+            systems.modules.darwin = with inputs; [
+              nix-index-database.darwinModules.default
+            ];
+            homes.modules = with inputs; [
+              nix-index-database.homeModules.default
+              direnv-instant.homeModules.direnv-instant
+              nix-doom-emacs-unstraightened.homeModule
+            ];
           };
-        in
-        {
-          formatter = treefmtEval.config.build.wrapper;
-          checks = {
-            treefmt = treefmtEval.config.build.check ./.;
-          };
-        };
-      overlays = with inputs; [
-        nur.overlays.default
-      ];
-      systems.modules.nixos = with inputs; [
-        nix-index-database.nixosModules.default
-      ];
-      systems.modules.darwin = with inputs; [
-        nix-index-database.darwinModules.default
-      ];
-      homes.modules = with inputs; [
-        nix-index-database.homeModules.default
-        direnv-instant.homeModules.direnv-instant
-        nix-doom-emacs-unstraightened.homeModule
-      ];
-    };
 
-  # outputs = { nixpkgs, home-manager, ... }:
-  #   let
-  #     system = "aarch64-darwin";
-  #     pkgs = nixpkgs.legacyPackages.${system};
-  #   in {
-  #     homeConfigurations."lilymrappaport" =
-  #       home-manager.lib.homeManagerConfiguration {
-  #         inherit pkgs;
+        # outputs = { nixpkgs, home-manager, ... }:
+        #   let
+        #     system = "aarch64-darwin";
+        #     pkgs = nixpkgs.legacyPackages.${system};
+        #   in {
+        #     homeConfigurations."lilymrappaport" =
+        #       home-manager.lib.homeManagerConfiguration {
+        #         inherit pkgs;
 
-  #         # Specify your home configuration modules here, for example,
-  #         # the path to your home.nix.
-  #         modules = [ ./home.nix ];
+        #         # Specify your home configuration modules here, for example,
+        #         # the path to your home.nix.
+        #         modules = [ ./home.nix ];
 
-  #         # Optionally use extraSpecialArgs
-  #         # to pass through arguments to home.nix
-  #       };
-  #   };
+        #         # Optionally use extraSpecialArgs
+        #         # to pass through arguments to home.nix
+        #       };
+        #   };
+      }
+    );
 }
