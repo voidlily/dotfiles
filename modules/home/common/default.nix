@@ -104,6 +104,7 @@ in
       pkgs.devenv
       pkgs.meld
       pkgs.nixfmt
+      pkgs.nix-output-monitor
       pkgs.nix-tree
       pkgs.nvd
       pkgs.nixd
