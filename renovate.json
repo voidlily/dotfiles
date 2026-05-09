@@ -5,5 +5,11 @@
   ],
   "nix": {
     "enabled": true
-  }
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["nix"],
+      "rangeStrategy": "replace"
+    }
+  ]
 }
