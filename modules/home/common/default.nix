@@ -294,10 +294,14 @@ in
       enable = true;
     };
 
-    # programs.direnv = {
-    #   enable = true;
-    #   nix-direnv.enable = true;
-    # };
+    programs.direnv = {
+      enable = true;
+      # direnv-instant enables direnv, but not nix-direnv
+      #
+      # it also disables the direnv-specific hooks in favor of direnv-instant's
+      # hooks
+      nix-direnv.enable = true;
+    };
 
     programs.direnv-instant = {
       enable = true;
