@@ -22,4 +22,15 @@
   # Your configuration.
   config.homes.common.enable = true;
   config.homes.linux.enable = true;
+
+  config.targets.genericLinux = {
+    # enable genericLinux things to better run on non-nixos
+    enable = true;
+    gpu.nvidia = {
+      enable = true;
+      # nvidia driver version must match host driver version
+      version = "590.48.01";
+      sha256 = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
+    };
+  };
 }

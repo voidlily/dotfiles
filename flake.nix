@@ -87,6 +87,7 @@
     in
     lib.mkFlake {
       channels-config.allowUnfree = true;
+      channels-config.nvidia.acceptLicense = true;
       outputs-builder =
         channels:
         let
