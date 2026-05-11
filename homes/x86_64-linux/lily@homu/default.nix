@@ -33,4 +33,6 @@
       sha256 = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
     };
   };
+
+  config.home.packages = [ inputs.dusk.packages.x86_64-linux.default ];
 }

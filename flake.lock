@@ -106,6 +106,26 @@
         "type": "github"
       }
     },
+    "dusk": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1778725895,
+        "narHash": "sha256-28hWKDGynXPKtBLeN/acuMvMLEf6CkrZSkyHvZCeWpg=",
+        "owner": "twilitrealm",
+        "repo": "dusk",
+        "rev": "a913f1699ffcc87c2d3c24cb62389dd3ff2dbd9e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "twilitrealm",
+        "repo": "dusk",
+        "type": "github"
+      }
+    },
     "easy-template": {
       "inputs": {
         "crane": "crane_2",
@@ -514,6 +534,7 @@
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "direnv-instant": "direnv-instant",
+        "dusk": "dusk",
         "flake-checker": "flake-checker",
         "home-manager": "home-manager",
         "k9s": "k9s",

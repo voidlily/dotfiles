@@ -60,6 +60,11 @@
       inputs.nixpkgs.follows = "";
     };
 
+    dusk = {
+        url = "github:twilitrealm/dusk";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # non-flake inputs that were previously submodules pre-nix
     spacemacs = {
       url = "github:syl20bnr/spacemacs";
