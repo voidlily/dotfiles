@@ -737,8 +737,9 @@ in
         };
         hostname = {
           ssh_only = false;
+          ssh_symbol = "🌐";
           style = "bg:base02 fg:base0";
-          format = "[$hostname ]($style)";
+          format = "[$hostname$ssh_symbol ]($style)";
         };
         time = {
           disabled = false;
