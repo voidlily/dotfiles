@@ -34,5 +34,11 @@
     };
   };
 
-  config.home.packages = [ inputs.dusk.packages.x86_64-linux.default ];
+  config.home.packages = [
+    inputs.dusklight.packages.x86_64-linux.default
+    pkgs.shipwright
+    pkgs._2ship2harkinian
+    pkgs.starship-sf64
+    pkgs.spaghettikart
+  ];
 }

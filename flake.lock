@@ -106,22 +106,23 @@
         "type": "github"
       }
     },
-    "dusk": {
+    "dusklight": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1778725895,
-        "narHash": "sha256-28hWKDGynXPKtBLeN/acuMvMLEf6CkrZSkyHvZCeWpg=",
-        "owner": "twilitrealm",
+        "lastModified": 1778726267,
+        "narHash": "sha256-ozf9e2hqhpE+y5Nli25gch/ueKBoCPOMkHQ8hbNSlM4=",
+        "owner": "krutonium",
         "repo": "dusk",
-        "rev": "a913f1699ffcc87c2d3c24cb62389dd3ff2dbd9e",
+        "rev": "78311902af61fd87b2d77f1b0d7e24686e086f30",
         "type": "github"
       },
       "original": {
-        "owner": "twilitrealm",
+        "owner": "krutonium",
+        "ref": "patch-1",
         "repo": "dusk",
         "type": "github"
       }
@@ -534,7 +535,7 @@
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "direnv-instant": "direnv-instant",
-        "dusk": "dusk",
+        "dusklight": "dusklight",
         "flake-checker": "flake-checker",
         "home-manager": "home-manager",
         "k9s": "k9s",

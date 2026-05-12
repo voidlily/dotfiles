@@ -60,8 +60,9 @@
       inputs.nixpkgs.follows = "";
     };
 
-    dusk = {
-        url = "github:twilitrealm/dusk";
+    dusklight = {
+        # url = "github:twilitrealm/dusklight";
+        url = "github:krutonium/dusk/patch-1";
         inputs.nixpkgs.follows = "nixpkgs";
     };
 
