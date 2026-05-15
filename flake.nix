@@ -61,9 +61,8 @@
     };
 
     dusklight = {
-        # url = "github:twilitrealm/dusklight";
-        url = "github:krutonium/dusk/patch-1";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://github.com/twilitrealm/dusklight?ref=refs/pull/1237/merge&submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # non-flake inputs that were previously submodules pre-nix
