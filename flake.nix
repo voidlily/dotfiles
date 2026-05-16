@@ -65,6 +65,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    playdatemirror = {
+      url = "github:headblockhead/nix-playdatemirror";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # non-flake inputs that were previously submodules pre-nix
     spacemacs = {
       url = "github:syl20bnr/spacemacs";
@@ -98,6 +103,8 @@
     in
     lib.mkFlake {
       channels-config.allowUnfree = true;
+      # mirror neeeds libsoup2, nothing else uses it
+      channels-config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
       channels-config.nvidia.acceptLicense = true;
       outputs-builder =
         channels:
