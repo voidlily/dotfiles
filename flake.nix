@@ -90,7 +90,12 @@
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
+    inputs@{
+      flake-parts,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
     flake-parts.lib.mkFlake { inherit inputs; } (
       top@{
         config,
@@ -99,7 +104,9 @@
         ...
       }:
       {
-        imports = [ ];
+        imports = [
+          home-manager.flakeModules.home-manager
+        ];
         systems = [
           "x86_64-linux"
           "aarch64-linux"
@@ -107,55 +114,56 @@
           "x86_64-darwin"
           "aarch64-darwin"
         ];
-        perSystem = { config, pkgs, ... }: { };
-        # Everything pre-flake-parts from snowfall-lib is in here, move it
-        flake =
-          let
-            lib = inputs.snowfall-lib.mkLib {
-              # You must provide our flake inputs to Snowfall Lib.
-              inherit inputs;
-
-              # The `src` must be the root of the flake. See configuration
-              # in the next section for information on how you can move your
-              # Nix files to a separate directory.
-              src = ./.;
-
-            };
-          in
-          lib.mkFlake {
-            channels-config.allowUnfree = true;
-            # mirror neeeds libsoup2, nothing else uses it
-            channels-config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
-            channels-config.nvidia.acceptLicense = true;
-            outputs-builder =
-              channels:
-              let
-                treefmtEval = inputs.treefmt-nix.lib.evalModule channels.nixpkgs {
-                  projectRootFile = "flake.nix";
-                  programs.nixfmt.enable = true;
-                };
-              in
-              {
-                formatter = treefmtEval.config.build.wrapper;
-                checks = {
-                  treefmt = treefmtEval.config.build.check ./.;
-                };
+        perSystem =
+          {
+            config,
+            pkgs,
+            system,
+            ...
+          }:
+          {
+            _module.args.pkgs = import nixpkgs {
+              inherit system;
+              config = {
+                allowUnfree = true;
+                # mirror neeeds libsoup2, nothing else uses it
+                permittedInsecurePackages = [ "libsoup-2.74.3" ];
+                nvidia.acceptLicense = true;
               };
-            overlays = with inputs; [
-              nur.overlays.default
-            ];
-            systems.modules.nixos = with inputs; [
-              nix-index-database.nixosModules.default
-            ];
-            systems.modules.darwin = with inputs; [
-              nix-index-database.darwinModules.default
-            ];
-            homes.modules = with inputs; [
-              nix-index-database.homeModules.default
-              direnv-instant.homeModules.direnv-instant
-              nix-doom-emacs-unstraightened.homeModule
-            ];
+              overlays = [ inputs.nur.overlays.default ];
+            };
           };
+        # Everything pre-flake-parts from snowfall-lib is in here, move it
+        flake = {
+          homeModules = [
+            inputs.nix-index-database.homeModules.default
+            inputs.direnv-instant.homeModules.direnv-instant
+            inputs.nix-doom-emacs-unstraightened.homeModule
+          ];
+          outputs-builder =
+            channels:
+            let
+              treefmtEval = inputs.treefmt-nix.lib.evalModule channels.nixpkgs {
+                projectRootFile = "flake.nix";
+                programs.nixfmt.enable = true;
+              };
+            in
+            {
+              formatter = treefmtEval.config.build.wrapper;
+              checks = {
+                treefmt = treefmtEval.config.build.check ./.;
+              };
+            };
+          systems.modules.nixos = with inputs; [
+            nix-index-database.nixosModules.default
+          ];
+          systems.modules.darwin = with inputs; [
+            nix-index-database.darwinModules.default
+          ];
+          homes.modules = with inputs; [
+            nix-index-database.homeModules.default
+          ];
+        };
 
         # outputs = { nixpkgs, home-manager, ... }:
         #   let

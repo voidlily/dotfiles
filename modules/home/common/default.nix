@@ -180,13 +180,12 @@
         source = "${inputs.tinted-terminal}/themes/ghostty";
       };
       ".clojure".source = ../../../clojure;
-      ".gemrc".source = lib.snowfall.fs.get-file "gemrc";
-      ".irbrc".source = lib.snowfall.fs.get-file "irbrc";
-      ".p10k.zsh".source = lib.snowfall.fs.get-file "p10k.zsh";
-      ".pryrc".source = lib.snowfall.fs.get-file "pryrc";
-      ".tmux.conf".source = lib.snowfall.fs.get-file "tmux.conf";
-      ".vimrc".source = lib.snowfall.fs.get-file "vimrc";
-      ".config/git/ignore".source = lib.snowfall.fs.get-file "gitignore-global";
+      ".gemrc".source = ../../../gemrc;
+      ".irbrc".source = ../../../irbrc;
+      ".pryrc".source = ../../../pryrc;
+      ".tmux.conf".source = ../../../tmux.conf;
+      ".vimrc".source = ../../../vimrc;
+      ".config/git/ignore".source = ../../../gitignore-global;
     };
 
     # TODO all the random go binaries in ~/bin get those in nix packages or fetch
