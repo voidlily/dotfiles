@@ -1,7 +1,3 @@
-{
-  ...
-}:
-
 final: prev: {
   pack = prev.pack.overrideAttrs (old: rec {
     version = "0.40.2";

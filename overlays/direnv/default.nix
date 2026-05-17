@@ -1,7 +1,3 @@
-{
-  ...
-}:
-
 final: prev: {
   # direnv builds fail on darwin due to zsh tests hanging indefinitely
   # tests pass on linux so just disable checkPhase on darwin to get things

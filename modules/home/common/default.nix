@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  self',
   config,
   ...
 }:
@@ -61,7 +62,7 @@
       pkgs.ispell
       pkgs.ripgrep
       pkgs.wget
-      pkgs.internal.lns
+      self'.packages.lns
 
       # js
       pkgs.nodejs
@@ -143,7 +144,7 @@
       # symbola needed for doom emacs as a fallback
       pkgs.symbola
 
-      pkgs.internal.stakk
+      self'.packages.stakk
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 

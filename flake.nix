@@ -5,7 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    darwin = {
+    nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -17,10 +17,7 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    import-tree.url = "github:denful/import-tree";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -94,6 +91,7 @@
       flake-parts,
       nixpkgs,
       home-manager,
+      import-tree,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
@@ -106,6 +104,7 @@
       {
         imports = [
           home-manager.flakeModules.home-manager
+          inputs.treefmt-nix.flakeModule
         ];
         systems = [
           "x86_64-linux"
@@ -130,58 +129,116 @@
                 permittedInsecurePackages = [ "libsoup-2.74.3" ];
                 nvidia.acceptLicense = true;
               };
-              overlays = [ inputs.nur.overlays.default ];
+              overlays = [
+                inputs.nur.overlays.default
+                # TODO this doesn't work with import-tree
+                (import ./overlays/pack)
+                (import ./overlays/direnv)
+              ];
+            };
+            packages.lns = pkgs.callPackage ./packages/lns { };
+            packages.stakk = pkgs.callPackage ./packages/stakk { };
+            treefmt = {
+              programs.nixfmt.enable = true;
             };
           };
-        # Everything pre-flake-parts from snowfall-lib is in here, move it
-        flake = {
-          homeModules = [
-            inputs.nix-index-database.homeModules.default
-            inputs.direnv-instant.homeModules.direnv-instant
-            inputs.nix-doom-emacs-unstraightened.homeModule
-          ];
-          outputs-builder =
-            channels:
-            let
-              treefmtEval = inputs.treefmt-nix.lib.evalModule channels.nixpkgs {
-                projectRootFile = "flake.nix";
-                programs.nixfmt.enable = true;
-              };
-            in
-            {
-              formatter = treefmtEval.config.build.wrapper;
-              checks = {
-                treefmt = treefmtEval.config.build.check ./.;
-              };
-            };
-          systems.modules.nixos = with inputs; [
-            nix-index-database.nixosModules.default
-          ];
-          systems.modules.darwin = with inputs; [
-            nix-index-database.darwinModules.default
-          ];
-          homes.modules = with inputs; [
-            nix-index-database.homeModules.default
-          ];
-        };
 
-        # outputs = { nixpkgs, home-manager, ... }:
-        #   let
-        #     system = "aarch64-darwin";
-        #     pkgs = nixpkgs.legacyPackages.${system};
-        #   in {
-        #     homeConfigurations."lilymrappaport" =
-        #       home-manager.lib.homeManagerConfiguration {
-        #         inherit pkgs;
+        flake =
+          let
+            common-home-modules = [
+              inputs.nix-index-database.homeModules.default
+              inputs.direnv-instant.homeModules.direnv-instant
+              inputs.nix-doom-emacs-unstraightened.homeModule
+            ];
+            common-darwin-modules = [ inputs.nix-index-database.darwinModules.default ];
+            common-nixos-modules = [ inputs.nix-index-database.nixosModules.default ];
+          in
+          {
+            homeConfigurations."lily@homu" = withSystem "x86_64-linux" (
+              {
+                pkgs,
+                self',
+                ...
+              }:
+              inputs.home-manager.lib.homeManagerConfiguration {
+                pkgs = pkgs;
+                extraSpecialArgs = { inherit inputs self'; };
+                modules = [
+                  (import-tree [
+                    (./homes/x86_64-linux + "/lily@homu")
+                    ./modules/home
+                  ])
+                  {
+                    home.username = "lily";
+                    home.homeDirectory = "/home/lily";
+                  }
+                ]
+                ++ common-home-modules;
+              }
+            );
 
-        #         # Specify your home configuration modules here, for example,
-        #         # the path to your home.nix.
-        #         modules = [ ./home.nix ];
+            darwinConfigurations."Lily-Rappaport-TM1069" = withSystem "aarch64-darwin" (
+              { pkgs, self', ... }:
+              inputs.nix-darwin.lib.darwinSystem {
+                pkgs = pkgs;
+                modules = [
+                  (import-tree [
+                    ./systems/aarch64-darwin/Lily-Rappaport-TM1069
+                    ./modules/darwin
+                  ])
+                  home-manager.darwinModules.home-manager
+                  {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.extraSpecialArgs = { inherit inputs self'; };
+                    home-manager.users.lilyrappaport =
+                      { ... }:
+                      {
+                        imports = [
+                          (import-tree [
+                            (./homes/aarch64-darwin + "/lilyrappaport@Lily-Rappaport-TM1069")
+                            ./modules/home
+                          ])
+                        ]
+                        ++ common-home-modules;
+                      };
+                  }
+                ]
+                ++ common-darwin-modules;
+              }
+            );
 
-        #         # Optionally use extraSpecialArgs
-        #         # to pass through arguments to home.nix
-        #       };
-        #   };
+            darwinConfigurations."lilys-MacBook-Pro" = withSystem "x86_64-darwin" (
+              { pkgs, self', ... }:
+              inputs.nix-darwin.lib.darwinSystem {
+                pkgs = pkgs;
+                modules = [
+                  (import-tree [
+                    ./systems/x86_64-darwin/lilys-MacBook-Pro
+                    ./modules/darwin
+                  ])
+                  home-manager.darwinModules.home-manager
+                  {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.extraSpecialArgs = { inherit inputs self'; };
+                    home-manager.users.lily =
+                      { ... }:
+                      {
+                        imports = [
+                          (import-tree [
+                            (./homes/x86_64-darwin + "/lily@lilys-MacBook-Pro")
+                            ./modules/home
+                          ])
+                        ]
+                        ++ common-home-modules;
+                      };
+                  }
+                ]
+                ++ common-darwin-modules;
+              }
+            );
+          };
       }
     );
 }
