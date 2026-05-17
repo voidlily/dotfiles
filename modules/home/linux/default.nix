@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.homes.linux = lib.mkEnableOption "linux";
+  options.homes.linux.enable = lib.mkEnableOption "linux";
   config = lib.mkIf config.homes.linux.enable {
     home.file = {
       ".config/k9s/skins" = {

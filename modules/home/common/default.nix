@@ -6,7 +6,7 @@
   ...
 }:
 {
-  options.homes.common = lib.mkEnableOption "common";
+  options.homes.common.enable = lib.mkEnableOption "common";
   config = lib.mkIf config.homes.common.enable {
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -179,11 +179,7 @@
         recursive = true;
         source = "${inputs.tinted-terminal}/themes/ghostty";
       };
-      # doesn't work on mac, split out to linux specific
-      ".vim".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/vim";
-      # END out of store symlinks
-
-      ".clojure".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/clojure";
+      ".clojure".source = ../../../clojure;
       ".gemrc".source = lib.snowfall.fs.get-file "gemrc";
       ".irbrc".source = lib.snowfall.fs.get-file "irbrc";
       ".p10k.zsh".source = lib.snowfall.fs.get-file "p10k.zsh";
