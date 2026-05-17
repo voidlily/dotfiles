@@ -36,7 +36,7 @@ in
     home.file = {
       "Library/Application Support/k9s/skins" = {
         recursive = true;
-        source = "${inputs.k9s.outPath}/skins";
+        source = "${inputs.k9s}/skins";
       };
     };
     home.packages = with pkgs; [

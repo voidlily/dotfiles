@@ -202,7 +202,7 @@ in
       # };
       ".config/ghostty/themes" = {
         recursive = true;
-        source = "${inputs.tinted-terminal.outPath}/themes/ghostty";
+        source = "${inputs.tinted-terminal}/themes/ghostty";
       };
       # doesn't work on mac, split out to linux specific
       ".vim".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles}/vim";

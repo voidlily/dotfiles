@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
   pname = "spacemacs";
   version = inputs.spacemacs.lastModifiedDate;
 
-  src = inputs.spacemacs.outPath;
+  src = inputs.spacemacs;
 
   patches = [
     # https://szakallas.net/2025/08/02/my-emacs-with-nix-macos/
