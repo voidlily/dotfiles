@@ -1,26 +1,36 @@
 {
   lib,
   rustPlatform,
-  fetchCrate,
-  ...
+  fetchFromGitHub,
+  nix-update-script,
 }:
+
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "stakk";
-  version = "1.11.0";
+  version = "1.14.0";
 
-  src = fetchCrate {
-    inherit (finalAttrs) pname version;
-    hash = "sha256-vvjd2fRxwZDy4pkbiiJpH9tH23gQhHEt5breDv/v2SI";
+  src = fetchFromGitHub {
+    owner = "glennib";
+    repo = "stakk";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-cdzkQ+A6nFuz2XrMytz85hXClnt9MO53Q5HKJrEKm4c=";
   };
 
-  cargoHash = "sha256-xuldQxZopEMR4c2/mkAWhkALwCExyrGfHqfefkq9dCc=";
-  doCheck = false;
+  cargoHash = "sha256-7dhYxMABZ7/fCi08typjHHsmcxHWUZNoqpf91juMCFM=";
+
+  useNextest = true;
+
+  passthru.updateScript = nix-update-script { };
+  __structuredAttrs = true;
 
   meta = {
-    description = "stakk bridges Jujutsu bookmarks to GitHub stacked pull requests";
+    description = "Bridge Jujutsu (jj) bookmarks to GitHub stacked pull requests";
     homepage = "https://github.com/glennib/stakk";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    changelog = "https://github.com/glennib/stakk/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    license = with lib.licenses; [
+      asl20
+      mit
+    ];
     mainProgram = "stakk";
   };
 })
