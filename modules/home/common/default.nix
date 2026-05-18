@@ -75,6 +75,7 @@
       pkgs.nix-tree
       pkgs.nvd
       pkgs.nixd
+      pkgs.nix-init
       pkgs.microplane
       pkgs.treefmt
       # formatters wanted by `doom doctor`
