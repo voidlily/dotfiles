@@ -6,7 +6,7 @@
   inputs = {
     direnv-instant.url = "github:Mic92/direnv-instant";
     dusklight = {
-      url = "git+https://github.com/twilitrealm/dusklight?ref=refs/pull/1237/merge&submodules=1";
+      url = "git+https://github.com/twilitrealm/dusklight?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-file.url = "github:denful/flake-file";

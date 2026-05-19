@@ -52,7 +52,7 @@
     };
 
     dusklight = {
-      url = "git+https://github.com/twilitrealm/dusklight?ref=refs/pull/1237/merge&submodules=1";
+      url = "git+https://github.com/twilitrealm/dusklight?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

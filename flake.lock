@@ -43,17 +43,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1778914689,
-        "narHash": "sha256-Jj63WkuyTG1MzBAHFDg7BYhqqzYv8ax/7al9rBg6g5c=",
-        "ref": "refs/pull/1237/merge",
-        "rev": "26f91d64e45632583867fb0d797566f5f0dd3575",
-        "revCount": 4085,
+        "lastModified": 1779154662,
+        "narHash": "sha256-+0uLudDhe3SWvpri8gP5xTihrM17yhLlQ60Lrl5v8Lc=",
+        "ref": "refs/heads/main",
+        "rev": "43e856360988dc306ddb8d01c9241343b3237fbe",
+        "revCount": 6492,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/twilitrealm/dusklight"
       },
       "original": {
-        "ref": "refs/pull/1237/merge",
         "submodules": true,
         "type": "git",
         "url": "https://github.com/twilitrealm/dusklight"
