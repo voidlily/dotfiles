@@ -18,6 +18,7 @@
 
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
 
+    den.url = "github:denful/den";
     import-tree.url = "github:denful/import-tree";
     flake-file.url = "github:denful/flake-file";
 

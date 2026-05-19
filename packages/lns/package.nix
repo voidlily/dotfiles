@@ -1,23 +1,29 @@
 {
-  stdenvNoCC,
-  pkgs,
   ...
 }:
+{
+  perSystem =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      packages.lns = pkgs.stdenvNoCC.mkDerivation {
+        pname = "lns";
+        version = "2.01";
+        buildInputs = [
+          pkgs.perl
+        ];
 
-stdenvNoCC.mkDerivation {
-  pname = "lns";
-  version = "2.01";
-  buildInputs = [
-    pkgs.perl
-  ];
+        src = ./lns;
 
-  src = ./lns;
-
-  dontUnpack = true;
-  installPhase = ''
-    runHook preInstall
-    install -Dm755 $src $out/bin/lns
-    chmod +x $out
-    runHook postInstall
-  '';
+        dontUnpack = true;
+        installPhase = ''
+          runHook preInstall
+          install -Dm755 $src $out/bin/lns
+          chmod +x $out
+          runHook postInstall
+        '';
+      };
+    };
 }

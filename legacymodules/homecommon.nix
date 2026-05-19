@@ -1,6 +1,5 @@
 {
   inputs,
-  self,
   ...
 }:
 {
@@ -65,7 +64,7 @@
         pkgs.ispell
         pkgs.ripgrep
         pkgs.wget
-        pkgs.local.lns
+        # self'.packages.lns
 
         # js
         pkgs.nodejs
@@ -120,7 +119,7 @@
         pkgs.nova
         # broken on darwin due to failing tests?
         # pkgs.open-policy-agent
-        pkgs.pack
+        # pkgs.pack
         pkgs.pluto
         pkgs.popeye
         pkgs.postgresql
@@ -148,7 +147,7 @@
         # symbola needed for doom emacs as a fallback
         pkgs.symbola
 
-        pkgs.local.stakk
+        # self'.packages.stakk
       ]
       ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 

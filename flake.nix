@@ -8,6 +8,7 @@
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    den.url = "github:denful/den";
     direnv-instant.url = "github:Mic92/direnv-instant";
     dusklight = {
       url = "git+https://github.com/twilitrealm/dusklight?submodules=1";
