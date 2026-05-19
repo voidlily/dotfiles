@@ -17,6 +17,8 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+
     import-tree.url = "github:denful/import-tree";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -84,151 +86,153 @@
       import-tree,
       ...
     }:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      top@{
-        config,
-        withSystem,
-        moduleWithSystem,
-        ...
-      }:
-      {
-        imports = [
-          home-manager.flakeModules.home-manager
-          inputs.treefmt-nix.flakeModule
-        ];
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-          # TODO x86_64-darwin going away soon
-          "x86_64-darwin"
-          "aarch64-darwin"
-        ];
-        perSystem =
-          {
-            config,
-            pkgs,
-            system,
-            ...
-          }:
-          {
-            _module.args.pkgs = import nixpkgs {
-              inherit system;
-              config = {
-                allowUnfree = true;
-                # mirror neeeds libsoup2, nothing else uses it
-                permittedInsecurePackages = [ "libsoup-2.74.3" ];
-                nvidia.acceptLicense = true;
-              };
-              overlays = [
-                inputs.nur.overlays.default
-                # TODO this doesn't work with import-tree
-                (import ./overlays/pack)
-                (import ./overlays/direnv)
-              ];
-            };
-            packages.lns = pkgs.callPackage ./packages/lns { };
-            packages.stakk = pkgs.callPackage ./packages/stakk { };
-            treefmt = {
-              programs.nixfmt.enable = true;
-            };
-          };
+    flake-parts.lib.mkFlake { inherit inputs; } # (
+      # top@{
+      #   config,
+      #   withSystem,
+      #   moduleWithSystem,
+      #   ...
+      # }:
+      # {
+      (
+        import-tree [
+          ./legacymodules
+          ./users
+          ./hosts/homu/_homeManager
+        ]
+      );
+  # imports = [
+  #   home-manager.flakeModules.home-manager
+  #   inputs.treefmt-nix.flakeModule
+  # ];
+  # systems = [
+  #   "x86_64-linux"
+  #   "aarch64-linux"
+  #   # TODO x86_64-darwin going away soon
+  #   "x86_64-darwin"
+  #   "aarch64-darwin"
+  # ];
+  # perSystem =
+  #   {
+  #     config,
+  #     pkgs,
+  #     system,
+  #     ...
+  #   }:
+  #   {
+  #     _module.args.pkgs = import nixpkgs {
+  #       inherit system;
+  #       config = {
+  #         allowUnfree = true;
+  #         # mirror neeeds libsoup2, nothing else uses it
+  #         permittedInsecurePackages = [ "libsoup-2.74.3" ];
+  #         nvidia.acceptLicense = true;
+  #       };
+  #       overlays = [
+  #         inputs.nur.overlays.default
+  #         # TODO this doesn't work with import-tree
+  #         (import ./overlays/pack)
+  #         (import ./overlays/direnv)
+  #       ];
+  #     };
+  #     packages.lns = pkgs.callPackage ./packages/lns { };
+  #     packages.stakk = pkgs.callPackage ./packages/stakk { };
+  #     treefmt = {
+  #       programs.nixfmt.enable = true;
+  #     };
+  #   };
 
-        flake =
-          let
-            common-home-modules = [
-              inputs.nix-index-database.homeModules.default
-              inputs.direnv-instant.homeModules.direnv-instant
-              inputs.nix-doom-emacs-unstraightened.homeModule
-            ];
-            common-darwin-modules = [ inputs.nix-index-database.darwinModules.default ];
-            common-nixos-modules = [ inputs.nix-index-database.nixosModules.default ];
-          in
-          {
-            homeConfigurations."lily@homu" = withSystem "x86_64-linux" (
-              {
-                pkgs,
-                self',
-                ...
-              }:
-              inputs.home-manager.lib.homeManagerConfiguration {
-                pkgs = pkgs;
-                extraSpecialArgs = { inherit inputs self'; };
-                modules = [
-                  (import-tree [
-                    (./homes/x86_64-linux + "/lily@homu")
-                    ./modules/home
-                  ])
-                  {
-                    home.username = "lily";
-                    home.homeDirectory = "/home/lily";
-                  }
-                ]
-                ++ common-home-modules;
-              }
-            );
+  # flake =
+  # let
+  #   common-darwin-modules = [ inputs.nix-index-database.darwinModules.default ];
+  #   common-nixos-modules = [ inputs.nix-index-database.nixosModules.default ];
+  # in
+  # {
+  # homeConfigurations."lily@homu" = withSystem "x86_64-linux" (
+  #   {
+  #     pkgs,
+  #     self',
+  #     ...
+  #   }:
+  #   inputs.home-manager.lib.homeManagerConfiguration {
+  #     pkgs = pkgs;
+  #     extraSpecialArgs = { inherit inputs self'; };
+  #     modules = [
+  #       (import-tree [
+  #         (./homes/x86_64-linux + "/lily@homu")
+  #         ./modules/home
+  #       ])
+  #       {
+  #         home.username = "lily";
+  #         home.homeDirectory = "/home/lily";
 
-            darwinConfigurations."Lily-Rappaport-TM1069" = withSystem "aarch64-darwin" (
-              { pkgs, self', ... }:
-              inputs.nix-darwin.lib.darwinSystem {
-                pkgs = pkgs;
-                modules = [
-                  (import-tree [
-                    ./systems/aarch64-darwin/Lily-Rappaport-TM1069
-                    ./modules/darwin
-                  ])
-                  home-manager.darwinModules.home-manager
-                  {
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                    home-manager.extraSpecialArgs = { inherit inputs self'; };
-                    home-manager.users.lilyrappaport =
-                      { ... }:
-                      {
-                        imports = [
-                          (import-tree [
-                            (./homes/aarch64-darwin + "/lilyrappaport@Lily-Rappaport-TM1069")
-                            ./modules/home
-                          ])
-                        ]
-                        ++ common-home-modules;
-                      };
-                  }
-                ]
-                ++ common-darwin-modules;
-              }
-            );
+  #     ]
+  #     ++ common-home-modules;
+  #   }
+  # );
 
-            darwinConfigurations."lilys-MacBook-Pro" = withSystem "x86_64-darwin" (
-              { pkgs, self', ... }:
-              inputs.nix-darwin.lib.darwinSystem {
-                pkgs = pkgs;
-                modules = [
-                  (import-tree [
-                    ./systems/x86_64-darwin/lilys-MacBook-Pro
-                    ./modules/darwin
-                  ])
-                  home-manager.darwinModules.home-manager
-                  {
-                    home-manager.useGlobalPkgs = true;
-                    home-manager.useUserPackages = true;
-                    home-manager.extraSpecialArgs = { inherit inputs self'; };
-                    home-manager.users.lily =
-                      { ... }:
-                      {
-                        imports = [
-                          (import-tree [
-                            (./homes/x86_64-darwin + "/lily@lilys-MacBook-Pro")
-                            ./modules/home
-                          ])
-                        ]
-                        ++ common-home-modules;
-                      };
-                  }
-                ]
-                ++ common-darwin-modules;
-              }
-            );
-          };
-      }
-    );
+  # darwinConfigurations."Lily-Rappaport-TM1069" = withSystem "aarch64-darwin" (
+  #   { pkgs, self', ... }:
+  #   inputs.nix-darwin.lib.darwinSystem {
+  #     pkgs = pkgs;
+  #     modules = [
+  #       (import-tree [
+  #         ./systems/aarch64-darwin/Lily-Rappaport-TM1069
+  #         ./modules/darwin
+  #       ])
+  #       home-manager.darwinModules.home-manager
+  #       {
+  #         home-manager.useGlobalPkgs = true;
+  #         home-manager.useUserPackages = true;
+  #         home-manager.extraSpecialArgs = { inherit inputs self'; };
+  #         home-manager.users.lilyrappaport =
+  #           { ... }:
+  #           {
+  #             imports = [
+  #               (import-tree [
+  #                 (./homes/aarch64-darwin + "/lilyrappaport@Lily-Rappaport-TM1069")
+  #                 ./modules/home
+  #               ])
+  #             ]
+  #             ++ common-home-modules;
+  #           };
+  #       }
+  #     ]
+  #     ++ common-darwin-modules;
+  #   }
+  # );
+
+  # darwinConfigurations."lilys-MacBook-Pro" = withSystem "x86_64-darwin" (
+  #   { pkgs, self', ... }:
+  #   inputs.nix-darwin.lib.darwinSystem {
+  #     pkgs = pkgs;
+  #     modules = [
+  #       (import-tree [
+  #         ./systems/x86_64-darwin/lilys-MacBook-Pro
+  #         ./modules/darwin
+  #       ])
+  #       home-manager.darwinModules.home-manager
+  #       {
+  #         home-manager.useGlobalPkgs = true;
+  #         home-manager.useUserPackages = true;
+  #         home-manager.extraSpecialArgs = { inherit inputs self'; };
+  #         home-manager.users.lily =
+  #           { ... }:
+  #           {
+  #             imports = [
+  #               (import-tree [
+  #                 (./homes/x86_64-darwin + "/lily@lilys-MacBook-Pro")
+  #                 ./modules/home
+  #               ])
+  #             ]
+  #             ++ common-home-modules;
+  #           };
+  #       }
+  #     ]
+  #     ++ common-darwin-modules;
+  #   }
+  # );
+  # };
+  # }
+  # );
 }
