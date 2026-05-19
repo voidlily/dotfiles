@@ -8,15 +8,6 @@
 {
   flake.homeConfigurations."lily@homu" = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = withSystem "x86_64-linux" ({ pkgs, ... }: pkgs);
-    # pkgs = import inputs.nixpkgs {
-    #   system = "x86_64-linux";
-    #   config = {
-    #     allowUnfree = true;
-    #     # mirror neeeds libsoup2, nothing else uses it
-    #     permittedInsecurePackages = [ "libsoup-2.74.3" ];
-    #     nvidia.acceptLicense = true;
-    #   };
-    # };
 
     modules = [
       self.homeModules.homeCommon
