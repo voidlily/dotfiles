@@ -3,8 +3,9 @@
   ...
 }:
 
+# TODO refactor by concern - k9s, gpg-agent-pinentry on linux, etc
 {
-  flake.homeModules.homeDarwin =
+  den.aspects.homeDarwin =
     { pkgs, ... }:
     {
       home.file = {

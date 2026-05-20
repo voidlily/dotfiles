@@ -1,0 +1,37 @@
+{
+  den,
+  ...
+}:
+
+{
+  den.aspects.localpackages = {
+    includes = [
+      (den.batteries.unfree [
+        "vuescan"
+      ])
+    ];
+    homeManager =
+      { pkgs, self', ... }:
+      {
+        home.packages = [
+          # TODO extract
+          self'.packages.stakk
+          self'.packages.lns
+          self'.packages.vuescan
+          # TODO extract
+          (pkgs.pack.overrideAttrs (
+            final: prev: {
+              version = "0.40.2";
+              src = pkgs.fetchFromGitHub {
+                owner = "buildpacks";
+                repo = "pack";
+                tag = "v${final.version}";
+                hash = "sha256-fFNC0U9pxZ2iaYEf5FQcVQJF1B/2P9UxQdeNqt7r+UI=";
+              };
+              vendorHash = "sha256-Mawgo6ppIfifNh0xGHxN6jRq07PeghcDOhekexQFPas=";
+            }
+          ))
+        ];
+      };
+  };
+}
