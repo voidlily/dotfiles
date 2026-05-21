@@ -69,6 +69,7 @@
               # TODO extract
               self'.packages.stakk
               self'.packages.lns
+              self'.packages.vuescan
               # TODO extract
               (pkgs.pack.overrideAttrs (
                 final: prev: {
