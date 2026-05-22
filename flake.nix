@@ -11,7 +11,7 @@
     den.url = "github:denful/den";
     direnv-instant.url = "github:Mic92/direnv-instant";
     dusklight = {
-      url = "git+https://github.com/twilitrealm/dusklight?submodules=1";
+      url = "git+https://github.com/twilitrealm/dusklight?submodules=1&ref=refs/tags/v1.3.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-file.url = "github:denful/flake-file";
@@ -24,10 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:denful/import-tree";
-    k9s = {
-      url = "github:derailed/k9s";
-      flake = false;
-    };
     nix-auto-follow = {
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +49,10 @@
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     playdatemirror = {
       url = "github:headblockhead/nix-playdatemirror";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    plover-flake = {
+      url = "github:opensteno/plover-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     spacemacs = {

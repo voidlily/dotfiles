@@ -55,4 +55,7 @@ clojure/.cpcache
 /clojure/.nrepl-port
 
 .DS_Store
+.direnv
 result
+*.qcow2
+mpv-*.jpg

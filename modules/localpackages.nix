@@ -4,20 +4,22 @@
 }:
 
 {
+  # TODO split up
   den.aspects.localpackages = {
     includes = [
       (den.batteries.unfree [
         "vuescan"
       ])
     ];
+    nixos =
+      { self', ... }:
+      {
+        environment.systemPackages = [ self'.packages.vuescan ];
+      };
     homeManager =
       { pkgs, self', ... }:
       {
         home.packages = [
-          # TODO extract
-          self'.packages.stakk
-          self'.packages.lns
-          self'.packages.vuescan
           # TODO extract
           (pkgs.pack.overrideAttrs (
             final: prev: {

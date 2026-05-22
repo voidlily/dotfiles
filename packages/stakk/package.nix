@@ -34,4 +34,3 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "stakk";
   };
 })
-

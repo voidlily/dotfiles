@@ -1,5 +1,7 @@
 { inputs, lib, ... }:
 {
+  # TODO split out inputs as necessary
+  # like for example dusklight input should live in the module that installs dusklight
   flake-file.inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -44,32 +46,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    direnv-instant.url = "github:Mic92/direnv-instant";
-
-    nix-doom-emacs-unstraightened = {
-      url = "github:marienz/nix-doom-emacs-unstraightened";
-      # Optional, to download less. Neither the module nor the overlay uses this input.
-      inputs.nixpkgs.follows = "";
-    };
-
-    dusklight = {
-      url = "git+https://github.com/twilitrealm/dusklight?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    playdatemirror = {
-      url = "github:headblockhead/nix-playdatemirror";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # non-flake inputs that were previously submodules pre-nix
     spacemacs = {
       url = "github:syl20bnr/spacemacs";
-      flake = false;
-    };
-
-    k9s = {
-      url = "github:derailed/k9s";
       flake = false;
     };
 

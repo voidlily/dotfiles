@@ -46,7 +46,7 @@ let
       };
       x86_64-linux = fetchurl {
         url = "${base}/vuex64${versionString}.tgz";
-        sha256 = "sha256-H4TdtVmNMjrHxnKxtmySt8frNtc5HZHjHuC5rSyE/wQ=A";
+        sha256 = "sha256-phnttU+h8ICHRVdPFAbsvpmj9ao0D6yDcu217XqD+p0=";
       };
       aarch64-linux = fetchurl {
         url = "${base}/vuea64${versionString}.tgz";

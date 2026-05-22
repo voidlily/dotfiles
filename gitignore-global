@@ -120,3 +120,7 @@ tags
 [._]*.un~
 
 # End of https://www.toptal.com/developers/gitignore/api/emacs,vim,linux,macos
+
+# nix stuff, direnv, results, etc
+.direnv
+/result

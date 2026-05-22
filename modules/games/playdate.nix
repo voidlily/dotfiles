@@ -1,43 +1,21 @@
-{ den, inputs, ... }:
+{ den, ... }:
 
 {
-  den.aspects.homuPackages = {
+  flake-file.inputs = {
+    playdatemirror = {
+      url = "github:headblockhead/nix-playdatemirror";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+  den.aspects.playdate = {
     includes = [
-      # TODO split this up somehow?
-      (den.batteries.unfree [
-        "nvidia-x11"
-        "shipwright"
-        "2ship2harkinian"
-        "starship-sf64"
-        "spaghettikart"
-        "1password-cli"
-        "symbola"
-      ])
-      # TODO make an aspect specifically for playdatemirror, move this into
-      # there
       (den.batteries.insecure [ "libsoup-2.74.3" ])
     ];
-    homeManager =
-      { pkgs, ... }:
+    nixos =
+      { inputs', pkgs, ... }:
       {
-        config.targets.genericLinux = {
-          # enable genericLinux things to better run on non-nixos
-          enable = true;
-          gpu.nvidia = {
-            enable = true;
-            # nvidia driver version must match host driver version
-            version = "590.48.01";
-            sha256 = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
-          };
-        };
-
-        config.home.packages = [
-          inputs.dusklight.packages.x86_64-linux.default
-          pkgs.shipwright
-          pkgs._2ship2harkinian
-          pkgs.starship-sf64
-          pkgs.spaghettikart
-          (inputs.playdatemirror.packages.x86_64-linux.Mirror.overrideAttrs {
+        environment.systemPackages = [
+          (inputs'.playdatemirror.packages.Mirror.overrideAttrs {
             buildInputs = with pkgs; [
               gtk3
               # webkitgtk abi4.0
