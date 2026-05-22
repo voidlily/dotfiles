@@ -7,7 +7,7 @@
   imports = [
     inputs.home-manager.flakeModules.home-manager
     inputs.flake-parts.flakeModules.modules
-    inputs.nix-darwin.flakeModules.default
+    inputs.darwin.flakeModules.default
     inputs.treefmt-nix.flakeModule
   ];
 

@@ -8,7 +8,7 @@ let
   system = "aarch64-darwin";
 in
 {
-  flake.darwinConfigurations."Lily-Rappaport-TM1069" = inputs.nix-darwin.lib.darwinSystem {
+  flake.darwinConfigurations."Lily-Rappaport-TM1069" = inputs.darwin.lib.darwinSystem {
     pkgs = withSystem system ({ pkgs, ... }: pkgs);
     modules = [
       inputs.home-manager.darwinModules.home-manager

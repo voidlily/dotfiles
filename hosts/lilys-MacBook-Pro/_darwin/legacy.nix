@@ -8,7 +8,7 @@ let
   system = "x86_64-darwin";
 in
 {
-  flake.darwinConfigurations."lilys-MacBook-Pro" = inputs.nix-darwin.lib.darwinSystem {
+  flake.darwinConfigurations."lilys-MacBook-Pro" = inputs.darwin.lib.darwinSystem {
     pkgs = withSystem system ({ pkgs, ... }: pkgs);
     modules = [
       inputs.home-manager.darwinModules.home-manager
