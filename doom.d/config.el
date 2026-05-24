@@ -95,6 +95,8 @@
 ;;   `require' or `use-package'.
 ;; - `map!' for binding new keys
 (map! :i "C-y" 'clipboard-yank)
+(map! :n "g j" 'evil-next-visual-line)
+(map! :n "g k" 'evil-previous-visual-line)
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
