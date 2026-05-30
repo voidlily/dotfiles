@@ -456,11 +456,11 @@
     "spacemacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1779460714,
-        "narHash": "sha256-bQqnQwxBHpbNhVS/uZ8dYhx7qBigAOrCScEfrDX67hU=",
+        "lastModified": 1779652481,
+        "narHash": "sha256-Yt7pZ/EgxaJhbain1lIV4xTtXztSCuJGFAdeONDJN2E=",
         "owner": "syl20bnr",
         "repo": "spacemacs",
-        "rev": "f3694337512c2bc86d5b8d1c21f93d7bd47efe3d",
+        "rev": "a46fa81690fe3bae2198a470a8481ac091aae090",
         "type": "github"
       },
       "original": {
