@@ -63,11 +63,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779593479,
-        "narHash": "sha256-/AObjaDZPGaWz//Lsi4SP82knM767NNWeW8VZ4dOf04=",
+        "lastModified": 1780111215,
+        "narHash": "sha256-1P+5szrtFvEgqdRVfBHKyqyx1UArcbjQpTab0TPpWPk=",
         "ref": "refs/heads/main",
-        "rev": "edc4aa0be4551b261ba606be99ed14b132e3b6c9",
-        "revCount": 6523,
+        "rev": "bc3cdcc9555057457d0064174bec9c1b79315cac",
+        "revCount": 6570,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/twilitrealm/dusklight"
