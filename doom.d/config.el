@@ -79,6 +79,20 @@
 ;;     (setq x y))
 (with-eval-after-load 'diff-hl
   (setq diff-hl-side 'right))
+;; the defaults in doom have option as meta and cmd as super
+;; instead, make cmd meta and option super
+(with-eval-after-load 'doom-keybinds
+  (cond
+   (doom--system-macos-p
+    ;; mac-* variables are used by the special emacs-mac build of Emacs by
+    ;; Yamamoto Mitsuharu, while other builds use ns-*.
+    (setq mac-command-modifier      'meta
+          ns-command-modifier       'meta
+          mac-option-modifier       'super
+          ns-option-modifier        'super
+          ;; Free up the right option for character composition
+          mac-right-option-modifier 'none
+          ns-right-option-modifier  'none))))
 ;;
 ;; The exceptions to this rule:
 ;;
