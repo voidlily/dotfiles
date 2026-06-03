@@ -6,12 +6,12 @@
 }:
 
 {
-  den.aspects.nvidia =
-    { pkgs, ... }:
-    {
-      # https://github.com/NixOS/nixpkgs/pull/468569#issuecomment-3621904554
-      # https://github.com/NixOS/nixpkgs/issues/525154
-      nixos = {
+  den.aspects.nvidia = {
+    # https://github.com/NixOS/nixpkgs/pull/468569#issuecomment-3621904554
+    # https://github.com/NixOS/nixpkgs/issues/525154
+    nixos =
+      { pkgs, ... }:
+      {
         environment.systemPackages = with pkgs; [ nvtopPackages.full ];
 
         # note on nvidia application profiles:
@@ -27,7 +27,9 @@
         environment.variables.LIBVA_DRIVER_NAME = "nvidia";
         environment.variables.MOZ_DISABLE_RDD_SANDBOX = "1";
       };
-      homeManager = {
+    homeManager =
+      { config, ... }:
+      {
         nixpkgs.config.nvidia.acceptLicense = true;
         # TODO this goes away with firefox 153 when we get vulkan video
         programs.firefox.policies.Preferences =
@@ -69,5 +71,5 @@
             };
           };
       };
-    };
+  };
 }

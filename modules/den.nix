@@ -13,13 +13,13 @@
   # darwin-rebuild changelog
   den.default.darwin.system.stateVersion = 4;
 
-  den.default.nixos.imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ];
+  # den.default.nixos.imports = [
+  #   inputs.home-manager.nixosModules.home-manager
+  # ];
 
-  den.default.darwin.imports = [
-    inputs.home-manager.darwinModules.home-manager
-  ];
+  # den.default.darwin.imports = [
+  #   inputs.home-manager.darwinModules.home-manager
+  # ];
 
   den.default.homeManager.imports = [ ];
 
@@ -44,11 +44,12 @@
   # TODO kernel parameters like nvidia related stuff?
   # TODO one more pass at things missed in systemd units. systemd user units, and /etc
   # den.hosts.x86_64-linux.homu.users.lily = { };
-  den.hosts.x86_64-linux.homu2 = {
+  den.hosts.x86_64-linux.homu = {
     users.lily = {
       aspect = den.aspects.lily.linux;
     };
   };
+
   # TODO move me
   den.aspects.desktop = {
     includes = with den.aspects; [
@@ -61,8 +62,7 @@
       fonts
       ghostty
       gimp
-      # TODO pending install and secrets
-      halloy
+      # halloy
       input
       # jellyfin
       kde
@@ -76,8 +76,7 @@
       prusa-slicer
       signal
       slack
-      # TODO pending install and secrets
-      # streamlink
+      streamlink
       syncthing
       udisks2
       # yubikey
@@ -134,7 +133,7 @@
       comma
     ];
   };
-  den.aspects.homu2 = {
+  den.aspects.homu = {
     includes = [
       (den.batteries.vm-autologin "lily")
       den.aspects.minimal
@@ -150,9 +149,10 @@
       den.aspects.libvirt
       den.aspects.networkmanager
       den.aspects.openssh
-      den.aspects.ddns
+      # TODO temp commented out, uncomment when secrets exist
+      # den.aspects.ddns
     ];
-   nixos =
+    nixos =
       { config, ... }:
       {
         time.timeZone = "America/Los_Angeles";
@@ -164,11 +164,13 @@
         # unneeded, on vm the uid for lily is 1000 and gid is 100 for "users"
         # users.users.lily.uid = 1000;
 
+        i18n.defaultLocale = "en_US.UTF-8";
+
         fileSystems = {
           "/" = {
             # TODO this uuid might change if wiped
-            # device = "/dev/disk/by-uuid/ccbffb51-47c5-47ea-adb4-03ee73dfff8b";
-            label = "root";
+            device = "/dev/disk/by-uuid/e32f1197-5d61-4829-ba44-41628b49c57f";
+            # label = "root";
             fsType = "ext4";
             options = [
               "defaults"
@@ -214,8 +216,14 @@
           # "/mnt/music" = { };
           # "/mnt/emulation" = { };
         };
-        boot.loader.systemd-boot.enable = true;
-        boot.loader.systemd-boot.editor = false;
+
+        boot.loader.systemd-boot = {
+          enable = true;
+          editor = false;
+          configurationLimit = 5;
+        };
+        boot.loader.efi.canTouchEfiVariables = true;
+        boot.tmp.useTmpfs = true;
 
         # arm is needed to rekey for arm hosts such as darwin, can also come in handy for building for remote hosts if necessary
         boot.binfmt = {
@@ -245,6 +253,11 @@
           # TODO rekey with actual host key after install
           hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
         };
+
+        nix.settings.trusted-users = [
+          "root"
+          "lily"
+        ];
       };
     # TODO move me to somewhere else later
     homeManager =
@@ -286,11 +299,9 @@
       };
   };
 
-  den.homes.x86_64-linux."lily@homu" = {
-    aspect = den.aspects.lily.linux;
-  };
-
-  den.homes.x86_64-linux."lily@homu2" = { };
+  # den.homes.x86_64-linux."lily@homu" = {
+  #   aspect = den.aspects.lily.linux;
+  # };
 
   den.aspects.lily = { };
 
@@ -375,7 +386,7 @@
   # nix eval ".#diag" --raw | wl-copy
   # then paste it into https://mermaid.live or something
   flake.diag = den.lib.diag.toMermaid (
-    den.lib.diag.hostContext { host = den.hosts.x86_64-linux.homu2; }
+    den.lib.diag.hostContext { host = den.hosts.x86_64-linux.homu; }
     # den.lib.diag.homeContext { home = den.homes.x86_64-linux."lily@homu"; }
   );
 }

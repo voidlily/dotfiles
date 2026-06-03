@@ -14,20 +14,21 @@
       {
         programs.streamlink = {
           enable = true;
-          settings = {
-            player = "${config.programs.mpv.finalPackage}/bin/mpv";
-            player-args = "--cache=yes --script-opts='enable-stream-cache-reduction=true'";
-            stream-segment-threads = 3;
-            ringbuffer-size = "256M";
-            default-stream = "best";
-            twitch-low-latency = true;
-            webbrowser-headless = true;
-            # TODO secrets
-            # same thing applies here as halloy, i think the whole file ends up being a secret rather than values
-            # https://github.com/nix-community/home-manager/blob/release-26.05/modules/programs/streamlink.nix
-            twitch-api-header = "";
-            twitch-access-token-param = "";
-          };
+          # TODO uncomment when secrets exist
+          # settings = {
+          #   player = "${config.programs.mpv.finalPackage}/bin/mpv";
+          #   player-args = "--cache=yes --script-opts='enable-stream-cache-reduction=true'";
+          #   stream-segment-threads = 3;
+          #   ringbuffer-size = "256M";
+          #   default-stream = "best";
+          #   twitch-low-latency = true;
+          #   webbrowser-headless = true;
+          #   # TODO secrets
+          #   # same thing applies here as halloy, i think the whole file ends up being a secret rather than values
+          #   # https://github.com/nix-community/home-manager/blob/release-26.05/modules/programs/streamlink.nix
+          #   twitch-api-header = "";
+          #   twitch-access-token-param = "";
+          # };
         };
       };
   };

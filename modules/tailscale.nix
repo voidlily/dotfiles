@@ -12,6 +12,7 @@
       # can just interactively tailscale up on desktop for the time being
       services.tailscale = {
         enable = true;
+        useRoutingFeatures = "both";
       };
     };
   };
