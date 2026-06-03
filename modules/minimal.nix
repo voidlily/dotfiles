@@ -11,6 +11,8 @@
   # includes things like shell config, starship, small subset of packages, etc
   den.aspects.minimal = {
     includes = with den.aspects; [
+      # agenix is required in minimal to be able to handle secrets
+      agenix
       # TODO does this include uutils, rg, xh?
       coreutils
       starship

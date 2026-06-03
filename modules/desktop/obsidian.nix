@@ -15,5 +15,4 @@
       programs.obsidian.enable = true;
     };
   };
-
 }

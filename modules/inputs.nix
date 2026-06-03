@@ -26,6 +26,7 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    # TODO remove this input, it was upstreamed into nixpkgs
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";

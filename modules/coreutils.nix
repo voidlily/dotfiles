@@ -17,6 +17,7 @@
           pkgs.ripgrep-all
           pkgs.fd
           pkgs.curlFull
+          pkgs.tree
           pkgs.wget
           pkgs.xh
 
@@ -33,6 +34,7 @@
           pkgs.ripgrep-all
           pkgs.fd
           pkgs.curlFull
+          pkgs.tree
           pkgs.wget
           pkgs.xh
 

@@ -5,6 +5,7 @@
 
 {
   # TODO split up
+  # move vuescan stuff to scanners?
   den.aspects.localpackages = {
     includes = [
       (den.batteries.unfree [

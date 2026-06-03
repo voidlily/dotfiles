@@ -23,6 +23,8 @@
             twitch-low-latency = true;
             webbrowser-headless = true;
             # TODO secrets
+            # same thing applies here as halloy, i think the whole file ends up being a secret rather than values
+            # https://github.com/nix-community/home-manager/blob/release-26.05/modules/programs/streamlink.nix
             twitch-api-header = "";
             twitch-access-token-param = "";
           };

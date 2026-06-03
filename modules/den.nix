@@ -59,10 +59,10 @@
       dropbox
       firefox
       fonts
-      # ghostty
+      ghostty
       gimp
       # TODO pending install and secrets
-      # halloy
+      halloy
       input
       # jellyfin
       kde
@@ -149,99 +149,113 @@
       den.aspects.containers
       den.aspects.libvirt
       den.aspects.networkmanager
+      den.aspects.openssh
+      den.aspects.ddns
     ];
-    nixos = {
-      time.timeZone = "America/Los_Angeles";
-      # home-manager.useGlobalPkgs = true;
-      nixpkgs.config.nvidia.acceptLicense = true;
-      nixpkgs.config.allowUnfree = true;
-      home-manager.useUserPackages = true;
-      # users.mutableUsers = false;
-      # unneeded, on vm the uid for lily is 1000 and gid is 100 for "users"
-      # users.users.lily.uid = 1000;
+   nixos =
+      { config, ... }:
+      {
+        time.timeZone = "America/Los_Angeles";
+        # home-manager.useGlobalPkgs = true;
+        nixpkgs.config.nvidia.acceptLicense = true;
+        nixpkgs.config.allowUnfree = true;
+        home-manager.useUserPackages = true;
+        # users.mutableUsers = false;
+        # unneeded, on vm the uid for lily is 1000 and gid is 100 for "users"
+        # users.users.lily.uid = 1000;
 
-      fileSystems = {
-        "/" = {
-          # TODO this uuid might change if wiped
-          # device = "/dev/disk/by-uuid/ccbffb51-47c5-47ea-adb4-03ee73dfff8b";
-          label = "root";
-          fsType = "ext4";
-          options = [
-            "defaults"
-            # noatime makes trim better
-            # https://wiki.nixos.org/wiki/Filesystems#SSD_TRIM_support
-            "noatime"
-          ];
-        };
-        "/home" = {
-          # device = "/dev/disk/by-uuid/3e43185a-37af-4d24-8987-674260d80937";
-          label = "home";
-          fsType = "ext4";
-          options = [
-            "defaults"
-            "noatime"
-          ];
-        };
-        "/boot" = {
-          # device = "/dev/disk/by-uuid/B0E1-6D16";
-          label = "ESP";
-          fsType = "vfat";
-          options = [
-            "defaults"
-            "noatime"
-          ];
+        fileSystems = {
+          "/" = {
+            # TODO this uuid might change if wiped
+            # device = "/dev/disk/by-uuid/ccbffb51-47c5-47ea-adb4-03ee73dfff8b";
+            label = "root";
+            fsType = "ext4";
+            options = [
+              "defaults"
+              # noatime makes trim better
+              # https://wiki.nixos.org/wiki/Filesystems#SSD_TRIM_support
+              "noatime"
+            ];
+          };
+          "/home" = {
+            # device = "/dev/disk/by-uuid/3e43185a-37af-4d24-8987-674260d80937";
+            label = "home";
+            fsType = "ext4";
+            options = [
+              "defaults"
+              "noatime"
+            ];
+          };
+          "/boot" = {
+            # device = "/dev/disk/by-uuid/B0E1-6D16";
+            label = "ESP";
+            fsType = "vfat";
+            options = [
+              "defaults"
+              "noatime"
+            ];
 
+          };
+          "/mnt/vm" = {
+            # device = "/dev/disk/by-uuid/8fd87e82-d580-4581-876c-394a538ae4b1";
+            label = "vm";
+            fsType = "ext4";
+            options = [
+              "defaults"
+              "noatime"
+            ];
+          };
+
+          # "/mnt/anime" = { };
+          # "/mnt/downloads" = { };
+          # "/mnt/movies" = { };
+          # "/mnt/tv" = { };
+          # "/mnt/video" = { };
+          # "/mnt/music" = { };
+          # "/mnt/emulation" = { };
         };
-        "/mnt/vm" = {
-          # device = "/dev/disk/by-uuid/8fd87e82-d580-4581-876c-394a538ae4b1";
-          label = "vm";
-          fsType = "ext4";
-          options = [
-            "defaults"
-            "noatime"
-          ];
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.systemd-boot.editor = false;
+
+        # arm is needed to rekey for arm hosts such as darwin, can also come in handy for building for remote hosts if necessary
+        boot.binfmt = {
+          emulatedSystems = [ "aarch64-linux" ];
+          preferStaticEmulators = true;
         };
 
-        # "/mnt/anime" = { };
-        # "/mnt/downloads" = { };
-        # "/mnt/movies" = { };
-        # "/mnt/tv" = { };
-        # "/mnt/video" = { };
-        # "/mnt/music" = { };
-        # "/mnt/emulation" = { };
+        # facter auto-detected hardware things like microcode, bluetooth, etc
+        hardware.facter.reportPath = ./hosts/homu/facter.json;
+
+        # https://wiki.nixos.org/wiki/NVIDIA
+        hardware.graphics.enable = true;
+        services.xserver.videoDrivers = [ "nvidia" ];
+        hardware.nvidia.open = true;
+        hardware.nvidia.branch = "latest";
+
+        # all unfree firmware, including broadcom bluetooth among others
+        # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/all-firmware.nix
+        hardware.enableAllFirmware = true;
+
+        # https://wiki.nixos.org/wiki/Fwupd
+        services.fwupd.enable = true;
+
+        services.thermald.enable = true;
+
+        age.rekey = {
+          # TODO rekey with actual host key after install
+          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
+        };
       };
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.systemd-boot.editor = false;
-
-      boot.binfmt = {
-        emulatedSystems = [ "aarch64-linux" ];
-        preferStaticEmulators = true;
-      };
-
-      # facter auto-detected hardware things like microcode, bluetooth, etc
-      hardware.facter.reportPath = ./hosts/homu/facter.json;
-
-      # https://wiki.nixos.org/wiki/NVIDIA
-      hardware.graphics.enable = true;
-      services.xserver.videoDrivers = [ "nvidia" ];
-      hardware.nvidia.open = true;
-      hardware.nvidia.branch = "latest";
-
-      # all unfree firmware, including broadcom bluetooth among others
-      # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/hardware/all-firmware.nix
-      hardware.enableAllFirmware = true;
-
-      # https://wiki.nixos.org/wiki/Fwupd
-      services.fwupd.enable = true;
-
-      services.thermald.enable = true;
-    };
     # TODO move me to somewhere else later
     homeManager =
       { pkgs, ... }:
       {
         services.gpg-agent.pinentry.package = lib.mkForce pkgs.pinentry-gnome3;
         targets.genericLinux.enable = lib.mkForce false;
+        age.rekey = {
+          # TODO rekey with actual host key after install
+          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
+        };
       };
   };
 
@@ -256,6 +270,7 @@
       den.batteries.hostname
       den.aspects.darwinCommon
       den.aspects.shell-full
+      den.aspects.minimal
     ];
     darwin =
       { pkgs, ... }:
@@ -264,6 +279,10 @@
           "root"
           "lily"
         ];
+
+        age.rekey = {
+          # hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
+        };
       };
   };
 
@@ -271,9 +290,7 @@
     aspect = den.aspects.lily.linux;
   };
 
-  den.homes.x86_64-linux."lily@homu2" = {
-    aspect = den.aspects.lily.linux;
-  };
+  den.homes.x86_64-linux."lily@homu2" = { };
 
   den.aspects.lily = { };
 
@@ -287,16 +304,15 @@
       den.batteries.define-user
       den.batteries.primary-user
       (den.batteries.user-shell "zsh")
-      den.aspects.localpackages
       den.aspects.homeCommon
       den.aspects.nvidia
       den.aspects.k8s
 
       den.aspects.gpg
-      # localpackages
       # homecommon
       # TODO this goes on the host eventually, not the user
       # it's only on the user at all for standalone home testing
+      den.aspects.minimal
       den.aspects.shell-full
       den.aspects.fonts
       den.aspects.ghostty
@@ -327,6 +343,10 @@
             sha256 = "sha256-NiA7iWC35JyKQva6H1hjzeNKBek9KyS3mK8G3YRva4I=";
           };
         };
+        age.rekey = {
+          # TODO rekey with actual host key after install
+          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
+        };
       };
   };
 
@@ -336,11 +356,10 @@
       den.batteries.define-user
       den.batteries.primary-user
       (den.batteries.user-shell "zsh")
-      den.aspects.localpackages
       den.aspects.homeCommon
     ];
     homeManager =
-      { pkgs, ... }:
+      { config, pkgs, ... }:
       {
         # TODO move elsewhere
         programs.doom-emacs = {

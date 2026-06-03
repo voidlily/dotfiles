@@ -1,0 +1,7 @@
+#       Serial: 24751461, Slot: 1
+#         Name: age identity ee867b18
+#      Created: Wed, 03 Jun 2026 22:32:09 +0000
+#   PIN policy: Never  (A PIN is NOT required to decrypt)
+# Touch policy: Cached (A physical touch is required for decryption, and is cached for 15 seconds)
+#    Recipient: age1yubikey1qgehgcsx348xfqprdy2u9ltph6pdtz3vhkp4cqd59y8ppe5cdsaqjlxxk3g
+AGE-PLUGIN-YUBIKEY-1VKKHJQVZA6R8KXQRMM6CC
