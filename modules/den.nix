@@ -233,6 +233,8 @@
 
       # https://wiki.nixos.org/wiki/Fwupd
       services.fwupd.enable = true;
+
+      services.thermald.enable = true;
     };
     # TODO move me to somewhere else later
     homeManager =
