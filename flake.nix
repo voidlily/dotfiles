@@ -48,10 +48,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
-    playdatemirror = {
-      url = "github:headblockhead/nix-playdatemirror";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     plover-flake = {
       url = "github:opensteno/plover-flake";
       inputs.nixpkgs.follows = "nixpkgs";

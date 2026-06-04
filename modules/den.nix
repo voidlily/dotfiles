@@ -56,7 +56,7 @@
       obsidian
       pipewire
       # temp commented out, makes builds take too long
-      # plover
+      plover
       prusa-slicer
       signal
       slack
@@ -81,7 +81,7 @@
       # minecraft
       n64
       # temp commented out, builds take too long
-      # playdate
+      playdate
       # retroarch
       ringracers
       # snek

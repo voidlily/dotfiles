@@ -570,26 +570,6 @@
         "type": "github"
       }
     },
-    "playdatemirror": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1748735270,
-        "narHash": "sha256-D/gergvXXRy7EqqT8V8vLHCF9VU6umGwNt/wjJUJcGA=",
-        "owner": "headblockhead",
-        "repo": "nix-playdatemirror",
-        "rev": "a50828a7aa4f6438d667500cfecd4f6c3fdf4e64",
-        "type": "github"
-      },
-      "original": {
-        "owner": "headblockhead",
-        "repo": "nix-playdatemirror",
-        "type": "github"
-      }
-    },
     "plover": {
       "flake": false,
       "locked": {
@@ -722,7 +702,6 @@
         "nixpkgs": "nixpkgs_4",
         "nur": "nur",
         "pkgs-by-name-for-flake-parts": "pkgs-by-name-for-flake-parts",
-        "playdatemirror": "playdatemirror",
         "plover-flake": "plover-flake",
         "tinted-terminal": "tinted-terminal",
         "treefmt-nix": "treefmt-nix_4"
