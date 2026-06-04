@@ -21,6 +21,7 @@
   libsm,
   libgudev,
   undmg,
+  udevCheckHook,
   ...
 }:
 let
@@ -45,7 +46,7 @@ let
       };
       x86_64-linux = fetchurl {
         url = "${base}/vuex64${versionString}.tgz";
-        sha256 = "sha256-anj9YmBxB7jysA2Xj5VldM2Otg2ojNMw5v6ffW6FgLc=";
+        sha256 = "sha256-H4TdtVmNMjrHxnKxtmySt8frNtc5HZHjHuC5rSyE/wQ=A";
       };
       aarch64-linux = fetchurl {
         url = "${base}/vuea64${versionString}.tgz";
@@ -81,6 +82,7 @@ let
     nativeBuildInputs = [
       gnutar
       autoPatchelfHook
+      udevCheckHook
     ];
 
     buildInputs = [
@@ -96,7 +98,10 @@ let
     '';
 
     installPhase = ''
+      mkdir -p $out/bin
       install -m755 -D VueScan/vuescan $out/bin/vuescan
+      install -m644 -D VueScan/vuescan.rul $out/lib/udev/rules.d/60-vuescan.rules
+      install -m644 -D VueScan/vuescan.svg $out/usr/share/icons/hicolor/scalable/apps
     '';
   };
 
