@@ -13,6 +13,7 @@
         environment.systemPackages = [
           # TODO coreutils or uutils?
           pkgs.coreutils
+          pkgs.killall
           self'.packages.lns
           pkgs.ripgrep-all
           pkgs.fd
@@ -30,6 +31,7 @@
       {
         home.packages = [
           pkgs.coreutils
+          pkgs.killall
           self'.packages.lns
           pkgs.ripgrep-all
           pkgs.fd

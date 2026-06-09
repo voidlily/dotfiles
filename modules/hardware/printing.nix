@@ -36,7 +36,7 @@
               name = "Brother_HL-2270DW";
               # this model is slightly too old to support IPP everywhere, so we
               # install drivers above
-              model = "Brother_HL-2270DW";
+              model = "drv:///brlaser.drv/br2270d.ppd";
             }
           ];
         };

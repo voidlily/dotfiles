@@ -2,7 +2,6 @@
   inputs,
   den,
   lib,
-  self,
   ...
 }:
 {
@@ -12,16 +11,6 @@
   den.default.homeManager.home.stateVersion = "23.11";
   # darwin-rebuild changelog
   den.default.darwin.system.stateVersion = 4;
-
-  # den.default.nixos.imports = [
-  #   inputs.home-manager.nixosModules.home-manager
-  # ];
-
-  # den.default.darwin.imports = [
-  #   inputs.home-manager.darwinModules.home-manager
-  # ];
-
-  den.default.homeManager.imports = [ ];
 
   imports = [ inputs.den.flakeModule ];
 
@@ -41,13 +30,8 @@
   ];
 
   # TODO extract each entry to hosts/hostname folders
-  # TODO kernel parameters like nvidia related stuff?
-  # TODO one more pass at things missed in systemd units. systemd user units, and /etc
-  # den.hosts.x86_64-linux.homu.users.lily = { };
   den.hosts.x86_64-linux.homu = {
-    users.lily = {
-      aspect = den.aspects.lily.linux;
-    };
+    users.lily = { };
   };
 
   # TODO move me
@@ -62,7 +46,7 @@
       fonts
       ghostty
       gimp
-      # halloy
+      halloy
       input
       # jellyfin
       kde
@@ -144,13 +128,16 @@
       den.aspects.games
       den.aspects.printing
       den.aspects.tailscale
+      den.aspects.nvidia
 
       den.aspects.containers
       den.aspects.libvirt
       den.aspects.networkmanager
       den.aspects.openssh
-      # TODO temp commented out, uncomment when secrets exist
-      # den.aspects.ddns
+      den.aspects.ddns
+
+      # don't love this here but it's okay for now
+      den.aspects.aws
     ];
     nixos =
       { config, ... }:
@@ -161,8 +148,6 @@
         nixpkgs.config.allowUnfree = true;
         home-manager.useUserPackages = true;
         # users.mutableUsers = false;
-        # unneeded, on vm the uid for lily is 1000 and gid is 100 for "users"
-        # users.users.lily.uid = 1000;
 
         i18n.defaultLocale = "en_US.UTF-8";
 
@@ -250,8 +235,7 @@
         services.thermald.enable = true;
 
         age.rekey = {
-          # TODO rekey with actual host key after install
-          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
+          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHrlMsLhbl+TVkx22r9OkfZgJlMIbpIrBtGE/+gLS+T";
         };
 
         nix.settings.trusted-users = [
@@ -263,18 +247,17 @@
     homeManager =
       { pkgs, ... }:
       {
-        services.gpg-agent.pinentry.package = lib.mkForce pkgs.pinentry-gnome3;
+        services.gpg-agent.pinentry.package = lib.mkForce pkgs.pinentry-qt;
         targets.genericLinux.enable = lib.mkForce false;
         age.rekey = {
-          # TODO rekey with actual host key after install
-          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
+          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHrlMsLhbl+TVkx22r9OkfZgJlMIbpIrBtGE/+gLS+T";
         };
       };
   };
 
   den.hosts.x86_64-darwin.lilys-MacBook-Pro = {
     users.lily = {
-      aspect = den.aspects.lily.darwin;
+      aspect = den.aspects.lily;
     };
   };
 
@@ -288,6 +271,7 @@
     darwin =
       { pkgs, ... }:
       {
+        # TODO make this less copypasted somehow?
         nix.settings.trusted-users = [
           "root"
           "lily"
@@ -297,88 +281,30 @@
           # hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
         };
       };
+
+    # don't love this here it should be mac specific somehow
+    # TODO darwin-common?
+    homeManager =
+      { config, pkgs, ... }:
+      {
+        programs.doom-emacs = {
+          emacs = pkgs.nur.repos.natsukium.emacs-plus;
+        };
+        services.gpg-agent.pinentry.package = null;
+      };
   };
 
-  # den.homes.x86_64-linux."lily@homu" = {
-  #   aspect = den.aspects.lily.linux;
-  # };
-
-  den.aspects.lily = { };
-
-  # TODO i don't like this, there has to be a way to do this with either
-  # policies or something else?
-  #
-  # i think i need to aspectify this before i can policyfy this, the homeManager
-  # and imports stuff is uh..... a workaround for non-denful modules? shrug
-  den.aspects.lily.linux = {
+  den.aspects.lily = {
     includes = [
       den.batteries.define-user
       den.batteries.primary-user
       (den.batteries.user-shell "zsh")
       den.aspects.homeCommon
-      den.aspects.nvidia
-      den.aspects.k8s
-
-      den.aspects.gpg
-      # homecommon
-      # TODO this goes on the host eventually, not the user
-      # it's only on the user at all for standalone home testing
-      den.aspects.minimal
-      den.aspects.shell-full
-      den.aspects.fonts
-      den.aspects.ghostty
-      den.aspects.aws
-      (den.batteries.unfree [ "nvidia-x11" ])
     ];
     # TODO make me a hashed password and secret
     nixos = {
       users.users.lily.password = "test";
-      nixpkgs.config.nvidia.acceptLicense = true;
     };
-    homeManager =
-      { pkgs, ... }:
-      {
-        # TODO this is getting littered around *everywhere*, find where to actually put it once and for all
-        nixpkgs.config.nvidia.acceptLicense = true;
-        # TODO combine with above in host
-        services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
-
-        # TODO remove me
-        targets.genericLinux = {
-          # enable genericLinux things to better run on non-nixos
-          enable = true;
-          gpu.nvidia = {
-            enable = true;
-            # nvidia driver version must match host driver version
-            version = "595.71.05";
-            sha256 = "sha256-NiA7iWC35JyKQva6H1hjzeNKBek9KyS3mK8G3YRva4I=";
-          };
-        };
-        age.rekey = {
-          # TODO rekey with actual host key after install
-          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFZNpVXEe/N0tR33dlWfaPdLl6eDX9BG3dRhGXc2lZWZ";
-        };
-      };
-  };
-
-  # TODO needs to be tested on darwin
-  den.aspects.lily.darwin = {
-    includes = [
-      den.batteries.define-user
-      den.batteries.primary-user
-      (den.batteries.user-shell "zsh")
-      den.aspects.homeCommon
-    ];
-    homeManager =
-      { config, pkgs, ... }:
-      {
-        # TODO move elsewhere
-        programs.doom-emacs = {
-          emacs = pkgs.nur.repos.natsukium.emacs-plus;
-        };
-        # TODO move elsewhere?
-        services.gpg-agent.pinentry.package = null;
-      };
   };
 
   flake.den = den;
@@ -387,6 +313,5 @@
   # then paste it into https://mermaid.live or something
   flake.diag = den.lib.diag.toMermaid (
     den.lib.diag.hostContext { host = den.hosts.x86_64-linux.homu; }
-    # den.lib.diag.homeContext { home = den.homes.x86_64-linux."lily@homu"; }
   );
 }

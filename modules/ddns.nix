@@ -14,6 +14,8 @@
         age.secrets = {
           ddns-updater-config = {
             rekeyFile = ../secrets/ddns-updater/config.json.age;
+            # don't love this being world readable
+            mode = "444";
           };
         };
         services.ddns-updater = {
