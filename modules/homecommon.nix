@@ -1,6 +1,4 @@
 {
-  den,
-  inputs,
   ...
 }:
 {
@@ -11,7 +9,6 @@
     homeManager =
       {
         pkgs,
-        lib,
         ...
       }:
       {

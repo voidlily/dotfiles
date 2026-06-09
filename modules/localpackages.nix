@@ -18,7 +18,7 @@
         environment.systemPackages = [ self'.packages.vuescan ];
       };
     homeManager =
-      { pkgs, self', ... }:
+      { pkgs, ... }:
       {
         home.packages = [
           # TODO extract

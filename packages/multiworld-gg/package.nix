@@ -14,7 +14,6 @@
   zenity,
   fetchurl,
   nix-update-script,
-  breakpointHook,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "multiworld-gg";
@@ -29,7 +28,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
-    # breakpointHook
   ];
 
   buildInputs = finalAttrs.runtimeDependencies;
@@ -94,7 +92,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://github.com/MultiworldGG/MultiworldGG/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "multiworld-gg";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = [ ];
     platforms = lib.platforms.linux;
   };
 })

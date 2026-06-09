@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 {
   # TODO split out inputs as necessary
   # like for example dusklight input should live in the module that installs dusklight
