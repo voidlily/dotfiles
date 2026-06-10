@@ -4,6 +4,13 @@
 }:
 
 {
+  flake-file.inputs = {
+    tinted-terminal = {
+      url = "github:tinted-theming/tinted-terminal";
+      flake = false;
+    };
+  };
+
   den.aspects.ghostty = {
     nixos =
       { pkgs, ... }:
@@ -17,9 +24,6 @@
           theme = "base16-solarized-dark";
           bold-is-bright = false;
         };
-        # TODO these should be removed for nixos
-        systemd.enable = false;
-        package = null;
       };
 
       home.file = {

@@ -52,11 +52,6 @@
       url = "github:syl20bnr/spacemacs";
       flake = false;
     };
-
-    tinted-terminal = {
-      url = "github:tinted-theming/tinted-terminal";
-      flake = false;
-    };
   };
 
   imports = [
