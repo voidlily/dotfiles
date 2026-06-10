@@ -3,7 +3,6 @@
   # TODO split out inputs as necessary
   # like for example dusklight input should live in the module that installs dusklight
   flake-file.inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     darwin = {
@@ -18,29 +17,11 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
-
     den.url = "github:denful/den";
     import-tree.url = "github:denful/import-tree";
     flake-file.url = "github:denful/flake-file";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
-
-    # TODO remove this input, it was upstreamed into nixpkgs
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     nur = {
       url = "github:nix-community/NUR";
