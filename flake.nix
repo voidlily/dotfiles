@@ -56,10 +56,6 @@
       url = "github:opensteno/plover-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    spacemacs = {
-      url = "github:syl20bnr/spacemacs";
-      flake = false;
-    };
     tinted-terminal = {
       url = "github:tinted-theming/tinted-terminal";
       flake = false;

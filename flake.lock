@@ -724,7 +724,6 @@
         "pkgs-by-name-for-flake-parts": "pkgs-by-name-for-flake-parts",
         "playdatemirror": "playdatemirror",
         "plover-flake": "plover-flake",
-        "spacemacs": "spacemacs",
         "tinted-terminal": "tinted-terminal",
         "treefmt-nix": "treefmt-nix_4"
       }
@@ -742,22 +741,6 @@
       "original": {
         "owner": "openstenoproject",
         "repo": "rtf_tokenize",
-        "type": "github"
-      }
-    },
-    "spacemacs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780421525,
-        "narHash": "sha256-ZiXdELtfjwbrauJmnTYw/lB69EPUxZX+vtX+XFBWFu4=",
-        "owner": "syl20bnr",
-        "repo": "spacemacs",
-        "rev": "a1b98eb7d303226be60a0afe3025fc87d67be23b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "syl20bnr",
-        "repo": "spacemacs",
         "type": "github"
       }
     },

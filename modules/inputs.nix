@@ -27,12 +27,6 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # non-flake inputs that were previously submodules pre-nix
-    spacemacs = {
-      url = "github:syl20bnr/spacemacs";
-      flake = false;
-    };
   };
 
   imports = [
