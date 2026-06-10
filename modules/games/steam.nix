@@ -30,6 +30,10 @@
               # Fixes timezones on VRChat
               unset TZ
             '';
+            # https://old.reddit.com/r/NixOS/comments/1htxgly/steam_not_using_cursor_theme/
+            # https://github.com/keenanweaver/nix-config/blob/219164fb75e3c8a16bdc71884778caa38a9339f4/modules/apps/steam/default.nix#L72
+            # add kde cursor to the FHS env
+            extraPkgs = (pkgs: with pkgs; [ kdePackages.breeze ]);
           };
 
           extraCompatPackages = with pkgs; [
