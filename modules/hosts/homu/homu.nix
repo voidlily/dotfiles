@@ -27,7 +27,7 @@
       # don't love this here but it's okay for now
       den.aspects.aws
     ];
-    nixos = {
+    nixos = { pkgs, ... }: {
       time.timeZone = "America/Los_Angeles";
       # home-manager.useGlobalPkgs = true;
       nixpkgs.config.nvidia.acceptLicense = true;
@@ -95,6 +95,7 @@
       };
       boot.loader.efi.canTouchEfiVariables = true;
       boot.tmp.useTmpfs = true;
+      boot.kernelPackages = pkgs.linuxPackages_latest;
 
       # arm is needed to rekey for arm hosts such as darwin, can also come in handy for building for remote hosts if necessary
       boot.binfmt = {
