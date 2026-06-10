@@ -29,6 +29,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:denful/import-tree";
+    just-one-more-repo = {
+      url = "github:proverbialpennance/just-one-more-repo";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-auto-follow = {
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
