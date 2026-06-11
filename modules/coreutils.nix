@@ -10,6 +10,9 @@
         environment.systemPackages = [
           # TODO coreutils or uutils?
           pkgs.coreutils
+          pkgs.findutils
+          pkgs.diffutils
+
           pkgs.colordiff
           pkgs.killall
           self'.packages.lns
@@ -23,12 +26,26 @@
           pkgs.rink
           pkgs.yq-go
         ];
+        services.locate = {
+          enable = true;
+          pruneNames = [
+            ".bzr"
+            ".cache"
+            ".git"
+            ".hg"
+            ".svn"
+            ".jj"
+          ];
+        };
       };
     homeManager =
       { self', pkgs, ... }:
       {
         home.packages = [
           pkgs.coreutils
+          pkgs.findutils
+          pkgs.diffutils
+
           pkgs.colordiff
           pkgs.killall
           self'.packages.lns
