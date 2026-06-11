@@ -16,6 +16,7 @@
           pkgs.colordiff
           pkgs.killall
           self'.packages.lns
+          pkgs.ripgrep
           pkgs.ripgrep-all
           pkgs.fd
           pkgs.curlFull
@@ -49,6 +50,7 @@
           pkgs.colordiff
           pkgs.killall
           self'.packages.lns
+          pkgs.ripgrep
           pkgs.ripgrep-all
           pkgs.fd
           pkgs.curlFull
