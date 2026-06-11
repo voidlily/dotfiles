@@ -8,6 +8,10 @@
       home.sessionVariables = {
         DIRCOLORS_SOLARIZED_ZSH_THEME = "ansi-dark";
         DO_NOT_TRACK = "1";
+        EDITOR = "vim";
+        REPORTTIME = "1";
+        bgnotify_threshold = "30";
+        TENV_AUTO_INSTALL = "true";
       };
 
       programs.zsh = {
@@ -44,8 +48,6 @@
           gthumb = "nomacs";
           mplayer = "mpv";
           calc = "noglob calc";
-          pacmatic = "sudo --preserve-env=pacman_program /usr/bin/pacmatic";
-          paru = ''pacman_program="sudo -u #$UID /usr/bin/paru" pacmatic'';
         };
         initContent = ''
           function chpwd() {
@@ -59,22 +61,6 @@
           function calc() {
               noglob awk "BEGIN{ print $* }";
           }
-
-          REPORTTIME=1
-          bgnotify_threshold=30
-        '';
-        # TODO move all this up to sessionVariables
-        envExtra = ''
-          if [ -f $HOME/.resolution ]; then
-              . $HOME/.resolution
-          fi
-
-          export EDITOR=vim
-
-          export NPM_PACKAGES="$HOME/.npm-packages"
-          export PACMAN="pacmatic"
-
-          export TENV_AUTO_INSTALL=true
         '';
       };
 
