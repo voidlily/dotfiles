@@ -10,6 +10,7 @@
         environment.systemPackages = [
           # TODO coreutils or uutils?
           pkgs.coreutils
+          pkgs.colordiff
           pkgs.killall
           self'.packages.lns
           pkgs.ripgrep-all
@@ -28,6 +29,7 @@
       {
         home.packages = [
           pkgs.coreutils
+          pkgs.colordiff
           pkgs.killall
           self'.packages.lns
           pkgs.ripgrep-all
