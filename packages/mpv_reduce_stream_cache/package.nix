@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.scriptName = "reduce_stream_cache";
+  passthru.scriptName = "reduce_stream_cache.js";
   meta = {
     description = "Reduces MPV cache for streams by increasing playback speed.";
     homepage = "https://github.com/divout/mpv_reduce_stream_cache";
