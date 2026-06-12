@@ -20,8 +20,10 @@
     homeManager =
       { pkgs, ... }:
       {
-        # formatters wanted by `doom doctor`
         home.packages = [
+          # emacs wants ispell for a spell checker
+          pkgs.ispell
+          # formatters wanted by `doom doctor`
           pkgs.shfmt
           pkgs.dockfmt
         ];
