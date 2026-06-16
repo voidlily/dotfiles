@@ -13,6 +13,9 @@
             enable = true;
             autoPrune.enable = true;
             dockerCompat = true;
+            # expose /var/run/docker.sock for tools that expect the docker
+            # socket
+            dockerSocket.enable = true;
             # required for podman-compose dns to work
             defaultNetwork.settings.dns_enabled = true;
           };
