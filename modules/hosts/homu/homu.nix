@@ -108,6 +108,7 @@
 
       # https://wiki.nixos.org/wiki/NVIDIA
       hardware.graphics.enable = true;
+      hardware.graphics.enable32Bit = true;
       services.xserver.videoDrivers = [ "nvidia" ];
       hardware.nvidia.open = true;
       hardware.nvidia.branch = "latest";
