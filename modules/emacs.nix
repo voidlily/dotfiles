@@ -20,12 +20,44 @@
     homeManager =
       { pkgs, ... }:
       {
-        home.packages = [
+        home.packages = with pkgs; [
           # emacs wants ispell for a spell checker
-          pkgs.ispell
-          # formatters wanted by `doom doctor`
-          pkgs.shfmt
-          pkgs.dockfmt
+          ispell
+
+          # formatters/linters/lsp wanted by `doom doctor`
+          # cc
+          clang-tools
+          # clojure
+          cljfmt
+          # data
+          libxml2
+          # docker
+          dockfmt
+          # go
+          gomodifytags
+          gopls
+          gore
+          gotests
+          # haskell
+          # TODO move to dev/haskell.nix
+          haskell-language-server
+          haskellPackages.hoogle
+          cabal-install
+          # js
+          typescript-language-server
+          # python, everything else i do via direnv, venv, and ruff
+          python3
+          # rust
+          # TODO move to dev/rust.nix?
+          rust-analyzer
+          cargo
+          rustc
+          # shell
+          shellcheck
+          shfmt
+          # web
+          html-tidy
+          stylelint
         ];
         home.sessionVariables = {
           # EDITOR = "emacs";
