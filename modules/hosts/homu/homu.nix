@@ -7,7 +7,6 @@
 
   den.aspects.homu = {
     includes = [
-      (den.batteries.vm-autologin "lily")
       den.aspects.minimal
       den.aspects.shell-full
       den.aspects.gpg
