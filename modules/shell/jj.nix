@@ -65,22 +65,34 @@
               patterns = [ "glob:'**/*.rego'" ];
             };
 
-            fix.tools.prettier = {
+            fix.tools.oxfmt = {
               command = [
-                "${pkgs.prettier}/bin/prettier"
+                "${pkgs.oxfmt}/bin/oxfmt"
                 "--stdin-filepath"
                 "$path"
               ];
+              # pulled from https://github.com/numtide/treefmt-nix/blob/main/programs/oxfmt.nix
               patterns = [
+                "glob:'**/*.cjs'"
+                "glob:'**/*.css'"
+                "glob:'**/*.graphql'"
+                "glob:'**/*.hbs'"
+                "glob:'**/*.html'"
                 "glob:'**/*.js'"
+                "glob:'**/*.json'"
+                "glob:'**/*.json5'"
+                "glob:'**/*.jsonc'"
                 "glob:'**/*.jsx'"
+                "glob:'**/*.md'"
+                "glob:'**/*.mdx'"
+                "glob:'**/*.mjs'"
+                "glob:'**/*.mustache'"
+                "glob:'**/*.scss'"
                 "glob:'**/*.ts'"
                 "glob:'**/*.tsx'"
-                "glob:'**/*.json'"
-                "glob:'**/*.html'"
-                "glob:'**/*.md'"
-                "glob:'**/*.css'"
+                "glob:'**/*.vue'"
                 "glob:'**/*.yaml'"
+                "glob:'**/*.yml'"
               ];
             };
 
