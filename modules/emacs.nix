@@ -49,6 +49,8 @@
           python3
           # rust
           # TODO move to dev/rust.nix?
+          rustfmt
+          clippy
           rust-analyzer
           cargo
           rustc
