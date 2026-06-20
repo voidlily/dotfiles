@@ -29,6 +29,7 @@
       streamlink
       syncthing
       udisks2
+      yt-dlp
       zoom
     ];
   };
