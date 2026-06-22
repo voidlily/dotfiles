@@ -13,6 +13,10 @@
           age-plugin-yubikey
           yubioath-flutter
           opensc
+
+          sops
+          kustomize-sops
+          rage
         ];
 
         services.pcscd.enable = true;
