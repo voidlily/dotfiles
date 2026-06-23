@@ -21,6 +21,9 @@
         # it also disables the direnv-specific hooks in favor of direnv-instant's
         # hooks
         nix-direnv.enable = true;
+        config = {
+          load_dotenv = true;
+        };
       };
 
       programs.direnv-instant = {
