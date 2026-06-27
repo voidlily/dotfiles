@@ -47,13 +47,6 @@
           typescript-language-server
           # python, everything else i do via direnv, venv, and ruff
           python3
-          # rust
-          # TODO move to dev/rust.nix?
-          rustfmt
-          clippy
-          rust-analyzer
-          cargo
-          rustc
           # shell
           shellcheck
           shfmt

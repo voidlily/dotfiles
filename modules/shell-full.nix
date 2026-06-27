@@ -13,6 +13,7 @@
       # python
       # ruby
       linters
+      rust
       # # TODO split up "devops" in homecommon by concern more - aws, gcp, etc
       # devops
       opentofu
