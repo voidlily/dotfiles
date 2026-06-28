@@ -13,7 +13,10 @@
           oxlint
           oxfmt
           yamllint
+          rassumfrassum
         ];
+
+        xdg.configFile."rassumfrassum/ts.py".source = ./ts.py;
 
         # TODO move python stuff
         programs.mypy.enable = true;
