@@ -813,11 +813,11 @@
     "tinted-terminal": {
       "flake": false,
       "locked": {
-        "lastModified": 1778178605,
-        "narHash": "sha256-QPelEGlBLkEMU5ptwJTRpeR7DDv2ew//FZj5orl49DA=",
+        "lastModified": 1782010032,
+        "narHash": "sha256-nL2lvzFGE0vRDgsA+vREIKOL5JwU9gn9QAE7jo3ADvU=",
         "owner": "tinted-theming",
         "repo": "tinted-terminal",
-        "rev": "47a01b2a2da323d0c912b2143fa10700ebef9dee",
+        "rev": "f40e59dc88e476eba22c448988c655ebf2fe85e2",
         "type": "github"
       },
       "original": {
