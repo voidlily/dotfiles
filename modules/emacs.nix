@@ -25,6 +25,7 @@
           ispell
 
           # formatters/linters/lsp wanted by `doom doctor`
+          bash-language-server
           # cc
           clang-tools
           # clojure
