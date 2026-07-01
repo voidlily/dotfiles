@@ -7,16 +7,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "stakk";
-  version = "1.15.0";
+  version = "1.17.1";
 
   src = fetchFromGitHub {
     owner = "glennib";
     repo = "stakk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rui/Gc21tvy9Kv56UOoErwe0b73YOtP+ggAuKpDY90o=";
+    hash = "sha256-5wEZOxXg30F0MqeszDRYrOBnsOzfXxld8iQkZSPqUIY=";
   };
 
-  cargoHash = "sha256-zypOfxYFfrp3u2+pLNFQNtqXMn01MX4Q2HlBjkZH3r8=";
+  cargoHash = "sha256-iEGrGSia/Da1bpXVAOI9M7QNNVHUAB/RFRgzl+IrFlU=";
 
   useNextest = true;
 
