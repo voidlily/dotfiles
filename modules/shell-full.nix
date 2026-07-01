@@ -26,6 +26,7 @@
       bat
       direnv
       comma
+      imagemagick
     ];
   };
 }
