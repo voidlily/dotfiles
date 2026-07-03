@@ -67,7 +67,7 @@
 
             fix.tools.opa = {
               command = [
-                "opa"
+                "${pkgs.open-policy-agent}/bin/opa"
                 "fmt"
                 "-"
               ];
