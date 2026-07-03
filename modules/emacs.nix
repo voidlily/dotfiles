@@ -33,7 +33,11 @@
           # data
           libxml2
           # docker
-          dockfmt
+          #
+          # NOTE: doom doctor may complain about dockfmt, but that one hasn't
+          # been updated since 2018. dockerfmt is the up to date version,
+          # supporting current syntax.
+          dockerfmt
           # go
           gomodifytags
           gopls

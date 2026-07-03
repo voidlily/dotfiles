@@ -56,6 +56,15 @@
             };
 
             # https://github.com/jj-vcs/jj/wiki/Fix-tools
+            fix.tools.dockerfmt = {
+              command = [
+                "${pkgs.dockerfmt}/bin/dockerfmt"
+                "-n"
+              ];
+              # TODO this might not describe all dockerfiles but it's a start
+              patterns = [ "glob:'**/Dockerfile'" ];
+            };
+
             fix.tools.opa = {
               command = [
                 "opa"

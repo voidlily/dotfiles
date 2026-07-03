@@ -93,6 +93,12 @@
           ;; Free up the right option for character composition
           mac-right-option-modifier 'none
           ns-right-option-modifier  'none))))
+
+;; dockfmt is the one that doom looks for by default, but it was last updated in
+;; 2018. the current one is dockerfmt.
+(with-eval-after-load 'dockerfile-mode
+  (set-formatter! 'dockerfmt '("dockerfmt" filepath) :modes '(dockerfile-mode)))
+
 ;;
 ;; The exceptions to this rule:
 ;;
