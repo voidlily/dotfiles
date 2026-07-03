@@ -88,7 +88,7 @@
                 "glob:'**/*.hbs'"
                 "glob:'**/*.html'"
                 "glob:'**/*.js'"
-                "glob:'**/*.json'"
+                "glob:'**/*.json' ~ glob:'**/package-lock.json'"
                 "glob:'**/*.json5'"
                 "glob:'**/*.jsonc'"
                 "glob:'**/*.jsx'"
