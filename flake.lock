@@ -655,11 +655,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1782803160,
-        "narHash": "sha256-W8Yxge5ZFlRutM/oB6yhEEIv8Tc1q4CH2L9VWpzoqS8=",
+        "lastModified": 1783146737,
+        "narHash": "sha256-KIPEJCyay92CI5Z/z63ualVk7nnXd6cADIGGSVRS/HU=",
         "owner": "opensteno",
         "repo": "plover-flake",
-        "rev": "a7506615958895e41b6d4b0bebc6f6ad749ac844",
+        "rev": "f609c59ca04281d7c74004f7d45a20ff13fd6fb8",
         "type": "github"
       },
       "original": {
