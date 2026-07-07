@@ -15,6 +15,11 @@
         rust-analyzer
         cargo
         bacon
+        cargo-nextest
+        cargo-audit
+        cargo-mutants
+        cargo-deny
+        cargo-chef
       ];
     };
   };
