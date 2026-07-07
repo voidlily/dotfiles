@@ -17,10 +17,10 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "multiworld-gg";
-  version = "0.7.251";
+  version = "0.7.259";
   src = fetchurl {
     url = "https://github.com/MultiworldGG/MultiworldGG/releases/download/${finalAttrs.version}/MultiworldGG_${finalAttrs.version}_linux-x86_64.AppImage";
-    hash = "sha256-/ucnun8yqtl8puv2FkOe0LQo4rQDa14b8qR7Q/JBb7A=";
+    hash = "sha256-jkyeJndZxrwnvSVQQ4qKbs760ItVzZSIAHC+cG6uuLQ=";
   };
 
   dontUnpack = true;
