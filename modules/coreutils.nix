@@ -86,6 +86,7 @@
 
         programs.fzf = {
           enable = true;
+          historyWidget.command = "";
         };
 
         programs.home-manager.enable = true;
