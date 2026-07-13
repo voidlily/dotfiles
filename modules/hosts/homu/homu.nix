@@ -26,6 +26,7 @@
       # don't love this here but it's okay for now
       den.aspects.aws
       den.aspects.qmk
+      den.aspects.scanners
     ];
     nixos = { pkgs, ... }: {
       time.timeZone = "America/Los_Angeles";
