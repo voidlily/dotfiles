@@ -25,7 +25,7 @@
 
       # don't love this here but it's okay for now
       den.aspects.aws
-      den.aspects.qmk
+      den.aspects.zsa
       den.aspects.scanners
     ];
     nixos = { pkgs, ... }: {
