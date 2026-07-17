@@ -22,7 +22,7 @@
       obsidian
       pipewire
       # temp commented out, makes builds take too long
-      plover
+      # plover
       prusa-slicer
       signal
       slack
