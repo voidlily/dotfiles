@@ -5,11 +5,11 @@
 {
   den.aspects.jj = {
     homeManager =
-      { self', pkgs, ... }:
+      { pkgs, ... }:
       {
         home.packages = [
           pkgs.meld
-          self'.packages.stakk
+          pkgs.stakk
         ];
 
         programs.delta = {
