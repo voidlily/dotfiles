@@ -437,11 +437,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783546666,
-        "narHash": "sha256-9ryXsFt79WAMxJqp5OEm11bOyrmfeCyNwI7SBKvMjII=",
+        "lastModified": 1784983348,
+        "narHash": "sha256-u3llDJZ7UgyXFyev1zbnZN5CfqSIc1DZwtUdbmgmMBc=",
         "owner": "proverbialpennance",
         "repo": "just-one-more-repo",
-        "rev": "febf143b8d7b8608afab63835371b4a0187b5fd3",
+        "rev": "484119d86ccb37350346ce0adae90cdb741188a1",
         "type": "github"
       },
       "original": {
