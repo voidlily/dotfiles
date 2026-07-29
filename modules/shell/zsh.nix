@@ -51,7 +51,7 @@
         };
         initContent = ''
           function chpwd() {
-              eza --icons auto --hyperlink
+              eza --icons=auto --hyperlink=auto
           }
 
           function streamlink-twitch() {

@@ -81,7 +81,7 @@
         programs.eza = {
           enable = true;
           icons = "auto";
-          extraOptions = [ "--hyperlink" ];
+          extraOptions = [ "--hyperlink=auto" ];
         };
 
         programs.fzf = {
