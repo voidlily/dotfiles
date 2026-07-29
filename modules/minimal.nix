@@ -30,6 +30,9 @@
     homeManager = {
       home.file = {
         ".vimrc".source = ../vimrc;
+        ".psqlrc".text = ''
+          \x auto
+        '';
       };
       programs.nh = {
         enable = true;
