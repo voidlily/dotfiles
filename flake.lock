@@ -256,11 +256,11 @@
     },
     "flake-file": {
       "locked": {
-        "lastModified": 1785193256,
-        "narHash": "sha256-KsEoDoDbXp1PJqp2s7U64rfxZ6J5TS9utLNM4r6tEzs=",
+        "lastModified": 1785282747,
+        "narHash": "sha256-ZwdMXUu0Udb4yzI65+psyJeUF+wexByNEvTUSx1xjVs=",
         "owner": "denful",
         "repo": "flake-file",
-        "rev": "cddd6489b9ef8d20b50a57851763c1931390dc2b",
+        "rev": "56c46842d70754345c4a4581b8cbebe87b8fc067",
         "type": "github"
       },
       "original": {
@@ -402,11 +402,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785261905,
-        "narHash": "sha256-SnFtgFiAhlwOlaEuFZoVYjOxqfYoiLtHJoFGuyEgHUE=",
+        "lastModified": 1785288465,
+        "narHash": "sha256-nCkxaGRtyNheNTxoc527gjOG0BN2zovsWDQVBeKDMW8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "10174c0fe02099dbdee2bf918f1a92659fc9217f",
+        "rev": "36662afed2fa1c9b69bdd03edb92ad572202ca20",
         "type": "github"
       },
       "original": {
@@ -616,11 +616,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785268481,
-        "narHash": "sha256-ZeFJ0obgld0QO/ZRwLE/uYSm3IoE2W6Ng94+lzXSVlw=",
+        "lastModified": 1785295970,
+        "narHash": "sha256-kv95Cz2uZ4ESG6UBMDCCRftgSeVTX+ycOWLO5NF++0M=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "75b6a29edad78ed83542576f5b47c69ca8b15a6c",
+        "rev": "148f2f8e88da6cc34f42841ad24c7b8d1d1798f8",
         "type": "github"
       },
       "original": {
