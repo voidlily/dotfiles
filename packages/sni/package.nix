@@ -22,7 +22,7 @@ buildGoModule (finalAttrs: {
 
   ldflags = [
     "-X 'main.version=v${finalAttrs.version}'"
-    "-X 'main.commit=v${finalAttrs.src.rev}'"
+    "-X 'main.commit=${finalAttrs.src.rev}'"
   ];
 
   buildInputs = [
