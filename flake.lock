@@ -831,11 +831,11 @@
     "tinted-terminal": {
       "flake": false,
       "locked": {
-        "lastModified": 1785030782,
-        "narHash": "sha256-f4GytSn+Vi+ry/WJ3xMkzRkynYiZ6x3v4lbsd4F/KvE=",
+        "lastModified": 1785635530,
+        "narHash": "sha256-80Kj/541BXCtKqZaWLH8FD8L8vGlc0FSGYDEgxjXHNM=",
         "owner": "tinted-theming",
         "repo": "tinted-terminal",
-        "rev": "aaee0bb384863fde94f478b03f60a9ec1d5c55f7",
+        "rev": "ec67708e7ef47900837a5fab1be7d7d173766001",
         "type": "github"
       },
       "original": {
