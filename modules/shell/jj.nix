@@ -46,6 +46,23 @@
               conflict-marker-style = "git";
             };
 
+            # https://ddbeck.com/notes/jj-git-push-bookmark-template/
+            template-aliases = {
+              "slugify(str)" = ''
+                truncate_end(
+                65,
+                str.first_line()
+                  .replace(regex:'[^[[:alnum:]].]', '-')
+                  .replace(regex:'-{2,}', '-')
+                  .replace(regex:'\.{2,}', '.')
+                  .replace(regex:'(^-+|-+$)', ''')
+                  .lower()
+                  )
+              '';
+            };
+
+            templates.git_push_bookmark = "slugify(description) ++ \"/\" ++ change_id.short()";
+
             merge-tools.delta = {
               # delta exits with 0 if no diff, 1 if diff, 2 if a real error
               # https://jj-vcs.github.io/jj/latest/config/#generating-diffs-by-external-command
