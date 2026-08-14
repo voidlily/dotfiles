@@ -7,7 +7,10 @@
     nixos =
       { pkgs, ... }:
       {
-        environment.systemPackages = [ pkgs.uzdoom ];
+        environment.systemPackages = [
+          pkgs.doomrunner
+          pkgs.uzdoom
+        ];
       };
   };
 }
