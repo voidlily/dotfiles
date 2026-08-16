@@ -57,10 +57,6 @@
           function streamlink-twitch() {
               streamlink -p mpv "https://twitch.tv/$1" best
           }
-
-          function calc() {
-              noglob awk "BEGIN{ print $* }";
-          }
         '';
       };
 
