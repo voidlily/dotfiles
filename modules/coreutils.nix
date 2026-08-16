@@ -24,6 +24,7 @@
           pkgs.wget
           pkgs.xh
 
+          pkgs.calc
           pkgs.rink
           pkgs.yq-go
         ];
@@ -58,6 +59,7 @@
           pkgs.wget
           pkgs.xh
 
+          pkgs.calc
           pkgs.rink
           pkgs.yq-go
         ];
