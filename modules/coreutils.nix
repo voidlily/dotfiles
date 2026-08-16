@@ -7,26 +7,26 @@
     nixos =
       { self', pkgs, ... }:
       {
-        environment.systemPackages = [
+        environment.systemPackages = with pkgs; [
           # TODO coreutils or uutils?
-          pkgs.coreutils
-          pkgs.findutils
-          pkgs.diffutils
+          coreutils
+          findutils
+          diffutils
 
-          pkgs.colordiff
-          pkgs.killall
+          colordiff
+          killall
           self'.packages.lns
-          pkgs.ripgrep
-          pkgs.ripgrep-all
-          pkgs.fd
-          pkgs.curlFull
-          pkgs.tree
-          pkgs.wget
-          pkgs.xh
+          ripgrep
+          ripgrep-all
+          fd
+          curlFull
+          tree
+          wget
+          xh
 
-          pkgs.calc
-          pkgs.rink
-          pkgs.yq-go
+          calc
+          rink
+          yq-go
         ];
         services.locate = {
           enable = true;
@@ -43,25 +43,25 @@
     homeManager =
       { self', pkgs, ... }:
       {
-        home.packages = [
-          pkgs.coreutils
-          pkgs.findutils
-          pkgs.diffutils
+        home.packages = with pkgs; [
+          coreutils
+          findutils
+          diffutils
 
-          pkgs.colordiff
-          pkgs.killall
+          colordiff
+          killall
           self'.packages.lns
-          pkgs.ripgrep
-          pkgs.ripgrep-all
-          pkgs.fd
-          pkgs.curlFull
-          pkgs.tree
-          pkgs.wget
-          pkgs.xh
+          ripgrep
+          ripgrep-all
+          fd
+          curlFull
+          tree
+          wget
+          xh
 
-          pkgs.calc
-          pkgs.rink
-          pkgs.yq-go
+          calc
+          rink
+          yq-go
         ];
 
         # TODO this is becoming less and less "strict coreutils" and more like
