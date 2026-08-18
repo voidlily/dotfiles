@@ -29,7 +29,10 @@
             starship-sf64
             parallel-launcher
           ]
-          ++ [ inputs'.just-one-more-repo.packages.ghostship ];
+          ++ [
+            # build broken
+            # inputs'.just-one-more-repo.packages.ghostship
+          ];
       };
   };
 }
