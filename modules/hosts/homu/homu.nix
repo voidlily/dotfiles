@@ -121,8 +121,6 @@
       # https://wiki.nixos.org/wiki/Fwupd
       services.fwupd.enable = true;
 
-      services.thermald.enable = true;
-
       age.rekey = {
         hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHrlMsLhbl+TVkx22r9OkfZgJlMIbpIrBtGE/+gLS+T";
       };
