@@ -1,9 +1,11 @@
 { lib, ... }:
-
 {
   den.aspects.starship = {
     homeManager =
       { pkgs, ... }:
+      let
+        jj-starship = lib.getExe pkgs.jj-starship;
+      in
       {
         programs.starship = {
           enable = true;
@@ -125,11 +127,11 @@
             custom.jj = {
               format = "[ ](fg:prev_bg bg:yellow)[$output ]($style)";
               shell = [
-                "${pkgs.jj-starship}/bin/jj-starship"
+                jj-starship
                 "--no-color"
               ];
               style = "bg:yellow fg:base02";
-              when = "${pkgs.jj-starship}/bin/jj-starship detect";
+              when = "${jj-starship} detect";
             };
             nix_shell = {
               style = "bg:base02 fg:cyan";

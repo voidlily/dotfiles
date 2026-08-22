@@ -1,4 +1,5 @@
 {
+  lib,
   ...
 }:
 
@@ -75,7 +76,7 @@
             # https://github.com/jj-vcs/jj/wiki/Fix-tools
             fix.tools.dockerfmt = {
               command = [
-                "${pkgs.dockerfmt}/bin/dockerfmt"
+                (lib.getExe pkgs.dockerfmt)
                 "-n"
               ];
               # TODO this might not describe all dockerfiles but it's a start
@@ -84,7 +85,7 @@
 
             fix.tools.opa = {
               command = [
-                "${pkgs.open-policy-agent}/bin/opa"
+                (lib.getExe pkgs.open-policy-agent)
                 "fmt"
                 "-"
               ];
@@ -93,7 +94,7 @@
 
             fix.tools.oxfmt = {
               command = [
-                "${pkgs.oxfmt}/bin/oxfmt"
+                (lib.getExe pkgs.oxfmt)
                 "--stdin-filepath"
                 "$path"
               ];
@@ -124,7 +125,7 @@
 
             fix.tools.ruff = {
               command = [
-                "${pkgs.ruff}/bin/ruff"
+                (lib.getExe pkgs.ruff)
                 "format"
                 "--stdin-filename=$path"
               ];
@@ -133,7 +134,7 @@
 
             fix.tools.terraform = {
               command = [
-                "${pkgs.opentofu}/bin/tofu"
+                (lib.getExe pkgs.opentofu)
                 "fmt"
                 "-"
               ];
