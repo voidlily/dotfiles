@@ -355,6 +355,27 @@
     "flake-parts_5": {
       "inputs": {
         "nixpkgs-lib": [
+          "reaper-flake",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785627969,
+        "narHash": "sha256-4dtXQk/NMePegK/nWp5NSeuZKLATItOq61lpEvmXqGw=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "427bf4bd9435fdf21321c8cc628c24efc14c0f7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_6": {
+      "inputs": {
+        "nixpkgs-lib": [
           "steam-config-nix",
           "nixpkgs"
         ]
@@ -778,6 +799,27 @@
         "type": "github"
       }
     },
+    "reaper-flake": {
+      "inputs": {
+        "flake-parts": "flake-parts_5",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788316530,
+        "narHash": "sha256-joyID4Vm7ByrmGnw/iSDkIWUoR+a2Jtx7M8gfisc6hk=",
+        "owner": "9prestidigitator",
+        "repo": "reaper-flake",
+        "rev": "fe0a14502385458106e5683f5ab151e1d867db4e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "9prestidigitator",
+        "repo": "reaper-flake",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -799,6 +841,7 @@
         "nur": "nur",
         "pkgs-by-name-for-flake-parts": "pkgs-by-name-for-flake-parts",
         "plover-flake": "plover-flake",
+        "reaper-flake": "reaper-flake",
         "steam-config-nix": "steam-config-nix",
         "tinted-terminal": "tinted-terminal",
         "treefmt-nix": "treefmt-nix_4"
@@ -822,7 +865,7 @@
     },
     "steam-config-nix": {
       "inputs": {
-        "flake-parts": "flake-parts_5",
+        "flake-parts": "flake-parts_6",
         "nixpkgs": [
           "nixpkgs"
         ],

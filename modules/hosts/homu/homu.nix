@@ -14,6 +14,7 @@
       den.aspects.desktop
       den.aspects.games
       den.aspects.tailscale
+      den.aspects.reaper
 
       den.aspects.containers
       den.aspects.libvirt

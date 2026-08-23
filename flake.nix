@@ -56,6 +56,10 @@
       url = "github:opensteno/plover-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    reaper-flake = {
+      url = "github:9prestidigitator/reaper-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     steam-config-nix = {
       url = "github:different-name/steam-config-nix";
       inputs.nixpkgs.follows = "nixpkgs";
