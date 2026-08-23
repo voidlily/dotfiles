@@ -87,9 +87,21 @@
             ];
           in
           {
+            # TODO feeling cheeky? split up gamescope and mods into separate
+            # aspects
+            #
+            # what this would do for me is nixos on the steam deck and auto
+            # install my mods
+            #
+            # but steam deck doesn't necessarily need the gamescope portion
+
             # games that just need gamescope added to them
             hollow-knight = {
               id = 367520;
+              wrappers = gamescope-wrapper;
+            };
+            armored-core-6 = {
+              id = 1888160;
               wrappers = gamescope-wrapper;
             };
             ace-combat-7 = {
