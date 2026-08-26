@@ -13,6 +13,15 @@
           pkgs.stakk
         ];
 
+        home.sessionVariables = {
+          # new PRs only
+          STAKK_PR_MODE = "draft";
+          # update pr title/body to match commit message on every update
+          SYNC_PR_CONTENT = "all";
+          # use github's stack feature now
+          STACK_PLACEMENT = "ignore";
+        };
+
         programs.delta = {
           enable = true;
           enableGitIntegration = true;
