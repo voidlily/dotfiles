@@ -20,6 +20,8 @@
         cargo-mutants
         cargo-deny
         cargo-chef
+        cargo-seek
+        cargo-shear
       ];
     };
   };
