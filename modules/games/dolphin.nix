@@ -7,7 +7,11 @@
     nixos =
       { pkgs, ... }:
       {
-        environment.systemPackages = [ pkgs.dolphin-emu ];
+        environment.systemPackages = [
+          pkgs.dolphin-emu
+          # doesn't capture mouse
+          pkgs.dolphin-emu-primehack
+        ];
       };
   };
 }
