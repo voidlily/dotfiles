@@ -13,9 +13,7 @@
       den.aspects.nix
       den.aspects.desktop
       den.aspects.games
-      den.aspects.printing
       den.aspects.tailscale
-      den.aspects.nvidia
 
       den.aspects.containers
       den.aspects.libvirt
@@ -25,8 +23,13 @@
 
       # don't love this here but it's okay for now
       den.aspects.aws
-      den.aspects.zsa
+
+      # hardware
+      den.aspects.nvidia
+      den.aspects.logitech
+      den.aspects.printing
       den.aspects.scanners
+      den.aspects.zsa
     ];
     nixos = { pkgs, ... }: {
       time.timeZone = "America/Los_Angeles";
