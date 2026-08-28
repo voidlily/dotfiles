@@ -24,7 +24,10 @@
         # patchable
         #
         # usage: `steam-run ./program`
-        environment.systemPackages = [ pkgs.steam-run ];
+        environment.systemPackages = [
+          pkgs.steam-run
+          pkgs.appimage-run
+        ];
         # if nix-ld is desired instead of prefixing commands with steam-run
         # https://wiki.nixos.org/wiki/FAQ#I've_downloaded_a_binary,_but_I_can't_run_it,_what_can_I_do?
         # programs.nix-ld = {
