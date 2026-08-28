@@ -99,56 +99,100 @@
             # but steam deck doesn't necessarily need the gamescope portion
 
             # games that just need gamescope added to them
-            hollow-knight = {
-              id = 367520;
+            "1910680" = {
+              name = "Orb of Creation";
+              compatTool = "proton_9";
+            };
+            "3224770" = {
+              name = "Umamusume";
+              compatTool = pkgs.proton-ge-bin;
+            };
+            "367520" = {
+              name = "Hollow Knight";
               wrappers = gamescope-wrapper;
             };
-            armored-core-6 = {
-              id = 1888160;
+            "1888160" = {
+              name = "Armored Core 6";
               wrappers = gamescope-wrapper;
             };
-            ace-combat-7 = {
-              id = 502500;
+            "502500" = {
+              name = "Ace Combat 7";
               wrappers = gamescope-wrapper;
             };
-            relink = {
-              id = 881020;
+            "881020" = {
+              name = "Relink";
               wrappers = gamescope-wrapper;
             };
-            dmc5 = {
-              id = 601150;
+            "601150" = {
+              name = "Devil May Cry 5";
               wrappers = gamescope-wrapper;
             };
-            srw30 = {
-              id = 898750;
+            "898750" = {
+              name = "Super Robot Wars 30";
               wrappers = gamescope-wrapper;
             };
-            srwy = {
-              id = 1909950;
+            "1909950" = {
+              name = "Super Robot Wars Y";
               wrappers = gamescope-wrapper;
             };
-            xenotilt = {
-              id = 2008980;
+            "2008980" = {
+              name = "Xenotilt";
               wrappers = gamescope-wrapper;
             };
-            silksong = {
-              id = 1030300;
+            "1030300" = {
+              name = "Silksong";
               wrappers = gamescope-wrapper;
             };
-            angeline = {
-              id = 2393920;
+            "2393920" = {
+              name = "Angeline Era";
               wrappers = gamescope-wrapper;
             };
-            trails1st = {
-              id = 3375780;
+            "3375780" = {
+              name = "Trails 1st";
               wrappers = gamescope-wrapper;
             };
-            dungeon-gals = {
-              id = 2864880;
+            "2864880" = {
+              name = "Dungeon Gals";
               wrappers = gamescope-wrapper;
             };
-            lingo2 = {
-              id = 2523310;
+            # setup notes:
+            # https://codeberg.org/KHOmega/KH-Mods-Setup/src/branch/main/GoA-Randomizer-linux-setup.md
+            # https://codeberg.org/KHOmega/KH-Mods-Setup/src/branch/main/refined-steam-linux-setup.md
+            # https://github.com/iwuzhere9/KH2-Rando-Tracker-Linux-Guide
+            # ^ tracker seems to not work, issues with autotracking and can't find kh2
+            # nixos specific?
+            #
+            # other notes:
+            # openkh is a non steam app and runs through there - requires proton experimental
+            # kh2 rando is an appimage - doesn't like being a derivation
+            #
+            #
+            # $HOME/openkh/settings.lua - the "set inverted camera" lua script
+            # it's also set up as the "settings" mod
+            # check if it still works on current version and/or with refined
+            #
+            # https://different-name.github.io/steam-config-nix/non-steam-apps.html - notes on non-steam apps
+            #
+            # top to bottom:
+            # randoseed, settings, refined, goa rando
+            #
+            # archipelago:
+            # apseed, settings, bear skip, ap QOL, apcompanion, apenablers (lite), refined, goa rando
+            #
+            # TODO pull this all out into its own module?
+            # plop appimage in via home.files maybe? or does the autoupdate mess with that?
+            "2252430" = {
+              name = "Kingdom Hearts 2";
+              compatTool = "proton_experimental";
+              dllOverrides = {
+                version = "n,b";
+                LuaBackend = "n,b";
+                dinput8 = "n,b";
+              };
+              wrappers = gamescope-wrapper;
+            };
+            "2523310" = {
+              name = "Lingo 2";
               files.prefix.place = {
                 "drive_c/users/steamuser/AppData/Roaming/Godot/app_userdata/Lingo 2/maps/archipelago.tscn".source =
                   pkgs.fetchurl
@@ -160,8 +204,8 @@
                     };
               };
             };
-            ff5pr = {
-              id = 1173810;
+            "1173810" = {
+              name = "ff5 pixel remaster";
               dllOverrides = {
                 winhttp = "n,b";
               };
@@ -189,8 +233,8 @@
               #   };
               # };
             };
-            Tunic = {
-              id = 553420;
+            "553420" = {
+              name = "Tunic";
               dllOverrides = {
                 winhttp = "n,b";
               };
