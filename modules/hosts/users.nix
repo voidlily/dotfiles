@@ -10,7 +10,12 @@
     ];
     # TODO make me a hashed password and secret
     nixos = {
-      users.users.lily.password = "test";
+      users.users.lily = {
+        password = "test";
+        # the docs *say* each file should contain exactly one key, but nothing
+        # stopping it from being "one or more"
+        openssh.authorizedKeys.keyFiles = [ ../../yubikey-ssh.pub ];
+      };
     };
   };
 }
