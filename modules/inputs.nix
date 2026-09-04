@@ -3,7 +3,7 @@
   # TODO split out inputs as necessary
   # like for example dusklight input should live in the module that installs dusklight
   flake-file.inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     darwin = {
       url = "github:nix-darwin/nix-darwin";
