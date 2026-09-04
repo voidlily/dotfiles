@@ -6,7 +6,10 @@
   den.aspects.nix = {
     # TODO (after os swap) implement auto-gc (with keep x number of gens on top of previous days)
     os = {
-      nix.settings.experimental-features = "nix-command flakes";
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       # nix-community maintains a binary cache of unfree but redistributable
       # packages, such as 2ship, 7zip, and steam to name a few
       #
