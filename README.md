@@ -10,3 +10,11 @@
 1. edit username as necessary
 1. `nix run "nixpkgs#nh" darwin switch`
 1. `jj git init` - we're set up
+
+## notes
+
+antislop database: https://codeberg.org/ethical-foss/open-slopware
+
+many things will hit this, consider alternatives when available
+
+this is a work in progress and many things i use on a day to day may not have alternatives
