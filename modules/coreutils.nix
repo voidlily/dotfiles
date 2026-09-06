@@ -94,6 +94,10 @@
         programs.home-manager.enable = true;
 
         programs.jq.enable = true;
+        programs.jq.package = pkgs.jaq;
+        programs.zsh.shellAliases = {
+          jq = "jaq";
+        };
         programs.jqp.enable = true;
 
         programs.zoxide.enable = true;
