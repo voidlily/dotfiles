@@ -17,9 +17,8 @@
           # new PRs only
           STAKK_PR_MODE = "draft";
           # update pr title/body to match commit message on every update
-          SYNC_PR_CONTENT = "all";
-          # use github's stack feature now
-          STACK_PLACEMENT = "ignore";
+          STAKK_SYNC_PR_CONTENT = "all";
+          STAKK_NATIVE_STACKS = "auto";
         };
 
         programs.delta = {
