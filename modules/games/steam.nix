@@ -155,6 +155,14 @@
               name = "Dungeon Gals";
               wrappers = gamescope-wrapper;
             };
+            "1462040" = {
+              name = "ff7 remake";
+              wrappers = gamescope-wrapper;
+            };
+            "2909400" = {
+              name = "ff7 rebirth";
+              wrappers = gamescope-wrapper;
+            };
             # setup notes:
             # https://codeberg.org/KHOmega/KH-Mods-Setup/src/branch/main/GoA-Randomizer-linux-setup.md
             # https://codeberg.org/KHOmega/KH-Mods-Setup/src/branch/main/refined-steam-linux-setup.md
