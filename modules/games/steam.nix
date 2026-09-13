@@ -75,8 +75,7 @@
         programs.steam.config.enable = true;
         programs.steam.config.apps =
           let
-            gamescope-wrapper = [
-              (lib.getExe pkgs.gamescope)
+            resolution-settings = [
               "-W"
               "2560"
               "-H"
@@ -85,7 +84,14 @@
               "2560"
               "-h"
               "1440"
+            ];
+            gamescope-wrapper = [
+              (lib.getExe pkgs.gamescope)
+            ]
+            ++ resolution-settings
+            ++ [
               "-b"
+              "-f"
               "--"
             ];
           in
@@ -162,6 +168,13 @@
             "2909400" = {
               name = "ff7 rebirth";
               wrappers = gamescope-wrapper;
+            };
+            "275850" = {
+              name = "no mans sky";
+              # when using gamescope, no mans sky constantly thinks it's in the
+              # background and pauses
+              #
+              # wrappers = gamescope-wrapper;
             };
             # setup notes:
             # https://codeberg.org/KHOmega/KH-Mods-Setup/src/branch/main/GoA-Randomizer-linux-setup.md
