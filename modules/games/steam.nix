@@ -125,6 +125,10 @@
               name = "Ace Combat 7";
               wrappers = gamescope-wrapper;
             };
+            "2288340" = {
+              name = "Ace Combat 8";
+              wrappers = gamescope-wrapper;
+            };
             "881020" = {
               name = "Relink";
               wrappers = gamescope-wrapper;
@@ -161,12 +165,20 @@
               name = "Dungeon Gals";
               wrappers = gamescope-wrapper;
             };
+            "1608070" = {
+              name = "crisis core";
+              wrappers = gamescope-wrapper;
+            };
             "1462040" = {
               name = "ff7 remake";
               wrappers = gamescope-wrapper;
             };
             "2909400" = {
               name = "ff7 rebirth";
+              wrappers = gamescope-wrapper;
+            };
+            "1634360" = {
+              name = "emuurom";
               wrappers = gamescope-wrapper;
             };
             "275850" = {
