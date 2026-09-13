@@ -105,6 +105,8 @@
       # arm is needed to rekey for arm hosts such as darwin, can also come in handy for building for remote hosts if necessary
       boot.binfmt = {
         emulatedSystems = [ "aarch64-linux" ];
+        # static qemu is required for podman
+        # TODO: move to podman.nix?
         preferStaticEmulators = true;
       };
 
