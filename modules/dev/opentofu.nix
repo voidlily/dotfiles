@@ -10,7 +10,7 @@
         home.packages = with pkgs; [
           tenv
           terraform-docs
-          terraform-ls
+          tofu-ls
         ];
       };
   };

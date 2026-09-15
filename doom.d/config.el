@@ -102,6 +102,10 @@
 (with-eval-after-load 'dockerfile-mode
   (set-formatter! 'dockerfmt '("dockerfmt" filepath) :modes '(dockerfile-mode)))
 
+;; prefer tofu to terraform
+(with-eval-after-load 'terraform-mode
+  (setq terraform-command "tofu"))
+
 ;;
 ;; The exceptions to this rule:
 ;;
