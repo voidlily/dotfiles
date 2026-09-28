@@ -81,6 +81,7 @@
   (setq diff-hl-side 'right))
 
 (set-eglot-client! '(rustic-mode :language-id "rust") '("rust-analyzer" :initializationOptions (:check (:command "clippy"))))
+(set-eglot-client! '(rust-ts-mode rust-mode) '("rust-analyzer" :initializationOptions (:check (:command "clippy"))))
 
 ;; the defaults in doom have option as meta and cmd as super
 ;; instead, make cmd meta and option super
