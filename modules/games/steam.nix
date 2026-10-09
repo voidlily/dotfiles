@@ -179,7 +179,10 @@
             };
             "1634360" = {
               name = "emuurom";
-              wrappers = gamescope-wrapper;
+              # gamescope causes slowdowns after ~20 minutes
+              # possibly related to how it always starts in windowed mode?
+              #
+              # wrappers = gamescope-wrapper;
             };
             "275850" = {
               name = "no mans sky";
