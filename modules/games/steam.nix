@@ -184,6 +184,10 @@
               #
               # wrappers = gamescope-wrapper;
             };
+            "2184080" = {
+              name = "echo weaver";
+              wrappers = gamescope-wrapper;
+            };
             "275850" = {
               name = "no mans sky";
               # when using gamescope, no mans sky constantly thinks it's in the
