@@ -15,7 +15,7 @@
       n64
       # temp commented out, builds take too long
       playdate
-      # retroarch
+      retroarch
       ringracers
       # snek
       steam
