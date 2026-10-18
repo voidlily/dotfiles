@@ -11,6 +11,9 @@
         "libretro-genesis-plus-gx"
       ])
     ];
+    os = { pkgs, ... }: {
+      environment.systemPackages = [ pkgs.pcsx2 ];
+    };
     homeManager = {
       programs.retroarch = {
         enable = true;
