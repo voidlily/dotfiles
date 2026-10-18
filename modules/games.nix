@@ -5,7 +5,7 @@
     # TODO the rest of these i can do after os migration
     includes = with den.aspects; [
       archipelago
-      # bizhawk
+      bizhawk
       bottles
       dolphin
       dusklight
