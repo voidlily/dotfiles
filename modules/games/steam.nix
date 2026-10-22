@@ -176,6 +176,10 @@
             name = "ff7 rebirth";
             wrappers = gamescope-wrapper;
           };
+          "3259780" = {
+            name = "ff resonance";
+            wrappers = gamescope-wrapper;
+          };
           "1634360" = {
             name = "emuurom";
             # gamescope causes slowdowns after ~20 minutes
