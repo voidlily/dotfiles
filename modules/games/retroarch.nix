@@ -11,8 +11,11 @@
         "libretro-genesis-plus-gx"
       ])
     ];
-    os = { pkgs, ... }: {
-      environment.systemPackages = [ pkgs.pcsx2 ];
+    os = { pkgs, self', ... }: {
+      environment.systemPackages = [
+        pkgs.pcsx2
+        self'.packages.duckstation
+      ];
     };
     homeManager = {
       programs.retroarch = {
