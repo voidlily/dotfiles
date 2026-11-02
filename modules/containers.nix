@@ -13,7 +13,7 @@
             enable = true;
             # should prevent the "please select an image url" thingy that pops up every so often?
             # TODO or be weird and pedantic and put docker.io in things i touch
-            registries.search = [ "docker.io" ];
+            registries.settings.unqualified-search-registries = [ "docker.io" ];
           };
           podman = {
             enable = true;
