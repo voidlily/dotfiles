@@ -5,7 +5,8 @@
     # TODO the rest of these i can do after os migration
     includes = with den.aspects; [
       archipelago
-      bizhawk
+      # TODO broken because gtk2 is broken
+      # bizhawk
       bottles
       dolphin
       dusklight
