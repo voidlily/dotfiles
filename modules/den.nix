@@ -24,6 +24,8 @@
   den.schema.host.includes = [
     den.batteries.hostname
     den.batteries.host-aspects
+    den.batteries.user-aspects
+    den.batteries.mutual-provider
   ];
 
   den.schema.user.includes = [
